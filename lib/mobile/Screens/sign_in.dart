@@ -1,13 +1,14 @@
 import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:studify/common/models/user.dart';
+import 'package:studify/common/services/auth_service.dart';
+import 'package:studify/mobile/Screens/sign_up.dart';
+import 'package:studify/mobile/components/teachers/main_teachers.dart';
 import 'package:studify/mobile/widgets/action_button.dart';
+import 'package:studify/mobile/widgets/circular_container.dart';
 import 'package:studify/mobile/widgets/custom_text_field.dart';
-import 'package:studify/mobile/widgets/role_selection.dart';
+import 'package:studify/mobile/widgets/in_app_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -17,8 +18,43 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  // String? selectedRole;
-  // final List<String> roles = ['Parent', 'Teacher', 'Admin'];
+  final AuthService _authService = AuthService();
+  bool _isLoading = false;
+
+  void navigateToSignUp() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SignUpScreen(),
+      ),
+    );
+  }
+
+  void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    User res = await _authService.login('teacher', '0932032849');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('userSignedIn', true);
+    prefs.setString('role', res.role);
+
+    if (res.role == 'teacher') {
+      setState(() {
+        _isLoading = false;
+      });
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const TeachersMobileScreen()),
+      );
+    } else {
+      showNnotification('Invalid Credentials', context);
+      setState(() {
+        _isLoading = false;
+      });
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +74,7 @@ class _SignInScreenState extends State<SignInScreen> {
               sigmaY: 6.0,
             ),
             child: Container(
-              color: Colors.black
-                  .withOpacity(0.3), // Adds a dark overlay with opacity
+              color: Colors.black.withOpacity(0.3),
             ),
           ),
         ),
@@ -48,8 +83,8 @@ class _SignInScreenState extends State<SignInScreen> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  const Color(0xFF0000FF).withOpacity(0.3), // Blue
                   const Color(0xFFFF00FF).withOpacity(0.3), // Magenta
+                  const Color(0xFF0000FF).withOpacity(0.3), // Blue
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -77,13 +112,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(30),
                   decoration: BoxDecoration(
-                    color: Colors.white
-                        .withOpacity(0.3), // Background color with opacity
+                    color: Colors.white.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(30),
                     border: Border.all(
-                      color: Colors.white
-                          .withOpacity(0.5), // Border color with opacity
-                      width: 1, // Border width
+                      color: Colors.white.withOpacity(0.5),
+                      width: 1,
                     ),
                   ),
                   child: Column(
@@ -98,29 +131,23 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       const SizedBox(height: 20),
                       const CustomTextField(
-                        labelText: 'Email',
+                        hintText: 'Enter Your Email',
                       ),
                       const SizedBox(height: 20),
                       const CustomTextField(
-                        labelText: 'Password',
+                        hintText: 'Enter Your Password',
                         obscureText: true,
                       ),
                       const SizedBox(height: 20),
-                      // CustomDropdown(
-                      //   value: selectedRole,
-                      //   items: roles,
-                      //   hint: 'Select Role',
-                      //   onChanged: (value) {
-                      //     setState(() {
-                      //       selectedRole = value;
-                      //     });
-                      //   },
-                      // ),
                       InkWell(
-                        onTap: () {
-                          // Handle sign in
-                        },
-                        child: const CustomActionButton(text: 'Sign In'),
+                        onTap: loginUser,
+                        child: const CustomActionButton(
+                          text: 'Sign In',
+                          width: 120,
+                          height: 40,
+                          backgroundColor: Colors.white,
+                          color: Colors.black,
+                        ),
                       ),
                       const SizedBox(height: 20),
                       Row(
@@ -137,7 +164,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: navigateToSignUp,
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: const Text(
@@ -168,7 +195,48 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       Divider(
                         color: Colors.white.withOpacity(0.6),
-                      )
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularContainer(
+                            svgPath: '../../../assets/google.svg',
+                            backgroundColor: Colors.white.withOpacity(0.4),
+                            width: 60.0,
+                            height: 60.0,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CircularContainer(
+                            svgPath: '../../../assets/facebook.svg',
+                            backgroundColor: Colors.white.withOpacity(0.4),
+                            width: 60.0,
+                            height: 60.0,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CircularContainer(
+                            svgPath: '../../../assets/twitter.svg',
+                            backgroundColor: Colors.white.withOpacity(0.4),
+                            width: 60.0,
+                            height: 60.0,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      CustomActionButton(
+                          text: 'Continue As Guest',
+                          width: double.infinity,
+                          height: 60,
+                          backgroundColor: Colors.white.withOpacity(0.4),
+                          color: Colors.white)
                     ],
                   ),
                 ),

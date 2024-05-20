@@ -7,6 +7,7 @@ class MobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Studify',
       theme: ThemeData.light(),
       home: const SplashScreen(),

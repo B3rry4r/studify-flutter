@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  final String labelText;
+  final String hintText;
   final bool obscureText;
   final TextEditingController? controller;
 
   const CustomTextField({
     super.key,
-    required this.labelText,
+    required this.hintText,
     this.obscureText = false,
     this.controller,
   });
@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.fromLTRB(5, 12, 5, 0),
       height: 40,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -26,35 +27,35 @@ class CustomTextField extends StatelessWidget {
         obscureText: obscureText,
         cursorHeight: 20,
         decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: const TextStyle(
+          hintText: hintText,
+          hintStyle: const TextStyle(
               color: Colors.white, // Change label text color to white
               fontWeight: FontWeight.w100,
-              fontSize: 13),
+              fontSize: 12),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(40),
             borderSide: BorderSide(
-              color: Colors.white
-                  .withOpacity(0.5), // Border color when not focused
+              color:
+                  Colors.white.withOpacity(0), // Border color when not focused
               width: 0.0,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(40),
             borderSide: BorderSide(
-              color: Colors.white.withOpacity(0.5), // Border color when focused
+              color: Colors.white.withOpacity(0), // Border color when focused
               width: 0.0,
             ),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(40),
             borderSide: BorderSide(
-              color: Colors.white.withOpacity(0.5), // Default border color
+              color: Colors.white.withOpacity(0), // Default border color
               width: 0.0,
             ),
           ),
         ),
-        style: const TextStyle(color: Colors.white), // Text color
+        style: const TextStyle(color: Colors.white, fontSize: 12), // Text color
       ),
     );
   }
