@@ -6,13 +6,16 @@ class CircularContainer extends StatelessWidget {
   final Color backgroundColor;
   final double width;
   final double height;
+  final bool filter;
 
-  const CircularContainer(
-      {super.key,
-      required this.svgPath,
-      required this.backgroundColor,
-      required this.width,
-      required this.height});
+  const CircularContainer({
+    super.key,
+    required this.svgPath,
+    required this.backgroundColor,
+    required this.width,
+    required this.height,
+    this.filter = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +28,10 @@ class CircularContainer extends StatelessWidget {
           padding: const EdgeInsets.all(15.0),
           child: SvgPicture.asset(
             svgPath,
-            colorFilter: const ColorFilter.mode(
-                Color.fromARGB(255, 255, 255, 255), BlendMode.srcIn),
+            colorFilter: filter
+                ? const ColorFilter.mode(
+                    Color.fromARGB(255, 255, 255, 255), BlendMode.srcIn)
+                : null,
           ),
         ),
       ),
