@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:studify/mobile/components/teachers/screens/home.dart';
+import 'package:studify/mobile/components/teachers/screens/students_attendance_screen.dart';
+import 'package:studify/mobile/components/teachers/screens/teachers_attendance.dart';
 
 class TeachersMobileScreen extends StatefulWidget {
   const TeachersMobileScreen({super.key});
@@ -14,8 +16,8 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
 
   final List<Widget> _pages = const [
     Home(),
-    Home(),
-    Home(),
+    TeachersAttendanceScreen(),
+    StudentsAttendanceScreen(),
     Home(),
     Home(),
   ];
@@ -27,7 +29,7 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
         children: [
           // Main content
           Positioned.fill(
-            top: 15.0, // Height of the custom AppBar
+            top: 60.0, // Height of the custom AppBar
             child: IndexedStack(
               index: _currentPage,
               children: _pages,

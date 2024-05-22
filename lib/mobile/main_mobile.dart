@@ -9,7 +9,9 @@ class MobileScreen extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Studify',
-      theme: ThemeData.light(),
+      theme: ThemeData(
+        fontFamily: 'Lato',
+      ),
       home: const SplashScreen(),
     );
   }

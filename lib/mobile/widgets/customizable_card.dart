@@ -28,14 +28,20 @@ class CustomizableCard extends StatefulWidget {
   final Color? rightIconColor3;
 
   final double padding;
+  final double padding2;
+  final double padding3;
   final BorderRadius borderRadius;
   final Gradient gradient;
   final BoxDecoration? decoration;
-
+  final double? rightIconSize;
   final Widget? expandedContent;
+  final bool isGradient;
+  final bool isStyleTwo;
+  final bool isRight;
+  final bool isDoublePadding;
 
   const CustomizableCard({
-    Key? key,
+    super.key,
     required this.leftIconPath,
     this.leftIconBackgroundColor = Colors.white,
     this.leftIconSize = 60.0,
@@ -58,6 +64,8 @@ class CustomizableCard extends StatefulWidget {
     this.rightIcon3,
     this.rightIconColor3,
     this.padding = 15.0,
+    this.padding2 = 15.0,
+    this.padding3 = 20.0,
     this.borderRadius = const BorderRadius.all(Radius.circular(20)),
     this.gradient = const LinearGradient(
       colors: [
@@ -69,7 +77,12 @@ class CustomizableCard extends StatefulWidget {
     ),
     this.decoration,
     this.expandedContent,
-  }) : super(key: key);
+    this.rightIconSize,
+    this.isGradient = true,
+    this.isStyleTwo = false,
+    this.isRight = false,
+    this.isDoublePadding = false,
+  });
 
   @override
   _CustomizableCardState createState() => _CustomizableCardState();
@@ -91,57 +104,174 @@ class _CustomizableCardState extends State<CustomizableCard>
       children: [
         GestureDetector(
           onTap: _toggleExpand,
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(widget.padding),
-            decoration: widget.decoration ??
-                BoxDecoration(
-                  borderRadius: widget.borderRadius,
-                  gradient: widget.gradient,
+          child: widget.isStyleTwo
+              ? Container(
+                  padding: const EdgeInsets.all(1),
+                  margin: const EdgeInsets.only(top: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: widget.borderRadius,
+                    gradient: widget.gradient,
+                  ),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: widget.padding,
+                        vertical: widget.isDoublePadding
+                            ? widget.padding2
+                            : widget.padding),
+                    decoration: widget.decoration ??
+                        BoxDecoration(
+                          borderRadius: widget.borderRadius,
+                          gradient: widget.isGradient ? widget.gradient : null,
+                        ),
+                    child: Row(
+                      children: [
+                        CircularContainer(
+                          svgPath: widget.leftIconPath,
+                          svgExists: true,
+                          gradientExists: widget.isGradient,
+                          // filter: widget.isRight,
+                          padding: widget.padding2,
+                          backgroundColor: widget.leftIconBackgroundColor,
+                          width: widget.leftIconSize,
+                          height: widget.leftIconSize,
+                        ),
+                        const SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (widget.centerText1 != null)
+                              Text(widget.centerText1!,
+                                  style: widget.centerTextStyle1),
+                            if (widget.centerText2 != null)
+                              Text(widget.centerText2!,
+                                  style: widget.centerTextStyle2),
+                            if (widget.centerText3 != null)
+                              Text(widget.centerText3!,
+                                  style: widget.centerTextStyle3),
+                          ],
+                        ),
+                        Flexible(flex: 1, child: Container()),
+                        Column(
+                          children: [
+                            if (widget.rightText1 != null)
+                              Text(widget.rightText1!,
+                                  style: widget.rightTextStyle1),
+                            if (widget.rightIcon1 != null)
+                              Icon(widget.rightIcon1,
+                                  size: widget.rightIconSize,
+                                  color: widget.rightIconColor1),
+                            if (widget.rightText2 != null)
+                              Text(widget.rightText2!,
+                                  style: widget.rightTextStyle2),
+                            if (widget.rightIcon2 != null)
+                              Icon(widget.rightIcon2,
+                                  size: widget.rightIconSize,
+                                  color: widget.rightIconColor2),
+                            if (widget.rightText3 != null)
+                              Text(widget.rightText3!,
+                                  style: widget.rightTextStyle3),
+                            if (widget.rightIcon3 != null)
+                              Icon(widget.rightIcon3,
+                                  size: widget.rightIconSize,
+                                  color: widget.rightIconColor3),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(widget.padding),
+                  decoration: widget.decoration ??
+                      BoxDecoration(
+                        borderRadius: widget.borderRadius,
+                        gradient: widget.isGradient ? widget.gradient : null,
+                      ),
+                  child: Row(
+                    children: [
+                      CircularContainer(
+                        svgPath: widget.leftIconPath,
+                        svgExists: true,
+                        backgroundColor: widget.leftIconBackgroundColor,
+                        width: widget.leftIconSize,
+                        height: widget.leftIconSize,
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (widget.centerText1 != null)
+                            Text(widget.centerText1!,
+                                style: widget.centerTextStyle1),
+                          if (widget.centerText2 != null)
+                            Text(widget.centerText2!,
+                                style: widget.centerTextStyle2),
+                          if (widget.centerText3 != null)
+                            Text(widget.centerText3!,
+                                style: widget.centerTextStyle3),
+                        ],
+                      ),
+                      Flexible(flex: 1, child: Container()),
+                      widget.isRight
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                if (widget.rightText1 != null)
+                                  Text(widget.rightText1!,
+                                      style: widget.rightTextStyle1),
+                                if (widget.rightIcon1 != null)
+                                  Icon(widget.rightIcon1,
+                                      size: widget.rightIconSize,
+                                      color: widget.rightIconColor1),
+                                if (widget.rightText2 != null)
+                                  Text(widget.rightText2!,
+                                      style: widget.rightTextStyle2),
+                                if (widget.rightIcon2 != null)
+                                  Icon(widget.rightIcon2,
+                                      size: widget.rightIconSize,
+                                      color: widget.rightIconColor2),
+                                if (widget.rightText3 != null)
+                                  Text(widget.rightText3!,
+                                      style: widget.rightTextStyle3),
+                                if (widget.rightIcon3 != null)
+                                  Icon(widget.rightIcon3,
+                                      size: widget.rightIconSize,
+                                      color: widget.rightIconColor3),
+                              ],
+                            )
+                          : Column(
+                              children: [
+                                if (widget.rightText1 != null)
+                                  Text(widget.rightText1!,
+                                      style: widget.rightTextStyle1),
+                                if (widget.rightIcon1 != null)
+                                  Icon(widget.rightIcon1,
+                                      size: widget.rightIconSize,
+                                      color: widget.rightIconColor1),
+                                if (widget.rightText2 != null)
+                                  Text(widget.rightText2!,
+                                      style: widget.rightTextStyle2),
+                                if (widget.rightIcon2 != null)
+                                  Icon(widget.rightIcon2,
+                                      size: widget.rightIconSize,
+                                      color: widget.rightIconColor2),
+                                if (widget.rightText3 != null)
+                                  Text(widget.rightText3!,
+                                      style: widget.rightTextStyle3),
+                                if (widget.rightIcon3 != null)
+                                  Icon(widget.rightIcon3,
+                                      size: widget.rightIconSize,
+                                      color: widget.rightIconColor3),
+                              ],
+                            ),
+                    ],
+                  ),
                 ),
-            child: Row(
-              children: [
-                CircularContainer(
-                  svgPath: widget.leftIconPath,
-                  backgroundColor: widget.leftIconBackgroundColor,
-                  width: widget.leftIconSize,
-                  height: widget.leftIconSize,
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (widget.centerText1 != null)
-                      Text(widget.centerText1!, style: widget.centerTextStyle1),
-                    if (widget.centerText2 != null)
-                      Text(widget.centerText2!, style: widget.centerTextStyle2),
-                    if (widget.centerText3 != null)
-                      Text(widget.centerText3!, style: widget.centerTextStyle3),
-                  ],
-                ),
-                Flexible(flex: 1, child: Container()),
-                Column(
-                  children: [
-                    if (widget.rightText1 != null)
-                      Text(widget.rightText1!, style: widget.rightTextStyle1),
-                    if (widget.rightIcon1 != null)
-                      Icon(widget.rightIcon1, color: widget.rightIconColor1),
-                    if (widget.rightText2 != null)
-                      Text(widget.rightText2!, style: widget.rightTextStyle2),
-                    if (widget.rightIcon2 != null)
-                      Icon(widget.rightIcon2, color: widget.rightIconColor2),
-                    if (widget.rightText3 != null)
-                      Text(widget.rightText3!, style: widget.rightTextStyle3),
-                    if (widget.rightIcon3 != null)
-                      Icon(widget.rightIcon3, color: widget.rightIconColor3),
-                  ],
-                ),
-              ],
-            ),
-          ),
         ),
         AnimatedSize(
-          duration: const Duration(milliseconds: 700),
+          duration: const Duration(milliseconds: 400),
           curve: Curves.easeInOut,
           child: _isExpanded && widget.expandedContent != null
               ? widget.expandedContent!

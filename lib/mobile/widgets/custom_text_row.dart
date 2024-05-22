@@ -20,8 +20,8 @@ class CustomTextRow extends StatelessWidget {
         ),
         const CustomText(
           'See all',
-          fontWeight: FontWeight.w100,
-          fontSize: 15,
+          fontWeight: FontWeight.w400,
+          fontSize: 14,
           color: Colors.blue,
           // decoration: TextDecoration.underline,
         )
