@@ -258,6 +258,9 @@ class StudentsAttendanceScreen extends StatelessWidget {
                       padding: 20,
                       padding3: 30,
                     ),
+                    const SizedBox(
+                      height: 120,
+                    ),
                   ],
                 ),
               ),
