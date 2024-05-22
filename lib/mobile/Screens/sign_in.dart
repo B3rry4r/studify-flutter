@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:studify/common/models/user.dart';
 import 'package:studify/common/services/auth_service.dart';
 import 'package:studify/mobile/Screens/sign_up.dart';
@@ -132,10 +133,18 @@ class _SignInScreenState extends State<SignInScreen> {
                       const SizedBox(height: 20),
                       const CustomTextField(
                         hintText: 'Enter Your Email',
+                        hintTextStyle: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
                       ),
                       const SizedBox(height: 20),
                       const CustomTextField(
                         hintText: 'Enter Your Password',
+                        hintTextStyle: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
                         obscureText: true,
                       ),
                       const SizedBox(height: 20),
@@ -203,6 +212,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CircularContainer(
+                            svgExists: true,
                             svgPath: '../../../assets/google.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
                             width: 60.0,
@@ -212,6 +222,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             width: 20,
                           ),
                           CircularContainer(
+                            svgExists: true,
                             svgPath: '../../../assets/facebook.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
                             width: 60.0,
@@ -221,6 +232,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             width: 20,
                           ),
                           CircularContainer(
+                            svgExists: true,
                             svgPath: '../../../assets/twitter.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
                             width: 60.0,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomizableContentCard extends StatelessWidget {
   final double padding;
+  final double height;
   final BorderRadius borderRadius;
   final Gradient gradientBorder;
   final BoxDecoration? decoration;
@@ -10,6 +11,7 @@ class CustomizableContentCard extends StatelessWidget {
   const CustomizableContentCard({
     super.key,
     this.padding = 15.0,
+    this.height = 0.0,
     this.borderRadius = const BorderRadius.all(Radius.circular(20)),
     this.gradientBorder = const LinearGradient(
       colors: [
@@ -48,6 +50,9 @@ class CustomizableContentCard extends StatelessWidget {
                 children: [
                   if (row.containsKey('text1'))
                     Text(row['text1']['value'], style: row['text1']['style']),
+                  SizedBox(
+                    height: height,
+                  ),
                   if (row.containsKey('text2'))
                     Text(row['text2']['value'], style: row['text2']['style']),
                 ],

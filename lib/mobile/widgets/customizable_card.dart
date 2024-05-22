@@ -39,10 +39,13 @@ class CustomizableCard extends StatefulWidget {
   final bool isStyleTwo;
   final bool isRight;
   final bool isDoublePadding;
+  final bool isTextLeft;
+  final String? leftText;
+  final TextStyle? leftTextStyle;
 
   const CustomizableCard({
     super.key,
-    required this.leftIconPath,
+    this.leftIconPath = '',
     this.leftIconBackgroundColor = Colors.white,
     this.leftIconSize = 60.0,
     this.centerText1,
@@ -78,10 +81,13 @@ class CustomizableCard extends StatefulWidget {
     this.decoration,
     this.expandedContent,
     this.rightIconSize,
+    this.leftText,
+    this.leftTextStyle,
     this.isGradient = true,
     this.isStyleTwo = false,
     this.isRight = false,
     this.isDoublePadding = false,
+    this.isTextLeft = false,
   });
 
   @override
@@ -126,17 +132,26 @@ class _CustomizableCardState extends State<CustomizableCard>
                         ),
                     child: Row(
                       children: [
-                        CircularContainer(
-                          svgPath: widget.leftIconPath,
-                          svgExists: true,
-                          gradientExists: widget.isGradient,
-                          // filter: widget.isRight,
-                          padding: widget.padding2,
-                          backgroundColor: widget.leftIconBackgroundColor,
-                          width: widget.leftIconSize,
-                          height: widget.leftIconSize,
-                        ),
+                        widget.isTextLeft
+                            ? Text(
+                                widget.leftText!,
+                                style: widget.leftTextStyle,
+                              )
+                            : CircularContainer(
+                                svgPath: widget.leftIconPath,
+                                svgExists: true,
+                                gradientExists: widget.isGradient,
+                                // filter: widget.isRight,
+                                padding: widget.padding2,
+                                backgroundColor: widget.leftIconBackgroundColor,
+                                width: widget.leftIconSize,
+                                height: widget.leftIconSize,
+                              ),
                         const SizedBox(width: 10),
+                        Flexible(
+                          flex: widget.isTextLeft ? 1 : 0,
+                          child: Container(),
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -151,7 +166,12 @@ class _CustomizableCardState extends State<CustomizableCard>
                                   style: widget.centerTextStyle3),
                           ],
                         ),
-                        Flexible(flex: 1, child: Container()),
+                        Flexible(
+                          flex: widget.isTextLeft ? 0 : 1,
+                          child: Container(
+                            width: 5,
+                          ),
+                        ),
                         Column(
                           children: [
                             if (widget.rightText1 != null)

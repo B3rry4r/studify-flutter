@@ -134,3 +134,54 @@ final List<Map<String, dynamic>> rows3 = [
     },
   },
 ];
+
+final List<Map<String, dynamic>> rows4 = [
+  {
+    'text1': {
+      'value': 'Position',
+      'style': const TextStyle(
+        fontSize: 16,
+        color: Colors.black,
+      )
+    },
+    'text2': {
+      'value': 'Teacher',
+      'style': const TextStyle(
+        fontSize: 16,
+        color: Colors.black,
+      )
+    },
+  },
+  {
+    'text1': {
+      'value': 'Attendace Score',
+      'style': const TextStyle(
+        fontSize: 16,
+        color: Colors.black,
+      )
+    },
+    'text2': {
+      'value': '80%',
+      'style': const TextStyle(
+        fontSize: 16,
+        color: Colors.black,
+      )
+    },
+  },
+  {
+    'text1': {
+      'value': 'Number Of Classes',
+      'style': const TextStyle(
+        fontSize: 16,
+        color: Colors.black,
+      )
+    },
+    'text2': {
+      'value': '4',
+      'style': const TextStyle(
+        fontSize: 16,
+        color: Colors.black,
+      )
+    },
+  },
+];
