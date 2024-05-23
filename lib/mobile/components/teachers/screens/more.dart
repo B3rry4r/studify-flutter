@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studify/mobile/Screens/sign_in.dart';
+import 'package:studify/mobile/components/teachers/screens/attendance_history.dart';
+import 'package:studify/mobile/components/teachers/screens/faq.dart';
+import 'package:studify/mobile/components/teachers/screens/feedback.dart';
+import 'package:studify/mobile/components/teachers/screens/students_attendance_history.dart';
+import 'package:studify/mobile/components/teachers/screens/students_records.dart';
+import 'package:studify/mobile/components/teachers/screens/tasks.dart';
+import 'package:studify/mobile/components/teachers/screens/updates.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
 
@@ -20,6 +28,62 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
         MaterialPageRoute(builder: (context) => const SignInScreen()));
   }
 
+  void _navToUpdates() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const UpdatesScreen(),
+      ),
+    );
+  }
+
+  void _navToTasks() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const TasksScreen(),
+      ),
+    );
+  }
+
+  void _navToAttendanceHistory() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const AttendanceHistory(),
+      ),
+    );
+  }
+
+  void _navToStudentsHistory() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const StudentsAttendanceHistoryScreen(),
+      ),
+    );
+  }
+
+  void _navToStudentsRecords() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const StudentsRecordsScreen(),
+      ),
+    );
+  }
+
+  void _navToStudentsFAQ() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const FAQScreen(),
+      ),
+    );
+  }
+
+  void _navToStudentsFeedback() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const FeedbackScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -27,60 +91,72 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            const CustomizableCard(
+            CustomizableCard(
+              passedFunction: _navToUpdates,
               isTextLeft: true,
+              padding: 20,
+              padding2: 10,
               isStyleTwo: true,
               leftText: 'Updates',
-              leftTextStyle: TextStyle(
+              leftTextStyle: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
             ),
-            const CustomizableCard(
+            CustomizableCard(
+              passedFunction: _navToAttendanceHistory,
               isTextLeft: true,
+              padding: 20,
+              padding2: 10,
               isStyleTwo: true,
               leftText: 'Attendance History',
-              leftTextStyle: TextStyle(
+              leftTextStyle: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
             ),
-            const CustomizableCard(
+            CustomizableCard(
+              passedFunction: _navToStudentsHistory,
               isTextLeft: true,
+              padding: 20,
+              padding2: 10,
               isStyleTwo: true,
               leftText: 'Students Attendance History',
-              leftTextStyle: TextStyle(
+              leftTextStyle: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
             ),
-            const CustomizableCard(
+            CustomizableCard(
+              passedFunction: _navToStudentsRecords,
               isTextLeft: true,
+              padding: 20,
+              padding2: 10,
               isStyleTwo: true,
               leftText: 'Students Records',
-              leftTextStyle: TextStyle(
+              leftTextStyle: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
@@ -89,6 +165,8 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
             ),
             const CustomizableCard(
               isTextLeft: true,
+              padding: 20,
+              padding2: 10,
               isStyleTwo: true,
               leftText: 'Classes and Schedules',
               leftTextStyle: TextStyle(
@@ -102,45 +180,54 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
                 ),
               ),
             ),
-            const CustomizableCard(
+            CustomizableCard(
               isTextLeft: true,
+              padding: 20,
+              padding2: 10,
               isStyleTwo: true,
               leftText: 'Tasks',
-              leftTextStyle: TextStyle(
+              passedFunction: _navToTasks,
+              leftTextStyle: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
             ),
-            const CustomizableCard(
+            CustomizableCard(
+              passedFunction: _navToStudentsFAQ,
               isTextLeft: true,
+              padding: 20,
+              padding2: 10,
               isStyleTwo: true,
               leftText: 'FAQ',
-              leftTextStyle: TextStyle(
+              leftTextStyle: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
             ),
-            const CustomizableCard(
+            CustomizableCard(
+              passedFunction: _navToStudentsFeedback,
               isTextLeft: true,
+              padding: 20,
+              padding2: 10,
               isStyleTwo: true,
               leftText: 'Feedback & Support',
-              leftTextStyle: TextStyle(
+              leftTextStyle: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
@@ -149,6 +236,8 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
             ),
             const CustomizableCard(
               isTextLeft: true,
+              padding: 20,
+              padding2: 10,
               isStyleTwo: true,
               leftText: 'Settings',
               leftTextStyle: TextStyle(

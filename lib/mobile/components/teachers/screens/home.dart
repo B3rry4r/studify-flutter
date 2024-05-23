@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:studify/mobile/components/teachers/screens/students_records.dart';
+import 'package:studify/mobile/components/teachers/screens/updates.dart';
 import 'package:studify/mobile/components/teachers/utils/student_records_data.dart';
 import 'package:studify/mobile/components/teachers/utils/teacher_data.dart';
-import 'package:studify/mobile/widgets/active_filters.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/custom_text_row.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
@@ -11,13 +12,27 @@ class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
-  _HomeState createState() => _HomeState();
+  HomeState createState() => HomeState();
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   int _selectedFilterIndex = 0;
 
   final List<String> _filters = ['All', 'Uploaded', 'Pending', 'Classes'];
+
+  void openUpdates() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const UpdatesScreen(),
+    ));
+  }
+
+  void _navToStudentsRecords() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const StudentsRecordsScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +47,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  const CustomTextRow(
+                  CustomTextRow(
                     leftText: 'Updates',
+                    passedFunction: openUpdates,
                   ),
                   const SizedBox(
                     height: 15,
@@ -82,7 +98,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   const SizedBox(
                     height: 20,
                   ),
-                  const CustomTextRow(leftText: 'Quick Stats'),
+                  const CustomTextRow(
+                    leftText: 'Quick Stats',
+                    isLeftText: false,
+                  ),
                   const SizedBox(
                     height: 15,
                   ),
@@ -186,7 +205,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   const SizedBox(
                     height: 20,
                   ),
-                  const CustomTextRow(leftText: 'Students Records'),
+                  CustomTextRow(
+                    leftText: 'Students Records',
+                    passedFunction: _navToStudentsRecords,
+                  ),
                   const SizedBox(
                     height: 20,
                   ),

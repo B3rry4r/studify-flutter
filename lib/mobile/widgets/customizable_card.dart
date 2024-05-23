@@ -36,16 +36,21 @@ class CustomizableCard extends StatefulWidget {
   final double? rightIconSize;
   final Widget? expandedContent;
   final bool isGradient;
+  final bool isGradient2;
   final bool isStyleTwo;
   final bool isRight;
   final bool isDoublePadding;
   final bool isTextLeft;
   final String? leftText;
   final TextStyle? leftTextStyle;
+  final Function()? passedFunction;
+  final bool hasDropdown;
 
   const CustomizableCard({
     super.key,
     this.leftIconPath = '',
+    this.passedFunction,
+    this.hasDropdown = false,
     this.leftIconBackgroundColor = Colors.white,
     this.leftIconSize = 60.0,
     this.centerText1,
@@ -84,6 +89,7 @@ class CustomizableCard extends StatefulWidget {
     this.leftText,
     this.leftTextStyle,
     this.isGradient = true,
+    this.isGradient2 = true,
     this.isStyleTwo = false,
     this.isRight = false,
     this.isDoublePadding = false,
@@ -116,15 +122,101 @@ class _CustomizableCardState extends State<CustomizableCard>
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                     borderRadius: widget.borderRadius,
-                    gradient: widget.gradient,
+                    gradient: widget.isGradient2 ? widget.gradient : null,
                   ),
+                  child: GestureDetector(
+                    onTap: widget.passedFunction,
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: widget.padding,
+                          vertical: widget.isDoublePadding
+                              ? widget.padding2
+                              : widget.padding),
+                      decoration: widget.decoration ??
+                          BoxDecoration(
+                            borderRadius: widget.borderRadius,
+                            gradient:
+                                widget.isGradient ? widget.gradient : null,
+                          ),
+                      child: Row(
+                        children: [
+                          widget.isTextLeft
+                              ? Text(
+                                  widget.leftText!,
+                                  style: widget.leftTextStyle,
+                                )
+                              : CircularContainer(
+                                  svgPath: widget.leftIconPath,
+                                  svgExists: true,
+                                  gradientExists: widget.isGradient,
+                                  // filter: widget.isRight,
+                                  padding: widget.padding2,
+                                  backgroundColor:
+                                      widget.leftIconBackgroundColor,
+                                  width: widget.leftIconSize,
+                                  height: widget.leftIconSize,
+                                ),
+                          const SizedBox(width: 10),
+                          Flexible(
+                            flex: widget.isTextLeft ? 1 : 0,
+                            child: Container(),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (widget.centerText1 != null)
+                                Text(widget.centerText1!,
+                                    style: widget.centerTextStyle1),
+                              if (widget.centerText2 != null)
+                                Text(widget.centerText2!,
+                                    style: widget.centerTextStyle2),
+                              if (widget.centerText3 != null)
+                                Text(widget.centerText3!,
+                                    style: widget.centerTextStyle3),
+                            ],
+                          ),
+                          Flexible(
+                            flex: widget.isTextLeft ? 0 : 1,
+                            child: Container(
+                              width: 5,
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              if (widget.rightText1 != null)
+                                Text(widget.rightText1!,
+                                    style: widget.rightTextStyle1),
+                              if (widget.rightIcon1 != null)
+                                Icon(widget.rightIcon1,
+                                    size: widget.rightIconSize,
+                                    color: widget.rightIconColor1),
+                              if (widget.rightText2 != null)
+                                Text(widget.rightText2!,
+                                    style: widget.rightTextStyle2),
+                              if (widget.rightIcon2 != null)
+                                Icon(widget.rightIcon2,
+                                    size: widget.rightIconSize,
+                                    color: widget.rightIconColor2),
+                              if (widget.rightText3 != null)
+                                Text(widget.rightText3!,
+                                    style: widget.rightTextStyle3),
+                              if (widget.rightIcon3 != null)
+                                Icon(widget.rightIcon3,
+                                    size: widget.rightIconSize,
+                                    color: widget.rightIconColor3),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : GestureDetector(
+                  onTap: widget.passedFunction,
                   child: Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: widget.padding,
-                        vertical: widget.isDoublePadding
-                            ? widget.padding2
-                            : widget.padding),
+                    padding: EdgeInsets.all(widget.padding),
                     decoration: widget.decoration ??
                         BoxDecoration(
                           borderRadius: widget.borderRadius,
@@ -132,26 +224,14 @@ class _CustomizableCardState extends State<CustomizableCard>
                         ),
                     child: Row(
                       children: [
-                        widget.isTextLeft
-                            ? Text(
-                                widget.leftText!,
-                                style: widget.leftTextStyle,
-                              )
-                            : CircularContainer(
-                                svgPath: widget.leftIconPath,
-                                svgExists: true,
-                                gradientExists: widget.isGradient,
-                                // filter: widget.isRight,
-                                padding: widget.padding2,
-                                backgroundColor: widget.leftIconBackgroundColor,
-                                width: widget.leftIconSize,
-                                height: widget.leftIconSize,
-                              ),
-                        const SizedBox(width: 10),
-                        Flexible(
-                          flex: widget.isTextLeft ? 1 : 0,
-                          child: Container(),
+                        CircularContainer(
+                          svgPath: widget.leftIconPath,
+                          svgExists: true,
+                          backgroundColor: widget.leftIconBackgroundColor,
+                          width: widget.leftIconSize,
+                          height: widget.leftIconSize,
                         ),
+                        const SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -166,127 +246,61 @@ class _CustomizableCardState extends State<CustomizableCard>
                                   style: widget.centerTextStyle3),
                           ],
                         ),
-                        Flexible(
-                          flex: widget.isTextLeft ? 0 : 1,
-                          child: Container(
-                            width: 5,
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            if (widget.rightText1 != null)
-                              Text(widget.rightText1!,
-                                  style: widget.rightTextStyle1),
-                            if (widget.rightIcon1 != null)
-                              Icon(widget.rightIcon1,
-                                  size: widget.rightIconSize,
-                                  color: widget.rightIconColor1),
-                            if (widget.rightText2 != null)
-                              Text(widget.rightText2!,
-                                  style: widget.rightTextStyle2),
-                            if (widget.rightIcon2 != null)
-                              Icon(widget.rightIcon2,
-                                  size: widget.rightIconSize,
-                                  color: widget.rightIconColor2),
-                            if (widget.rightText3 != null)
-                              Text(widget.rightText3!,
-                                  style: widget.rightTextStyle3),
-                            if (widget.rightIcon3 != null)
-                              Icon(widget.rightIcon3,
-                                  size: widget.rightIconSize,
-                                  color: widget.rightIconColor3),
-                          ],
-                        ),
+                        Flexible(flex: 1, child: Container()),
+                        widget.isRight
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  if (widget.rightText1 != null)
+                                    Text(widget.rightText1!,
+                                        style: widget.rightTextStyle1),
+                                  if (widget.rightIcon1 != null)
+                                    Icon(widget.rightIcon1,
+                                        size: widget.rightIconSize,
+                                        color: widget.rightIconColor1),
+                                  if (widget.rightText2 != null)
+                                    Text(widget.rightText2!,
+                                        style: widget.rightTextStyle2),
+                                  if (widget.rightIcon2 != null)
+                                    Icon(widget.rightIcon2,
+                                        size: widget.rightIconSize,
+                                        color: widget.rightIconColor2),
+                                  if (widget.rightText3 != null)
+                                    Text(widget.rightText3!,
+                                        style: widget.rightTextStyle3),
+                                  if (widget.rightIcon3 != null)
+                                    Icon(widget.rightIcon3,
+                                        size: widget.rightIconSize,
+                                        color: widget.rightIconColor3),
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  if (widget.rightText1 != null)
+                                    Text(widget.rightText1!,
+                                        style: widget.rightTextStyle1),
+                                  if (widget.rightIcon1 != null)
+                                    Icon(widget.rightIcon1,
+                                        size: widget.rightIconSize,
+                                        color: widget.rightIconColor1),
+                                  if (widget.rightText2 != null)
+                                    Text(widget.rightText2!,
+                                        style: widget.rightTextStyle2),
+                                  if (widget.rightIcon2 != null)
+                                    Icon(widget.rightIcon2,
+                                        size: widget.rightIconSize,
+                                        color: widget.rightIconColor2),
+                                  if (widget.rightText3 != null)
+                                    Text(widget.rightText3!,
+                                        style: widget.rightTextStyle3),
+                                  if (widget.rightIcon3 != null)
+                                    Icon(widget.rightIcon3,
+                                        size: widget.rightIconSize,
+                                        color: widget.rightIconColor3),
+                                ],
+                              ),
                       ],
                     ),
-                  ),
-                )
-              : Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(widget.padding),
-                  decoration: widget.decoration ??
-                      BoxDecoration(
-                        borderRadius: widget.borderRadius,
-                        gradient: widget.isGradient ? widget.gradient : null,
-                      ),
-                  child: Row(
-                    children: [
-                      CircularContainer(
-                        svgPath: widget.leftIconPath,
-                        svgExists: true,
-                        backgroundColor: widget.leftIconBackgroundColor,
-                        width: widget.leftIconSize,
-                        height: widget.leftIconSize,
-                      ),
-                      const SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (widget.centerText1 != null)
-                            Text(widget.centerText1!,
-                                style: widget.centerTextStyle1),
-                          if (widget.centerText2 != null)
-                            Text(widget.centerText2!,
-                                style: widget.centerTextStyle2),
-                          if (widget.centerText3 != null)
-                            Text(widget.centerText3!,
-                                style: widget.centerTextStyle3),
-                        ],
-                      ),
-                      Flexible(flex: 1, child: Container()),
-                      widget.isRight
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                if (widget.rightText1 != null)
-                                  Text(widget.rightText1!,
-                                      style: widget.rightTextStyle1),
-                                if (widget.rightIcon1 != null)
-                                  Icon(widget.rightIcon1,
-                                      size: widget.rightIconSize,
-                                      color: widget.rightIconColor1),
-                                if (widget.rightText2 != null)
-                                  Text(widget.rightText2!,
-                                      style: widget.rightTextStyle2),
-                                if (widget.rightIcon2 != null)
-                                  Icon(widget.rightIcon2,
-                                      size: widget.rightIconSize,
-                                      color: widget.rightIconColor2),
-                                if (widget.rightText3 != null)
-                                  Text(widget.rightText3!,
-                                      style: widget.rightTextStyle3),
-                                if (widget.rightIcon3 != null)
-                                  Icon(widget.rightIcon3,
-                                      size: widget.rightIconSize,
-                                      color: widget.rightIconColor3),
-                              ],
-                            )
-                          : Column(
-                              children: [
-                                if (widget.rightText1 != null)
-                                  Text(widget.rightText1!,
-                                      style: widget.rightTextStyle1),
-                                if (widget.rightIcon1 != null)
-                                  Icon(widget.rightIcon1,
-                                      size: widget.rightIconSize,
-                                      color: widget.rightIconColor1),
-                                if (widget.rightText2 != null)
-                                  Text(widget.rightText2!,
-                                      style: widget.rightTextStyle2),
-                                if (widget.rightIcon2 != null)
-                                  Icon(widget.rightIcon2,
-                                      size: widget.rightIconSize,
-                                      color: widget.rightIconColor2),
-                                if (widget.rightText3 != null)
-                                  Text(widget.rightText3!,
-                                      style: widget.rightTextStyle3),
-                                if (widget.rightIcon3 != null)
-                                  Icon(widget.rightIcon3,
-                                      size: widget.rightIconSize,
-                                      color: widget.rightIconColor3),
-                              ],
-                            ),
-                    ],
                   ),
                 ),
         ),

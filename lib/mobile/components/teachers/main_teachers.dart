@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:studify/mobile/components/teachers/screens/home.dart';
 import 'package:studify/mobile/components/teachers/screens/more.dart';
+import 'package:studify/mobile/components/teachers/screens/notifications.dart';
 import 'package:studify/mobile/components/teachers/screens/profile_screen.dart';
 import 'package:studify/mobile/components/teachers/screens/students_attendance_screen.dart';
 import 'package:studify/mobile/components/teachers/screens/teachers_attendance.dart';
@@ -23,6 +24,14 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
     ProfileScreenTeachers(),
     MoreScreenTeachers(),
   ];
+
+  void _navToNotifications() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const TeachersNotificationScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +73,7 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
                             '../../../../assets/notification_G.svg',
                             height: 17,
                           ),
-                          onPressed: () {
-                            // Handle notification icon press
-                          },
+                          onPressed: _navToNotifications,
                         ),
                       ),
                     ],

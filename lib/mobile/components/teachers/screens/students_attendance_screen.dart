@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:studify/mobile/widgets/circular_container.dart';
-import 'package:studify/mobile/widgets/custom_text.dart';
+import 'package:studify/mobile/components/teachers/screens/students_attendance_history.dart';
 import 'package:studify/mobile/widgets/custom_text_row.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
 import 'package:studify/mobile/widgets/customizable_content_card_2.dart';
 
-class StudentsAttendanceScreen extends StatelessWidget {
+class StudentsAttendanceScreen extends StatefulWidget {
   const StudentsAttendanceScreen({super.key});
+
+  @override
+  State<StudentsAttendanceScreen> createState() =>
+      _StudentsAttendanceScreenState();
+}
+
+class _StudentsAttendanceScreenState extends State<StudentsAttendanceScreen> {
+  void openMore() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const StudentsAttendanceHistoryScreen(),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,8 +118,9 @@ class StudentsAttendanceScreen extends StatelessWidget {
                     const SizedBox(
                       height: 40,
                     ),
-                    const CustomTextRow(
+                    CustomTextRow(
                       leftText: 'Attendance History',
+                      passedFunction: openMore,
                     ),
                     const SizedBox(
                       height: 20,
