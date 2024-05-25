@@ -27,8 +27,7 @@ class UpdatesScreen extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: const Image(
-                          image:
-                              AssetImage('../../../../assets/updatesImg.png'),
+                          image: AssetImage('assets/images/updatesImg.png'),
                           width: double.infinity,
                           height: 200,
                           fit: BoxFit.cover,
@@ -111,8 +110,7 @@ class UpdatesScreen extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: const Image(
-                          image:
-                              AssetImage('../../../../assets/updatesImg.png'),
+                          image: AssetImage('assets/images/updatesImg.png'),
                           width: double.infinity,
                           height: 200,
                           fit: BoxFit.cover,
@@ -195,8 +193,7 @@ class UpdatesScreen extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: const Image(
-                          image:
-                              AssetImage('../../../../assets/updatesImg.png'),
+                          image: AssetImage('assets/images/updatesImg.png'),
                           width: double.infinity,
                           height: 200,
                           fit: BoxFit.cover,
@@ -279,8 +276,7 @@ class UpdatesScreen extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: const Image(
-                          image:
-                              AssetImage('../../../../assets/updatesImg.png'),
+                          image: AssetImage('assets/images/updatesImg.png'),
                           width: double.infinity,
                           height: 200,
                           fit: BoxFit.cover,
@@ -363,8 +359,7 @@ class UpdatesScreen extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: const Image(
-                          image:
-                              AssetImage('../../../../assets/updatesImg.png'),
+                          image: AssetImage('assets/images/updatesImg.png'),
                           width: double.infinity,
                           height: 200,
                           fit: BoxFit.cover,
@@ -447,8 +442,7 @@ class UpdatesScreen extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: const Image(
-                          image:
-                              AssetImage('../../../../assets/updatesImg.png'),
+                          image: AssetImage('assets/images/updatesImg.png'),
                           width: double.infinity,
                           height: 200,
                           fit: BoxFit.cover,
@@ -531,8 +525,7 @@ class UpdatesScreen extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: const Image(
-                          image:
-                              AssetImage('../../../../assets/updatesImg.png'),
+                          image: AssetImage('assets/images/updatesImg.png'),
                           width: double.infinity,
                           height: 200,
                           fit: BoxFit.cover,
@@ -615,8 +608,7 @@ class UpdatesScreen extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: const Image(
-                          image:
-                              AssetImage('../../../../assets/updatesImg.png'),
+                          image: AssetImage('assets/images/updatesImg.png'),
                           width: double.infinity,
                           height: 200,
                           fit: BoxFit.cover,

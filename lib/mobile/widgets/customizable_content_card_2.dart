@@ -10,12 +10,14 @@ class CustomizableCardBig extends StatelessWidget {
   const CustomizableCardBig(
       {super.key,
       required this.width,
-      this.svgPath = '../../../assets/arrow_in.svg',
+      this.svgPath = '/assets/images/arrow_in.svg',
       required this.text1,
       required this.text2});
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       width: width,
       decoration: BoxDecoration(
@@ -28,28 +30,28 @@ class CustomizableCardBig extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircularContainer(
-            width: 50,
-            height: 50,
+            width: screenWidth < 370 ? 40 : 50,
+            height: screenWidth < 370 ? 40 : 50,
             gradientExists: true,
             svgExists: true,
             filter: true,
             svgPath: svgPath,
-            padding: 17,
+            padding: screenWidth < 370 ? 12 : 17,
           ),
           const SizedBox(
             height: 10,
           ),
           CustomText(
             text1,
-            fontSize: 18,
+            fontSize: screenWidth < 370 ? 14 : 18,
             fontWeight: FontWeight.bold,
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: screenWidth < 370 ? 0 : 10,
           ),
           CustomText(
             text2,
-            fontSize: 14,
+            fontSize: screenWidth < 370 ? 12 : 14,
             fontWeight: FontWeight.w400,
           ),
         ],

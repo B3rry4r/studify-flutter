@@ -36,17 +36,21 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-        // appBar: AppBar(),
         body: SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(5.0),
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
                   CustomTextRow(
                     leftText: 'Updates',
                     passedFunction: openUpdates,
@@ -57,10 +61,9 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   Stack(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(20),
                         child: const Image(
-                          image:
-                              AssetImage('../../../../assets/updatesImg.png'),
+                          image: AssetImage('assets/images/updatesImg.png'),
                           width: double.infinity,
                           height: 200,
                           fit: BoxFit.cover,
@@ -84,13 +87,13 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         ),
                       ),
                       const Positioned.fill(
-                        top: 135,
+                        top: 150,
                         left: 35,
                         child: CustomText(
                           'News From The School',
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w400,
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 16,
                         ),
                       ),
                     ],
@@ -106,8 +109,11 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     height: 15,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/hat_G.svg',
-                    padding: 20,
+                    leftIconSize: screenWidth < 380 ? 37.0 : 50.0,
+                    padding3: screenWidth < 380 ? 10 : 15,
+                    padding: screenWidth < 380 ? 15 : 20,
+                    leftIconPath: 'assets/images/hat_G.svg',
+                    // padding: 20,
                     gradient: LinearGradient(
                       colors: [
                         const Color(0xFFFF00FF).withOpacity(0.7), // Magenta
@@ -117,20 +123,20 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       end: Alignment.bottomRight,
                     ),
                     centerText1: 'Number Of Classes Taught',
-                    centerTextStyle1: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                    centerText2: '2 Courses/Subjects',
-                    centerTextStyle2: const TextStyle(
-                      fontSize: 12,
+                    centerTextStyle1: TextStyle(
+                      fontSize: screenWidth < 380 ? 12 : 14,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
                     ),
+                    centerText2: '2 Courses/Subjects',
+                    centerTextStyle2: TextStyle(
+                      fontSize: screenWidth < 380 ? 10 : 12,
+                      fontWeight: FontWeight.w200,
+                      color: Colors.white,
+                    ),
                     rightText1: '5',
-                    rightTextStyle1: const TextStyle(
-                      fontSize: 17,
+                    rightTextStyle1: TextStyle(
+                      fontSize: screenWidth < 380 ? 14 : 17,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -144,7 +150,10 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     height: 15,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/events_G.svg',
+                    leftIconSize: screenWidth < 380 ? 37.0 : 50.0,
+                    padding3: screenWidth < 380 ? 10 : 15,
+                    padding: screenWidth < 380 ? 15 : 20,
+                    leftIconPath: 'assets/images/events_G.svg',
                     gradient: LinearGradient(
                       colors: [
                         const Color(0xFFFF00FF).withOpacity(0.7), // Magenta
@@ -154,15 +163,15 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       end: Alignment.bottomRight,
                     ),
                     centerText2: 'Upcoming Events/Meetings',
-                    centerTextStyle2: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                    centerTextStyle2: TextStyle(
+                      fontSize: screenWidth < 380 ? 12 : 14,
+                      fontWeight: FontWeight.w400,
                       color: Colors.white,
                     ),
                     rightText1: '2',
-                    rightTextStyle1: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
+                    rightTextStyle1: TextStyle(
+                      fontSize: screenWidth < 380 ? 14 : 17,
+                      fontWeight: FontWeight.w200,
                       color: Colors.white,
                     ),
                     rightIcon2: Icons.keyboard_arrow_down_outlined,
@@ -175,7 +184,10 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     height: 15,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/tasks_G.svg',
+                    leftIconSize: screenWidth < 380 ? 37.0 : 50.0,
+                    padding3: screenWidth < 380 ? 10 : 15,
+                    padding: screenWidth < 380 ? 15 : 20,
+                    leftIconPath: 'assets/images/tasks_G.svg',
                     gradient: LinearGradient(
                       colors: [
                         const Color(0xFFFF00FF).withOpacity(0.7), // Magenta
@@ -184,15 +196,15 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    centerText2: 'Upcoming Events/Meetings',
-                    centerTextStyle2: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                    centerText2: 'Tasks and Deadlines',
+                    centerTextStyle2: TextStyle(
+                      fontSize: screenWidth < 380 ? 12 : 14,
+                      fontWeight: FontWeight.w400,
                       color: Colors.white,
                     ),
                     rightText1: '2',
-                    rightTextStyle1: const TextStyle(
-                      fontSize: 17,
+                    rightTextStyle1: TextStyle(
+                      fontSize: screenWidth < 380 ? 14 : 17,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -223,35 +235,36 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             _selectedFilterIndex = index;
                           });
                         },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 8,
-                            horizontal: 15,
-                          ),
-                          decoration: BoxDecoration(
-                            gradient: _selectedFilterIndex == index
-                                ? const LinearGradient(colors: [
-                                    Color(0xFFFF00FF), // Magenta
-                                    Color(0xFF0000FF),
-                                  ])
-                                : null,
-                            color: _selectedFilterIndex == index
-                                ? null
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(20),
-                            border: _selectedFilterIndex == index
-                                ? null
-                                : Border.all(color: Colors.blue),
-                          ),
-                          child: Text(
-                            _filters[index],
-                            style: TextStyle(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 8,
+                              horizontal: 15,
+                            ),
+                            decoration: BoxDecoration(
+                              gradient: _selectedFilterIndex == index
+                                  ? const LinearGradient(colors: [
+                                      Color(0xFFFF00FF), // Magenta
+                                      Color(0xFF0000FF),
+                                    ])
+                                  : null,
                               color: _selectedFilterIndex == index
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: _selectedFilterIndex == index
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
+                                  ? null
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(20),
+                              border: _selectedFilterIndex == index
+                                  ? null
+                                  : Border.all(color: Colors.blue),
+                            ),
+                            child: Text(
+                              _filters[index],
+                              style: TextStyle(
+                                color: _selectedFilterIndex == index
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: screenWidth < 380 ? 10 : 12,
+                              ),
                             ),
                           ),
                         ),
@@ -285,14 +298,15 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   Widget _buildAllContent() {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Column(
         children: columnItems.map(
       (column) {
         return Column(
           children: [
             column,
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: screenWidth < 380 ? 15 : 20,
             )
           ],
         );

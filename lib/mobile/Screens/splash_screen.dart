@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _navigation() async {
     await Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 4),
       _checkUserSignedIn,
     );
   }
@@ -59,8 +59,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Image.asset('/logo.png'),
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Container(
+      // Set the height and width to match the screen size
+      height: screenHeight,
+      width: screenWidth,
+      color: Colors.white, // Set the background color to white
+      child: Center(
+        child: Image.asset('assets/images/logo.png'),
+      ),
     );
   }
 }

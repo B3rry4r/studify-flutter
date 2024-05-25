@@ -59,12 +59,14 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
         body: Stack(
       children: [
         Positioned.fill(
           child: Image.asset(
-            '../../../assets/signin.png',
+            'assets/images/signin.png',
             fit: BoxFit.cover,
           ),
         ),
@@ -103,8 +105,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: Container(),
                 ),
                 Container(
+                  width: screenWidth < 370 ? 40 : 50,
                   padding: const EdgeInsets.only(right: 10),
-                  child: Image.asset('../../../assets/logo_sign_in.png'),
+                  child: Image.asset('assets/images/logo_sign_in.png'),
                 ),
                 const SizedBox(
                   height: 20,
@@ -122,27 +125,45 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   child: Column(
                     children: [
-                      const Text(
+                      Text(
                         'Sign In',
                         style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth < 370 ? 20 : 24,
+                          fontWeight: FontWeight.w300,
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      const CustomTextField(
+                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      CustomTextField(
+                        padding: screenWidth < 370
+                            ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
+                            : const EdgeInsets.fromLTRB(5, 12, 5, 0),
+                        height: screenWidth < 370 ? 30 : 40,
                         hintText: 'Enter Your Email',
                         hintTextStyle: TextStyle(
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.white,
+                          fontSize: screenWidth < 370 ? 11 : 13,
+                        ),
+                        textStyle: TextStyle(
+                          fontSize: screenWidth < 370 ? 11 : 13,
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      const CustomTextField(
+                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      CustomTextField(
+                        padding: screenWidth < 370
+                            ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
+                            : const EdgeInsets.fromLTRB(5, 12, 5, 0),
+                        height: screenWidth < 370 ? 30 : 40,
                         hintText: 'Enter Your Password',
                         hintTextStyle: TextStyle(
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.white,
+                          fontSize: screenWidth < 370 ? 11 : 13,
+                        ),
+                        textStyle: TextStyle(
+                          fontSize: screenWidth < 370 ? 11 : 13,
                           color: Colors.white,
                         ),
                         obscureText: true,
@@ -150,24 +171,24 @@ class _SignInScreenState extends State<SignInScreen> {
                       const SizedBox(height: 20),
                       InkWell(
                         onTap: loginUser,
-                        child: const CustomActionButton(
+                        child: CustomActionButton(
                           text: 'Sign In',
                           width: 120,
-                          height: 40,
+                          height: screenWidth < 370 ? 30 : 40,
                           backgroundColor: Colors.white,
                           color: Colors.black,
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: screenWidth < 370 ? 15 : 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: const Text(
+                            child: Text(
                               'Don\'t Have An Acount?',
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: screenWidth < 370 ? 10 : 12,
                                 color: Colors.white,
                               ),
                             ),
@@ -176,12 +197,12 @@ class _SignInScreenState extends State<SignInScreen> {
                             onTap: navigateToSignUp,
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: const Text(
+                              child: Text(
                                 ' Sign Up.',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: screenWidth < 370 ? 10 : 12,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF0000FF),
+                                  color: const Color(0xFF0000FF),
                                 ),
                               ),
                             ),
@@ -195,9 +216,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      SizedBox(height: screenWidth < 370 ? 15 : 40),
                       const Text(
                         'Sign In With',
                         style: TextStyle(color: Colors.white, fontSize: 12),
@@ -205,48 +224,44 @@ class _SignInScreenState extends State<SignInScreen> {
                       Divider(
                         color: Colors.white.withOpacity(0.6),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: screenWidth < 370 ? 15 : 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CircularContainer(
                             svgExists: true,
-                            svgPath: '../../../assets/google.svg',
+                            svgPath: 'assets/images/google.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
-                            width: 60.0,
-                            height: 60.0,
+                            width: screenWidth < 370 ? 40.0 : 60.0,
+                            height: screenWidth < 370 ? 40.0 : 60.0,
                           ),
                           const SizedBox(
                             width: 20,
                           ),
                           CircularContainer(
                             svgExists: true,
-                            svgPath: '../../../assets/facebook.svg',
+                            svgPath: 'assets/images/facebook.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
-                            width: 60.0,
-                            height: 60.0,
+                            width: screenWidth < 370 ? 40.0 : 60.0,
+                            height: screenWidth < 370 ? 40.0 : 60.0,
                           ),
                           const SizedBox(
                             width: 20,
                           ),
                           CircularContainer(
                             svgExists: true,
-                            svgPath: '../../../assets/twitter.svg',
+                            svgPath: 'assets/images/twitter.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
-                            width: 60.0,
-                            height: 60.0,
+                            width: screenWidth < 370 ? 40.0 : 60.0,
+                            height: screenWidth < 370 ? 40.0 : 60.0,
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      SizedBox(height: screenWidth < 370 ? 15 : 40),
                       CustomActionButton(
                           text: 'Continue As Guest',
                           width: double.infinity,
-                          height: 60,
+                          height: screenWidth < 370 ? 40.0 : 60.0,
                           backgroundColor: Colors.white.withOpacity(0.4),
                           color: Colors.white)
                     ],

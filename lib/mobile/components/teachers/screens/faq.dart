@@ -8,6 +8,8 @@ class FAQScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const CustomText(
@@ -34,9 +36,9 @@ class FAQScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 245, 245, 245),
                         borderRadius: BorderRadius.circular(10)),
-                    child: const CustomText(
+                    child: CustomText(
                       'FAQ Simply means Frequently Asked Questions.',
-                      fontSize: 15,
+                      fontSize: screenWidth < 380 ? 12 : 15,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -53,8 +55,8 @@ class FAQScreen extends StatelessWidget {
                 isStyleTwo: true,
                 isGradient2: false,
                 leftText: 'What is FAQ',
-                leftTextStyle: const TextStyle(
-                    fontSize: 15,
+                leftTextStyle: TextStyle(
+                    fontSize: screenWidth < 380 ? 12 : 15,
                     fontWeight: FontWeight.w400,
                     color: Colors.black),
                 rightIcon1: Icons.keyboard_arrow_down_outlined,
@@ -73,9 +75,9 @@ class FAQScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 245, 245, 245),
                         borderRadius: BorderRadius.circular(10)),
-                    child: const CustomText(
+                    child: CustomText(
                       'Tracking School records, marking attendance and a lot more administrative processes',
-                      fontSize: 15,
+                      fontSize: screenWidth < 380 ? 12 : 15,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -92,8 +94,8 @@ class FAQScreen extends StatelessWidget {
                 isStyleTwo: true,
                 isGradient2: false,
                 leftText: 'What is this app used for',
-                leftTextStyle: const TextStyle(
-                    fontSize: 15,
+                leftTextStyle: TextStyle(
+                    fontSize: screenWidth < 380 ? 12 : 15,
                     fontWeight: FontWeight.w400,
                     color: Colors.black),
                 rightIcon1: Icons.keyboard_arrow_down_outlined,
@@ -112,9 +114,9 @@ class FAQScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 245, 245, 245),
                         borderRadius: BorderRadius.circular(10)),
-                    child: const CustomText(
+                    child: CustomText(
                       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci voluptatum nemo repellendus aut assumenda quia hic consequatur ratione nulla eligendi.',
-                      fontSize: 15,
+                      fontSize: screenWidth < 380 ? 12 : 15,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -131,8 +133,8 @@ class FAQScreen extends StatelessWidget {
                 isStyleTwo: true,
                 isGradient2: false,
                 leftText: 'How do I pay a fee online',
-                leftTextStyle: const TextStyle(
-                    fontSize: 15,
+                leftTextStyle: TextStyle(
+                    fontSize: screenWidth < 380 ? 12 : 15,
                     fontWeight: FontWeight.w400,
                     color: Colors.black),
                 rightIcon1: Icons.keyboard_arrow_down_outlined,
@@ -151,9 +153,9 @@ class FAQScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 245, 245, 245),
                         borderRadius: BorderRadius.circular(10)),
-                    child: const CustomText(
+                    child: CustomText(
                       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci voluptatum nemo repellendus aut assumenda quia hic consequatur ratione nulla eligendi.',
-                      fontSize: 15,
+                      fontSize: screenWidth < 380 ? 12 : 15,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -170,8 +172,8 @@ class FAQScreen extends StatelessWidget {
                 isStyleTwo: true,
                 isGradient2: false,
                 leftText: 'How can I check my attendance records',
-                leftTextStyle: const TextStyle(
-                    fontSize: 15,
+                leftTextStyle: TextStyle(
+                    fontSize: screenWidth < 380 ? 12 : 15,
                     fontWeight: FontWeight.w400,
                     color: Colors.black),
                 rightIcon1: Icons.keyboard_arrow_down_outlined,

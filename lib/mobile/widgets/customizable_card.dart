@@ -151,7 +151,7 @@ class _CustomizableCardState extends State<CustomizableCard>
                                   svgExists: true,
                                   gradientExists: widget.isGradient,
                                   // filter: widget.isRight,
-                                  padding: widget.padding2,
+                                  padding: widget.padding3,
                                   backgroundColor:
                                       widget.leftIconBackgroundColor,
                                   width: widget.leftIconSize,
@@ -230,6 +230,7 @@ class _CustomizableCardState extends State<CustomizableCard>
                           backgroundColor: widget.leftIconBackgroundColor,
                           width: widget.leftIconSize,
                           height: widget.leftIconSize,
+                          padding: widget.padding3,
                         ),
                         const SizedBox(width: 10),
                         Column(

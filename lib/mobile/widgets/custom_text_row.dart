@@ -17,13 +17,15 @@ class CustomTextRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomText(
           leftText,
           fontWeight: FontWeight.bold,
-          fontSize: 18,
+          fontSize: screenWidth < 370 ? 15 : 18,
           color: Colors.black,
         ),
         GestureDetector(
@@ -31,7 +33,7 @@ class CustomTextRow extends StatelessWidget {
           child: CustomText(
             isLeftText ? 'See all' : '',
             fontWeight: FontWeight.w400,
-            fontSize: 14,
+            fontSize: screenWidth < 370 ? 12 : 14,
             color: Colors.blue,
             // decoration: TextDecoration.underline,
           ),

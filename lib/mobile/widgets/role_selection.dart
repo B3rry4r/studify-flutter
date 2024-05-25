@@ -16,8 +16,10 @@ class CustomDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
-      height: 40,
+      height: screenWidth < 370 ? 30 : 40,
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
@@ -29,10 +31,10 @@ class CustomDropdown extends StatelessWidget {
           value: value,
           hint: Text(
             hint,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.w100,
+              fontSize: screenWidth < 370 ? 10 : 12,
+              fontWeight: FontWeight.w300,
             ),
           ),
           onChanged: onChanged,
@@ -41,8 +43,9 @@ class CustomDropdown extends StatelessWidget {
               value: role,
               child: Text(
                 role,
-                style:
-                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w100),
+                style: TextStyle(
+                    fontSize: screenWidth < 370 ? 10 : 12,
+                    fontWeight: FontWeight.w300),
               ),
             );
           }).toList(),
@@ -51,8 +54,11 @@ class CustomDropdown extends StatelessWidget {
             fontSize: 16,
           ),
           dropdownColor: Colors.black.withOpacity(0.7),
-          icon: const Icon(Icons.keyboard_arrow_down_rounded,
-              color: Colors.white),
+          icon: Icon(
+            Icons.keyboard_arrow_down_rounded,
+            color: Colors.white,
+            size: screenWidth < 370 ? 12 : 14,
+          ),
           isExpanded: true,
         ),
       ),

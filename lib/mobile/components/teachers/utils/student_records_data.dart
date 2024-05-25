@@ -3,7 +3,7 @@ import 'package:studify/mobile/widgets/customizable_card.dart';
 
 final List<Widget> columnItems = [
   CustomizableCard(
-    leftIconPath: '../../../../assets/profile2.svg',
+    leftIconPath: 'assets/images/profile2.svg',
     gradient: LinearGradient(
       colors: [
         const Color(0xFFFF00FF).withOpacity(0.7), // Magenta
@@ -39,7 +39,7 @@ final List<Widget> columnItems = [
     ),
   ),
   CustomizableCard(
-    leftIconPath: '../../../../assets/profile2.svg',
+    leftIconPath: 'assets/images/profile2.svg',
     gradient: LinearGradient(
       colors: [
         const Color(0xFFFF00FF).withOpacity(0.7), // Magenta
@@ -75,7 +75,7 @@ final List<Widget> columnItems = [
     ),
   ),
   CustomizableCard(
-    leftIconPath: '../../../../assets/profile2.svg',
+    leftIconPath: 'assets/images/profile2.svg',
     gradient: LinearGradient(
       colors: [
         const Color(0xFFFF00FF).withOpacity(0.7), // Magenta
@@ -111,7 +111,7 @@ final List<Widget> columnItems = [
     ),
   ),
   CustomizableCard(
-    leftIconPath: '../../../../assets/profile2.svg',
+    leftIconPath: 'assets/images/profile2.svg',
     gradient: LinearGradient(
       colors: [
         const Color(0xFFFF00FF).withOpacity(0.7), // Magenta
@@ -147,7 +147,7 @@ final List<Widget> columnItems = [
     ),
   ),
   CustomizableCard(
-    leftIconPath: '../../../../assets/profile2.svg',
+    leftIconPath: 'assets/images/profile2.svg',
     gradient: LinearGradient(
       colors: [
         const Color(0xFFFF00FF).withOpacity(0.7), // Magenta

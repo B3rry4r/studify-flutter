@@ -86,6 +86,8 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -94,13 +96,13 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
             CustomizableCard(
               passedFunction: _navToUpdates,
               isTextLeft: true,
-              padding: 20,
-              padding2: 10,
+              padding: screenWidth < 380 ? 14 : 20,
+              padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
               leftText: 'Updates',
-              leftTextStyle: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
+              leftTextStyle: TextStyle(
+                fontSize: screenWidth < 380 ? 13 : 15,
+                fontWeight: FontWeight.w400,
               ),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -112,13 +114,13 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
             CustomizableCard(
               passedFunction: _navToAttendanceHistory,
               isTextLeft: true,
-              padding: 20,
-              padding2: 10,
+              padding: screenWidth < 380 ? 14 : 20,
+              padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
               leftText: 'Attendance History',
-              leftTextStyle: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
+              leftTextStyle: TextStyle(
+                fontSize: screenWidth < 380 ? 13 : 15,
+                fontWeight: FontWeight.w400,
               ),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -130,13 +132,13 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
             CustomizableCard(
               passedFunction: _navToStudentsHistory,
               isTextLeft: true,
-              padding: 20,
-              padding2: 10,
+              padding: screenWidth < 380 ? 14 : 20,
+              padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
               leftText: 'Students Attendance History',
-              leftTextStyle: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
+              leftTextStyle: TextStyle(
+                fontSize: screenWidth < 380 ? 13 : 15,
+                fontWeight: FontWeight.w400,
               ),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -148,13 +150,13 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
             CustomizableCard(
               passedFunction: _navToStudentsRecords,
               isTextLeft: true,
-              padding: 20,
-              padding2: 10,
+              padding: screenWidth < 380 ? 14 : 20,
+              padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
               leftText: 'Students Records',
-              leftTextStyle: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
+              leftTextStyle: TextStyle(
+                fontSize: screenWidth < 380 ? 13 : 15,
+                fontWeight: FontWeight.w400,
               ),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -163,17 +165,17 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
                 ),
               ),
             ),
-            const CustomizableCard(
+            CustomizableCard(
               isTextLeft: true,
-              padding: 20,
-              padding2: 10,
+              padding: screenWidth < 380 ? 14 : 20,
+              padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
               leftText: 'Classes and Schedules',
               leftTextStyle: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
+                fontSize: screenWidth < 380 ? 13 : 15,
+                fontWeight: FontWeight.w400,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
@@ -182,14 +184,14 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
             ),
             CustomizableCard(
               isTextLeft: true,
-              padding: 20,
-              padding2: 10,
+              padding: screenWidth < 380 ? 14 : 20,
+              padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
               leftText: 'Tasks',
               passedFunction: _navToTasks,
-              leftTextStyle: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
+              leftTextStyle: TextStyle(
+                fontSize: screenWidth < 380 ? 13 : 15,
+                fontWeight: FontWeight.w400,
               ),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -201,13 +203,13 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
             CustomizableCard(
               passedFunction: _navToStudentsFAQ,
               isTextLeft: true,
-              padding: 20,
-              padding2: 10,
+              padding: screenWidth < 380 ? 14 : 20,
+              padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
               leftText: 'FAQ',
-              leftTextStyle: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
+              leftTextStyle: TextStyle(
+                fontSize: screenWidth < 380 ? 13 : 15,
+                fontWeight: FontWeight.w400,
               ),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -219,13 +221,13 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
             CustomizableCard(
               passedFunction: _navToStudentsFeedback,
               isTextLeft: true,
-              padding: 20,
-              padding2: 10,
+              padding: screenWidth < 380 ? 14 : 20,
+              padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
               leftText: 'Feedback & Support',
-              leftTextStyle: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
+              leftTextStyle: TextStyle(
+                fontSize: screenWidth < 380 ? 13 : 15,
+                fontWeight: FontWeight.w400,
               ),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -234,25 +236,25 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
                 ),
               ),
             ),
-            const CustomizableCard(
+            CustomizableCard(
               isTextLeft: true,
-              padding: 20,
-              padding2: 10,
+              padding: screenWidth < 380 ? 14 : 20,
+              padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
               leftText: 'Settings',
               leftTextStyle: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
+                fontSize: screenWidth < 380 ? 13 : 15,
+                fontWeight: FontWeight.w400,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 50,
+            SizedBox(
+              height: screenWidth < 380 ? 25 : 45,
             ),
             GestureDetector(
               onTap: _logout,
@@ -262,16 +264,16 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(15.0)),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 15.0,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth < 380 ? 15 : 20,
+                    vertical: screenWidth < 380 ? 8 : 10,
                   ),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15.0)),
-                  child: const CustomText(
+                  child: CustomText(
                     'Log Out',
-                    fontSize: 17,
+                    fontSize: screenWidth < 380 ? 13 : 15,
                     color: Colors.red,
                     fontWeight: FontWeight.w300,
                   ),

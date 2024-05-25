@@ -7,6 +7,8 @@ class TeachersNotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const CustomText(
@@ -33,11 +35,11 @@ class TeachersNotificationScreen extends StatelessWidget {
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -45,8 +47,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -67,15 +68,15 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -83,8 +84,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -105,15 +105,15 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -121,8 +121,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -143,15 +142,15 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -159,8 +158,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -181,15 +179,15 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -197,8 +195,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -219,15 +216,15 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -235,8 +232,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -257,9 +253,9 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,
@@ -286,7 +282,7 @@ class TeachersNotificationScreen extends StatelessWidget {
               child: Column(
                 children: [
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -294,8 +290,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -316,15 +311,15 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -332,8 +327,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -354,15 +348,15 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -370,8 +364,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -392,15 +385,15 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -408,8 +401,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -430,15 +422,15 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -446,8 +438,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -468,15 +459,15 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CustomizableCard(
-                    leftIconPath: '../../../../assets/profile2.svg',
+                    leftIconPath: 'assets/images/profile2.svg',
                     // isGradient: true,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 243, 243, 243)
@@ -484,8 +475,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     centerText1: 'Admin',
-                    centerText3:
-                        'We will change the color of the school bus fleet...',
+                    centerText3: 'We will change the color ...',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.clip,
@@ -506,9 +496,9 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     isRight: true,
                     leftIconBackgroundColor: Colors.blueAccent,
-                    leftIconSize: 50,
-                    padding: 20,
-                    padding3: 30,
+                    leftIconSize: 50.0,
+                    padding3: 18,
+                    padding: screenWidth < 380 ? 15 : 20,
                   ),
                   const SizedBox(
                     height: 20,

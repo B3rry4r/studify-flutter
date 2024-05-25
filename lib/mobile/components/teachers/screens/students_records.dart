@@ -16,6 +16,8 @@ class _StudentsRecordsScreenState extends State<StudentsRecordsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 1.0,
@@ -44,35 +46,36 @@ class _StudentsRecordsScreenState extends State<StudentsRecordsScreen> {
                         _selectedFilterIndex = index;
                       });
                     },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 15,
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: _selectedFilterIndex == index
-                            ? const LinearGradient(colors: [
-                                Color(0xFFFF00FF), // Magenta
-                                Color(0xFF0000FF),
-                              ])
-                            : null,
-                        color: _selectedFilterIndex == index
-                            ? null
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.circular(20),
-                        border: _selectedFilterIndex == index
-                            ? null
-                            : Border.all(color: Colors.blue),
-                      ),
-                      child: Text(
-                        _filters[index],
-                        style: TextStyle(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 15,
+                        ),
+                        decoration: BoxDecoration(
+                          gradient: _selectedFilterIndex == index
+                              ? const LinearGradient(colors: [
+                                  Color(0xFFFF00FF), // Magenta
+                                  Color(0xFF0000FF),
+                                ])
+                              : null,
                           color: _selectedFilterIndex == index
-                              ? Colors.white
-                              : Colors.black,
-                          fontWeight: _selectedFilterIndex == index
-                              ? FontWeight.bold
-                              : FontWeight.normal,
+                              ? null
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(20),
+                          border: _selectedFilterIndex == index
+                              ? null
+                              : Border.all(color: Colors.blue),
+                        ),
+                        child: Text(
+                          _filters[index],
+                          style: TextStyle(
+                            color: _selectedFilterIndex == index
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: screenWidth < 370 ? 10 : 12,
+                          ),
                         ),
                       ),
                     ),
@@ -104,14 +107,15 @@ class _StudentsRecordsScreenState extends State<StudentsRecordsScreen> {
   }
 
   Widget _buildAllContent() {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Column(
         children: columnItems.map(
       (column) {
         return Column(
           children: [
             column,
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: screenWidth < 370 ? 15 : 20,
             )
           ],
         );

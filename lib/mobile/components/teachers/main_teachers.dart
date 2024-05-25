@@ -41,9 +41,11 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
           // Main content
           Positioned.fill(
             top: 60.0, // Height of the custom AppBar
-            child: IndexedStack(
-              index: _currentPage,
-              children: _pages,
+            child: SafeArea(
+              child: IndexedStack(
+                index: _currentPage,
+                children: _pages,
+              ),
             ),
           ),
           // Custom AppBar
@@ -62,7 +64,7 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
                     children: [
                       // SVG with increased size
                       SvgPicture.asset(
-                        '../../../../assets/studify_text_G.svg',
+                        'assets/images/studify_text_G.svg',
                         height: 24, // Adjust the size as needed
                       ),
                       // Gradient-wrapped icon
@@ -70,7 +72,7 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
                         padding: const EdgeInsets.only(right: 12.0),
                         child: IconButton(
                           icon: SvgPicture.asset(
-                            '../../../../assets/notification_G.svg',
+                            'assets/images/notification_G.svg',
                             height: 17,
                           ),
                           onPressed: _navToNotifications,
@@ -98,11 +100,11 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
           BottomNavigationBarItem(
             icon: _currentPage == 0
                 ? SvgPicture.asset(
-                    '../../../../assets/home_G.svg',
+                    'assets/images/home_G.svg',
                     height: 17,
                   )
                 : SvgPicture.asset(
-                    '../../../../assets/home.svg',
+                    'assets/images/home.svg',
                     height: 17,
                   ),
             label: '',
@@ -110,11 +112,11 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
           BottomNavigationBarItem(
             icon: _currentPage == 1
                 ? SvgPicture.asset(
-                    '../../../../assets/attendance_G.svg',
+                    'assets/images/attendance_G.svg',
                     height: 14,
                   )
                 : SvgPicture.asset(
-                    '../../../../assets/attendance.svg',
+                    'assets/images/attendance.svg',
                     height: 14,
                   ),
             label: '',
@@ -122,11 +124,11 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
           BottomNavigationBarItem(
             icon: _currentPage == 2
                 ? SvgPicture.asset(
-                    '../../../../assets/s_management_G.svg',
+                    'assets/images/s_management_G.svg',
                     height: 17,
                   )
                 : SvgPicture.asset(
-                    '../../../../assets/s_management.svg',
+                    'assets/images/s_management.svg',
                     height: 17,
                   ),
             label: '',
@@ -134,11 +136,11 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
           BottomNavigationBarItem(
             icon: _currentPage == 3
                 ? SvgPicture.asset(
-                    '../../../../assets/profile_G.svg',
+                    'assets/images/profile_G.svg',
                     height: 17,
                   )
                 : SvgPicture.asset(
-                    '../../../../assets/profile.svg',
+                    'assets/images/profile.svg',
                     height: 17,
                   ),
             label: '',
@@ -146,11 +148,11 @@ class _TeachersMobileScreenState extends State<TeachersMobileScreen> {
           BottomNavigationBarItem(
             icon: _currentPage == 4
                 ? SvgPicture.asset(
-                    '../../../../assets/more_G.svg',
+                    'assets/images/more_G.svg',
                     height: 17,
                   )
                 : SvgPicture.asset(
-                    '../../../../assets/more.svg',
+                    'assets/images/more.svg',
                     height: 17,
                   ),
             label: '',

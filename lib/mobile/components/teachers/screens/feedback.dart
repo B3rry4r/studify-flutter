@@ -22,6 +22,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const CustomText(
@@ -36,18 +38,22 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: CustomText(
                 'Share Your Feedback With Us',
-                fontSize: 16,
+                fontSize: screenWidth < 380 ? 15 : 17,
                 fontWeight: FontWeight.w600,
               ),
             ),
             ...feedbackOptions.map(
               (option) {
                 return RadioListTile(
-                  title: CustomText(option),
+                  title: CustomText(
+                    option,
+                    fontSize: screenWidth < 380 ? 13 : 15,
+                  ),
                   activeColor: Colors.blue,
                   value: option,
                   groupValue: selectedOption,
@@ -63,7 +69,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               },
             ),
             RadioListTile(
-              title: const CustomText('Other'),
+              title: CustomText(
+                'Other',
+                fontSize: screenWidth < 380 ? 13 : 15,
+              ),
               value: 'Other',
               activeColor: Colors.blue,
               groupValue: selectedOption,
@@ -79,8 +88,14 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
                   controller: otherFeedbackController,
+                  style: TextStyle(
+                    fontSize: screenWidth < 380 ? 13 : 15,
+                  ),
                   decoration: InputDecoration(
                     hintText: 'Enter your feedback here',
+                    hintStyle: TextStyle(
+                      fontSize: screenWidth < 380 ? 13 : 15,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -120,29 +135,31 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     ),
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  child: const CustomText(
+                  child: CustomText(
                     'Send Your Feedback',
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
+                    fontSize: screenWidth < 380 ? 13 : 15,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 40),
-            const Center(
+            SizedBox(
+              height: screenWidth < 380 ? 25 : 40,
+            ),
+            Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomText(
                     'Contact Our Support Team',
-                    fontSize: 15,
+                    fontSize: screenWidth < 380 ? 13 : 15,
                     fontWeight: FontWeight.w400,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   CustomText(
                     'business@studio.ng',
-                    fontSize: 15,
+                    fontSize: screenWidth < 380 ? 13 : 15,
                     fontWeight: FontWeight.w400,
                     color: Colors.blue,
                   ),

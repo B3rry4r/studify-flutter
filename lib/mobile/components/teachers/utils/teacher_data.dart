@@ -5,12 +5,12 @@ final List<Map<String, dynamic>> rows1 = [
     'text1': {
       'value': 'Classes',
       'style': const TextStyle(
-          fontSize: 13, color: Colors.black, fontWeight: FontWeight.bold)
+          fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600)
     },
     'text2': {
       'value': 'Courses',
       'style': const TextStyle(
-          fontSize: 13, color: Colors.black, fontWeight: FontWeight.bold)
+          fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600)
     },
   },
   {
@@ -140,14 +140,14 @@ final List<Map<String, dynamic>> rows4 = [
     'text1': {
       'value': 'Position',
       'style': const TextStyle(
-        fontSize: 16,
+        fontSize: 14,
         color: Colors.black,
       )
     },
     'text2': {
       'value': 'Teacher',
       'style': const TextStyle(
-        fontSize: 16,
+        fontSize: 14,
         color: Colors.black,
       )
     },
@@ -156,14 +156,14 @@ final List<Map<String, dynamic>> rows4 = [
     'text1': {
       'value': 'Attendace Score',
       'style': const TextStyle(
-        fontSize: 16,
+        fontSize: 14,
         color: Colors.black,
       )
     },
     'text2': {
       'value': '80%',
       'style': const TextStyle(
-        fontSize: 16,
+        fontSize: 14,
         color: Colors.black,
       )
     },
@@ -172,14 +172,14 @@ final List<Map<String, dynamic>> rows4 = [
     'text1': {
       'value': 'Number Of Classes',
       'style': const TextStyle(
-        fontSize: 16,
+        fontSize: 14,
         color: Colors.black,
       )
     },
     'text2': {
       'value': '4',
       'style': const TextStyle(
-        fontSize: 16,
+        fontSize: 14,
         color: Colors.black,
       )
     },

@@ -57,6 +57,8 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Stack(
       children: [
         SingleChildScrollView(
@@ -73,7 +75,7 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
                     const CircleAvatar(
                       radius: 100,
                       backgroundImage:
-                          AssetImage('../../../../assets/updatesImg.png'),
+                          AssetImage('assets/images/updatesImg.png'),
                       // child: Image(),
                     ),
                     Positioned(
@@ -106,9 +108,9 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
                 const SizedBox(
                   height: 30,
                 ),
-                const CustomText(
+                CustomText(
                   'Stephen Oghene',
-                  fontSize: 25,
+                  fontSize: screenWidth < 370 ? 18 : 25,
                   fontWeight: FontWeight.w600,
                 ),
                 const SizedBox(
@@ -122,27 +124,29 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
                 const SizedBox(
                   height: 10,
                 ),
-                const CustomizableCard(
+                CustomizableCard(
                   expandedContent: CustomTextField(
                     hintText: 'Enter New Email',
                     hintTextStyle: TextStyle(
                       color: Colors.black,
-                      fontSize: 15,
+                      fontSize: screenWidth < 370 ? 12 : 15,
+                      fontWeight: FontWeight.w300,
                     ),
                     textStyle: TextStyle(
                       color: Colors.black,
-                      fontSize: 15,
+                      fontSize: screenWidth < 370 ? 12 : 15,
+                      fontWeight: FontWeight.w300,
                     ),
-                    padding: EdgeInsets.fromLTRB(5, 0, 5, 1),
-                    height: 60,
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 1),
+                    height: screenWidth < 370 ? 50 : 60,
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 243, 243, 243),
                       borderRadius: BorderRadius.all(
                         Radius.circular(20),
                       ),
                     ),
                   ),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
@@ -160,39 +164,41 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
                   isStyleTwo: true,
                   leftText: 'Email',
                   leftTextStyle: TextStyle(
-                    fontSize: 17,
+                    fontSize: screenWidth < 370 ? 14 : 17,
                     fontWeight: FontWeight.w500,
                   ),
                   rightIcon1: Icons.keyboard_arrow_down_outlined,
                   centerText1: 'stephen918@gmail.com',
                   centerTextStyle1: TextStyle(
-                    fontSize: 16,
+                    fontSize: screenWidth < 370 ? 13 : 16,
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const CustomizableCard(
+                CustomizableCard(
                   expandedContent: CustomTextField(
                     hintText: 'Enter New Number',
                     hintTextStyle: TextStyle(
                       color: Colors.black,
-                      fontSize: 15,
+                      fontSize: screenWidth < 370 ? 12 : 15,
+                      fontWeight: FontWeight.w300,
                     ),
                     textStyle: TextStyle(
                       color: Colors.black,
-                      fontSize: 15,
+                      fontSize: screenWidth < 370 ? 12 : 15,
+                      fontWeight: FontWeight.w300,
                     ),
-                    padding: EdgeInsets.fromLTRB(5, 0, 5, 1),
-                    height: 60,
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 1),
+                    height: screenWidth < 370 ? 50 : 60,
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 243, 243, 243),
                       borderRadius: BorderRadius.all(
                         Radius.circular(20),
                       ),
                     ),
                   ),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
@@ -210,13 +216,13 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
                   isStyleTwo: true,
                   leftText: 'Number',
                   leftTextStyle: TextStyle(
-                    fontSize: 17,
+                    fontSize: screenWidth < 370 ? 14 : 17,
                     fontWeight: FontWeight.w500,
                   ),
                   rightIcon1: Icons.keyboard_arrow_down_outlined,
                   centerText1: '+2349150473829',
                   centerTextStyle1: TextStyle(
-                    fontSize: 16,
+                    fontSize: screenWidth < 370 ? 13 : 16,
                   ),
                 ),
                 const SizedBox(
@@ -235,12 +241,15 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(30)),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 15.0),
-                    child: const CustomText(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: screenWidth < 370 ? 10 : 15,
+                    ),
+                    child: CustomText(
                       'Update Profile',
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: screenWidth < 370 ? 14 : 17,
+                      fontWeight: FontWeight.w300,
                     ),
                   ),
                 )
@@ -255,9 +264,9 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
               opacity: _isOverlayVisible ? 1.0 : 0.0,
               duration: const Duration(milliseconds: 300),
               child: Container(
-                color: Colors.black.withOpacity(0.5), // Semi-transparent black
+                color: Colors.black.withOpacity(0.7), // Semi-transparent black
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3), // Apply blur
+                  filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1), // Apply blur
                   child: Center(
                     child: !_overlayDataChange
                         ? Container(
@@ -269,41 +278,46 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.circle_outlined,
-                                  color: Color.fromARGB(255, 224, 135, 0),
-                                  size: 60,
+                                  color: const Color.fromARGB(255, 224, 135, 0),
+                                  size: screenWidth < 370 ? 20 : 40,
                                 ),
                                 const SizedBox(height: 20),
-                                const Text(
+                                Text(
                                   'Verification',
                                   style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: screenWidth < 370 ? 17 : 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w300,
+                                  ),
                                 ),
                                 const SizedBox(height: 20),
-                                const CustomTextField(
+                                CustomTextField(
                                   hintText: 'Enter Your Password',
-                                  padding: EdgeInsets.fromLTRB(5, 0, 5, 1),
-                                  height: 60,
+                                  padding:
+                                      const EdgeInsets.fromLTRB(5, 0, 5, 1),
+                                  height: screenWidth < 370 ? 50 : 60,
                                   hintTextStyle: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: screenWidth < 370 ? 12 : 14,
                                     color: Colors.white,
+                                    fontWeight: FontWeight.w300,
                                   ),
                                   textStyle: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: screenWidth < 370 ? 12 : 14,
                                     color: Colors.white,
+                                    fontWeight: FontWeight.w300,
                                   ),
                                   obscureText: true,
                                 ),
                                 const SizedBox(height: 20),
                                 GestureDetector(
                                   onTap: () {},
-                                  child: const CustomText(
+                                  child: CustomText(
                                     'Forgot Password',
-                                    fontSize: 14,
+                                    fontSize: screenWidth < 370 ? 11 : 13,
                                     color: Colors.white,
+                                    fontWeight: FontWeight.w300,
                                   ),
                                 ),
                                 const SizedBox(height: 40),
@@ -323,12 +337,14 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(30)),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 40.0, vertical: 15.0),
-                                    child: const CustomText(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: screenWidth < 370 ? 20 : 30,
+                                      vertical: screenWidth < 370 ? 12 : 15,
+                                    ),
+                                    child: CustomText(
                                       'Verify',
                                       color: Colors.white,
-                                      fontSize: 16,
+                                      fontSize: screenWidth < 370 ? 11 : 14,
                                     ),
                                   ),
                                 )
@@ -344,18 +360,19 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.check_circle,
                                   color: Colors.green,
-                                  size: 60,
+                                  size: screenWidth < 370 ? 20 : 40,
                                 ),
                                 const SizedBox(height: 20),
-                                const Text(
+                                Text(
                                   'Successful',
                                   style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: screenWidth < 370 ? 17 : 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w300,
+                                  ),
                                 ),
                                 const SizedBox(height: 20),
                                 GestureDetector(
@@ -374,12 +391,15 @@ class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(30)),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 40.0, vertical: 15.0),
-                                    child: const CustomText(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: screenWidth < 370 ? 20 : 30,
+                                      vertical: screenWidth < 370 ? 13 : 15,
+                                    ),
+                                    child: CustomText(
                                       'Continue',
                                       color: Colors.white,
-                                      fontSize: 16,
+                                      fontSize: screenWidth < 370 ? 11 : 14,
+                                      fontWeight: FontWeight.w300,
                                     ),
                                   ),
                                 )

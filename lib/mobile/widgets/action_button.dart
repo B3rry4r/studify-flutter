@@ -17,6 +17,7 @@ class CustomActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       width: width,
       height: height,
@@ -33,6 +34,7 @@ class CustomActionButton extends StatelessWidget {
           text,
           style: TextStyle(
             color: color,
+            fontSize: screenWidth < 370 ? 12 : 14,
           ),
         ),
       ),

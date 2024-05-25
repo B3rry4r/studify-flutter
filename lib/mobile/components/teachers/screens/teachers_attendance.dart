@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studify/mobile/components/teachers/screens/students_attendance_history.dart';
+import 'package:studify/mobile/components/teachers/screens/attendance_history.dart';
 import 'package:studify/mobile/widgets/circular_container.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/custom_text_row.dart';
@@ -18,13 +18,15 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
   void _navToAttendanceHistory() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const StudentsAttendanceHistoryScreen(),
+        builder: (context) => const AttendanceHistory(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -37,36 +39,36 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
                     Container(
                       padding: const EdgeInsets.only(top: 30),
                       alignment: Alignment.center,
-                      child: const Column(
+                      child: Column(
                         children: [
                           CustomText(
                             'Check In Your Presence',
-                            fontSize: 25,
+                            fontSize: screenWidth < 370 ? 18 : 20,
                             fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           CircularContainer(
-                            width: 180,
-                            height: 180,
+                            width: screenWidth < 370 ? 150 : 180,
+                            height: screenWidth < 370 ? 150 : 180,
                             gradientExists: true,
                             padding: 8,
                             widgetIsNotNull: CircularContainer(
-                              width: 165,
-                              height: 165,
+                              width: screenWidth < 370 ? 150 : 165,
+                              height: screenWidth < 370 ? 150 : 165,
                               backgroundColor: Colors.white,
                               widgetIsNotNull: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   CustomText(
                                     '14:59',
-                                    fontSize: 20,
+                                    fontSize: screenWidth < 370 ? 16 : 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   CustomText(
                                     'Check In Time',
-                                    fontSize: 15,
+                                    fontSize: screenWidth < 370 ? 12 : 15,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ],
@@ -81,19 +83,23 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
                       height: 40,
                     ),
                     const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomizableCardBig(
-                          width: 190,
-                          text1: '6:30-7:00',
-                          text2: 'Check In Time',
-                          svgPath: '../../../../assets/arrow_in.svg',
+                        Flexible(
+                          child: CustomizableCardBig(
+                            width: double.infinity,
+                            text1: '6:30-7:00',
+                            text2: 'Check In Time',
+                            svgPath: 'images/arrow_in.svg',
+                          ),
                         ),
-                        CustomizableCardBig(
-                          width: 190,
-                          text1: '6:30-7:00',
-                          text2: 'Check In Time',
-                          svgPath: '../../../../assets/arrow_in.svg',
+                        SizedBox(width: 16), // Space between cards
+                        Flexible(
+                          child: CustomizableCardBig(
+                            width: double.infinity,
+                            text1: '6:30-7:00',
+                            text2: 'Check In Time',
+                            svgPath: 'images/arrow_in.svg',
+                          ),
                         ),
                       ],
                     ),
@@ -108,7 +114,7 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
                       height: 20,
                     ),
                     CustomizableCard(
-                      leftIconPath: '../../../../assets/arrow_in.svg',
+                      leftIconPath: 'assets/images/arrow_in.svg',
                       // isGradient: true,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 243, 243, 243)
@@ -116,73 +122,74 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       centerText1: 'Check In',
-                      centerTextStyle1: const TextStyle(
+                      centerTextStyle1: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 15,
+                        fontSize: screenWidth < 370 ? 10 : 15,
                       ),
                       centerText2: 'July 23, 2024',
-                      centerTextStyle2: const TextStyle(
+                      centerTextStyle2: TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                        fontSize: screenWidth < 370 ? 10 : 12,
                       ),
-                      rightText1: '7:20',
-                      rightTextStyle1: const TextStyle(
+                      rightText1: '8:00',
+                      rightTextStyle1: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: screenWidth < 370 ? 12 : 16,
                       ),
-                      rightText2: 'Early 10 minutes',
-                      rightTextStyle2: const TextStyle(
+                      rightText2: 'Late 30 minutes',
+                      rightTextStyle2: TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                        fontSize: screenWidth < 370 ? 9 : 12,
+                        color: Colors.red,
                       ),
                       isRight: true,
                       leftIconBackgroundColor: Colors.blueAccent,
-                      leftIconSize: 50,
-                      padding: 20,
-                      padding3: 30,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: screenWidth < 370 ? 15 : 20,
                     ),
                     CustomizableCard(
-                      leftIconPath: '../../../../assets/arrow_in.svg',
+                      leftIconPath: 'assets/images/arrow_in.svg',
                       // isGradient: true,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 243, 243, 243)
                             .withOpacity(0.8),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      centerText1: 'Check In',
-                      centerTextStyle1: const TextStyle(
+                      centerText1: 'Check Out',
+                      centerTextStyle1: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 15,
+                        fontSize: screenWidth < 370 ? 10 : 15,
                       ),
-                      centerText2: 'July 23, 2024',
-                      centerTextStyle2: const TextStyle(
+                      centerText2: 'July 22, 2024',
+                      centerTextStyle2: TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                        fontSize: screenWidth < 370 ? 10 : 12,
                       ),
-                      rightText1: '7:20',
-                      rightTextStyle1: const TextStyle(
+                      rightText1: '4:00',
+                      rightTextStyle1: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: screenWidth < 370 ? 12 : 16,
                       ),
-                      rightText2: 'Early 10 minutes',
-                      rightTextStyle2: const TextStyle(
+                      rightText2: 'On Time',
+                      rightTextStyle2: TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                        fontSize: screenWidth < 370 ? 10 : 12,
                       ),
                       isRight: true,
-                      leftIconBackgroundColor: Colors.blueAccent,
-                      leftIconSize: 50,
-                      padding: 20,
-                      padding3: 30,
+                      leftIconBackgroundColor: Colors.red.shade600,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: screenWidth < 370 ? 15 : 20,
                     ),
                     CustomizableCard(
-                      leftIconPath: '../../../../assets/arrow_in.svg',
+                      leftIconPath: 'assets/images/arrow_in.svg',
                       // isGradient: true,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 243, 243, 243)
@@ -190,36 +197,74 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       centerText1: 'Check In',
-                      centerTextStyle1: const TextStyle(
+                      centerTextStyle1: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 15,
+                        fontSize: screenWidth < 370 ? 10 : 15,
                       ),
                       centerText2: 'July 23, 2024',
-                      centerTextStyle2: const TextStyle(
+                      centerTextStyle2: TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                        fontSize: screenWidth < 370 ? 10 : 12,
                       ),
-                      rightText1: '7:20',
-                      rightTextStyle1: const TextStyle(
+                      rightText1: '8:00',
+                      rightTextStyle1: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: screenWidth < 370 ? 12 : 16,
                       ),
-                      rightText2: 'Early 10 minutes',
-                      rightTextStyle2: const TextStyle(
+                      rightText2: 'Late 30 minutes',
+                      rightTextStyle2: TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                        fontSize: screenWidth < 370 ? 9 : 12,
+                        color: Colors.red,
                       ),
                       isRight: true,
                       leftIconBackgroundColor: Colors.blueAccent,
-                      leftIconSize: 50,
-                      padding: 20,
-                      padding3: 30,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: screenWidth < 370 ? 15 : 20,
                     ),
                     CustomizableCard(
-                      leftIconPath: '../../../../assets/arrow_in.svg',
+                      leftIconPath: 'assets/images/arrow_in.svg',
+                      // isGradient: true,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 243, 243, 243)
+                            .withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      centerText1: 'Check Out',
+                      centerTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 10 : 15,
+                      ),
+                      centerText2: 'July 22, 2024',
+                      centerTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      rightText1: '4:00',
+                      rightTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 12 : 16,
+                      ),
+                      rightText2: 'On Time',
+                      rightTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      isRight: true,
+                      leftIconBackgroundColor: Colors.red.shade600,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
+                    ),
+                    SizedBox(
+                      height: screenWidth < 370 ? 15 : 20,
+                    ),
+                    CustomizableCard(
+                      leftIconPath: 'assets/images/arrow_in.svg',
                       // isGradient: true,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 243, 243, 243)
@@ -227,61 +272,326 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       centerText1: 'Check In',
-                      centerTextStyle1: const TextStyle(
+                      centerTextStyle1: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 15,
+                        fontSize: screenWidth < 370 ? 10 : 15,
                       ),
                       centerText2: 'July 23, 2024',
-                      centerTextStyle2: const TextStyle(
+                      centerTextStyle2: TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                        fontSize: screenWidth < 370 ? 10 : 12,
                       ),
-                      rightText1: '7:20',
-                      rightTextStyle1: const TextStyle(
+                      rightText1: '8:00',
+                      rightTextStyle1: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: screenWidth < 370 ? 12 : 16,
                       ),
-                      rightText2: 'Early 10 minutes',
-                      rightTextStyle2: const TextStyle(
+                      rightText2: 'Late 30 minutes',
+                      rightTextStyle2: TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                        fontSize: screenWidth < 370 ? 9 : 12,
+                        color: Colors.red,
                       ),
                       isRight: true,
                       leftIconBackgroundColor: Colors.blueAccent,
-                      leftIconSize: 50,
-                      padding: 20,
-                      padding3: 30,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
                     ),
-                    const SizedBox(
-                      height: 120,
+                    SizedBox(
+                      height: screenWidth < 370 ? 15 : 20,
+                    ),
+                    CustomizableCard(
+                      leftIconPath: 'assets/images/arrow_in.svg',
+                      // isGradient: true,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 243, 243, 243)
+                            .withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      centerText1: 'Check Out',
+                      centerTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 10 : 15,
+                      ),
+                      centerText2: 'July 22, 2024',
+                      centerTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      rightText1: '4:00',
+                      rightTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 12 : 16,
+                      ),
+                      rightText2: 'On Time',
+                      rightTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      isRight: true,
+                      leftIconBackgroundColor: Colors.red.shade600,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
+                    ),
+                    SizedBox(
+                      height: screenWidth < 370 ? 15 : 20,
+                    ),
+                    CustomizableCard(
+                      leftIconPath: 'assets/images/arrow_in.svg',
+                      // isGradient: true,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 243, 243, 243)
+                            .withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      centerText1: 'Check In',
+                      centerTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 10 : 15,
+                      ),
+                      centerText2: 'July 23, 2024',
+                      centerTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      rightText1: '8:00',
+                      rightTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 12 : 16,
+                      ),
+                      rightText2: 'Late 30 minutes',
+                      rightTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 9 : 12,
+                        color: Colors.red,
+                      ),
+                      isRight: true,
+                      leftIconBackgroundColor: Colors.blueAccent,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
+                    ),
+                    SizedBox(
+                      height: screenWidth < 370 ? 15 : 20,
+                    ),
+                    CustomizableCard(
+                      leftIconPath: 'assets/images/arrow_in.svg',
+                      // isGradient: true,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 243, 243, 243)
+                            .withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      centerText1: 'Check Out',
+                      centerTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 10 : 15,
+                      ),
+                      centerText2: 'July 22, 2024',
+                      centerTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      rightText1: '4:00',
+                      rightTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 12 : 16,
+                      ),
+                      rightText2: 'On Time',
+                      rightTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      isRight: true,
+                      leftIconBackgroundColor: Colors.red.shade600,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
+                    ),
+                    SizedBox(
+                      height: screenWidth < 370 ? 15 : 20,
+                    ),
+                    CustomizableCard(
+                      leftIconPath: 'assets/images/arrow_in.svg',
+                      // isGradient: true,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 243, 243, 243)
+                            .withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      centerText1: 'Check In',
+                      centerTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 10 : 15,
+                      ),
+                      centerText2: 'July 23, 2024',
+                      centerTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      rightText1: '8:00',
+                      rightTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 12 : 16,
+                      ),
+                      rightText2: 'Late 30 minutes',
+                      rightTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 9 : 12,
+                        color: Colors.red,
+                      ),
+                      isRight: true,
+                      leftIconBackgroundColor: Colors.blueAccent,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
+                    ),
+                    SizedBox(
+                      height: screenWidth < 370 ? 15 : 20,
+                    ),
+                    CustomizableCard(
+                      leftIconPath: 'assets/images/arrow_in.svg',
+                      // isGradient: true,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 243, 243, 243)
+                            .withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      centerText1: 'Check Out',
+                      centerTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 10 : 15,
+                      ),
+                      centerText2: 'July 22, 2024',
+                      centerTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      rightText1: '4:00',
+                      rightTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 12 : 16,
+                      ),
+                      rightText2: 'On Time',
+                      rightTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      isRight: true,
+                      leftIconBackgroundColor: Colors.red.shade600,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
+                    ),
+                    SizedBox(
+                      height: screenWidth < 370 ? 15 : 20,
+                    ),
+                    CustomizableCard(
+                      leftIconPath: 'assets/images/arrow_in.svg',
+                      // isGradient: true,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 243, 243, 243)
+                            .withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      centerText1: 'Check In',
+                      centerTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 10 : 15,
+                      ),
+                      centerText2: 'July 23, 2024',
+                      centerTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      rightText1: '8:00',
+                      rightTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 12 : 16,
+                      ),
+                      rightText2: 'Late 30 minutes',
+                      rightTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 9 : 12,
+                        color: Colors.red,
+                      ),
+                      isRight: true,
+                      leftIconBackgroundColor: Colors.blueAccent,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
+                    ),
+                    SizedBox(
+                      height: screenWidth < 370 ? 15 : 20,
+                    ),
+                    CustomizableCard(
+                      leftIconPath: 'assets/images/arrow_in.svg',
+                      // isGradient: true,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 243, 243, 243)
+                            .withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      centerText1: 'Check Out',
+                      centerTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 10 : 15,
+                      ),
+                      centerText2: 'July 22, 2024',
+                      centerTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      rightText1: '4:00',
+                      rightTextStyle1: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: screenWidth < 370 ? 12 : 16,
+                      ),
+                      rightText2: 'On Time',
+                      rightTextStyle2: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenWidth < 370 ? 10 : 12,
+                      ),
+                      isRight: true,
+                      leftIconBackgroundColor: Colors.red.shade600,
+                      leftIconSize: screenWidth < 370 ? 30.0 : 50.0,
+                      padding3: screenWidth < 370 ? 10 : 20,
+                      padding: screenWidth < 370 ? 15 : 20,
+                    ),
+                    SizedBox(
+                      height: screenWidth < 370 ? 80 : 120,
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
             left: 0,
             right: 0,
             bottom: 5,
             child: Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(18.0),
               child: CustomizableCard(
-                leftIconPath: '../../../../assets/arrow_right.svg',
+                leftIconSize: screenWidth < 370 ? 30.0 : 60.0,
+                padding3: screenWidth < 370 ? 10 : 20,
+                leftIconPath: 'assets/images/arrow_right.svg',
                 centerText1: 'Swipe to Check In',
                 isGradient: false,
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(50),
                 ),
                 padding: 10.0,
                 isStyleTwo: true,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(
                     Radius.circular(50),
                   ),
                 ),
-                centerTextStyle1: TextStyle(),
+                centerTextStyle1: const TextStyle(),
                 leftIconBackgroundColor: Colors.blueAccent,
               ),
             ),
