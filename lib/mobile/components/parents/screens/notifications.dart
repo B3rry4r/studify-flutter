@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
 
-class TeachersNotificationScreen extends StatelessWidget {
-  const TeachersNotificationScreen({super.key});
+class ParentsNotificationScreen extends StatelessWidget {
+  const ParentsNotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,
@@ -87,7 +87,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,
@@ -126,7 +126,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,
@@ -165,7 +165,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,
@@ -204,7 +204,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,
@@ -243,7 +243,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,
@@ -303,7 +303,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,
@@ -342,7 +342,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,
@@ -381,7 +381,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,
@@ -420,7 +420,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,
@@ -459,7 +459,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,
@@ -498,7 +498,7 @@ class TeachersNotificationScreen extends StatelessWidget {
                     ),
                     centerText1: 'Admin',
                     centerText3:
-                        'We will change the color of the schoo transportaion system',
+                        'We will change the color of the school transportaion system',
                     centerTextStyle3: const TextStyle(
                       fontSize: 11,
                       overflow: TextOverflow.ellipsis,

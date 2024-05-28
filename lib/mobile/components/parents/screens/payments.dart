@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studify/mobile/components/parents/screens/paymet_history.dart';
 import 'package:studify/mobile/components/parents/utils/students_data.dart';
 import 'package:studify/mobile/widgets/custom_text_row.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
@@ -29,6 +30,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
     'Mathematics',
     'English',
   ];
+
+  void _navToPaymentHistory() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const PaymentHistoryScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +103,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const CustomTextRow(
+                    CustomTextRow(
                       leftText: 'Payment History',
+                      passedFunction: _navToPaymentHistory,
                     ),
                     const SizedBox(
                       height: 10,

@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studify/mobile/Screens/sign_in.dart';
-import 'package:studify/mobile/components/teachers/screens/attendance_history.dart';
+import 'package:studify/mobile/components/parents/screens/paymet_history.dart';
+import 'package:studify/mobile/components/parents/screens/student_attendance_history.dart';
+import 'package:studify/mobile/components/parents/screens/student_results.dart';
 import 'package:studify/mobile/components/teachers/screens/faq.dart';
 import 'package:studify/mobile/components/teachers/screens/feedback.dart';
-import 'package:studify/mobile/components/teachers/screens/students_attendance_history.dart';
-import 'package:studify/mobile/components/teachers/screens/students_records.dart';
 import 'package:studify/mobile/components/teachers/screens/tasks.dart';
 import 'package:studify/mobile/components/teachers/screens/updates.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
 
-class MoreScreenTeachers extends StatefulWidget {
-  const MoreScreenTeachers({super.key});
+class MoreScreenParents extends StatefulWidget {
+  const MoreScreenParents({super.key});
 
   @override
-  State<MoreScreenTeachers> createState() => _MoreScreenTeachersState();
+  State<MoreScreenParents> createState() => _MoreScreenParentsState();
 }
 
-class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
+class _MoreScreenParentsState extends State<MoreScreenParents> {
   void _logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('userSignedIn', false);
@@ -36,10 +35,10 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
     );
   }
 
-  void _navToTasks() {
+  void _navToPaymentHistory() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const TasksScreen(),
+        builder: (context) => const PaymentHistoryScreen(),
       ),
     );
   }
@@ -47,15 +46,7 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
   void _navToAttendanceHistory() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const AttendanceHistory(),
-      ),
-    );
-  }
-
-  void _navToStudentsHistory() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const StudentsAttendanceHistoryScreen(),
+        builder: (context) => const ParentStudentAttendanceHistory(),
       ),
     );
   }
@@ -63,7 +54,7 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
   void _navToStudentsRecords() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const StudentsRecordsScreen(),
+        builder: (context) => const ParentsStudentsResultScreen(),
       ),
     );
   }
@@ -99,7 +90,7 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
               padding: screenWidth < 380 ? 14 : 20,
               padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
-              leftText: 'Updates',
+              leftText: 'Alumni/Updates',
               leftTextStyle: TextStyle(
                 fontSize: screenWidth < 380 ? 13 : 15,
                 fontWeight: FontWeight.w400,
@@ -113,24 +104,6 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
             ),
             CustomizableCard(
               passedFunction: _navToAttendanceHistory,
-              isTextLeft: true,
-              padding: screenWidth < 380 ? 14 : 20,
-              padding2: screenWidth < 380 ? 8 : 10,
-              isStyleTwo: true,
-              leftText: 'Attendance History',
-              leftTextStyle: TextStyle(
-                fontSize: screenWidth < 380 ? 13 : 15,
-                fontWeight: FontWeight.w400,
-              ),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-            ),
-            CustomizableCard(
-              passedFunction: _navToStudentsHistory,
               isTextLeft: true,
               padding: screenWidth < 380 ? 14 : 20,
               padding2: screenWidth < 380 ? 8 : 10,
@@ -153,7 +126,7 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
               padding: screenWidth < 380 ? 14 : 20,
               padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
-              leftText: 'Students Records',
+              leftText: 'Students Results/Records',
               leftTextStyle: TextStyle(
                 fontSize: screenWidth < 380 ? 13 : 15,
                 fontWeight: FontWeight.w400,
@@ -166,29 +139,12 @@ class _MoreScreenTeachersState extends State<MoreScreenTeachers> {
               ),
             ),
             CustomizableCard(
+              passedFunction: _navToPaymentHistory,
               isTextLeft: true,
               padding: screenWidth < 380 ? 14 : 20,
               padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
-              leftText: 'Classes and Schedules',
-              leftTextStyle: TextStyle(
-                fontSize: screenWidth < 380 ? 13 : 15,
-                fontWeight: FontWeight.w400,
-              ),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-            ),
-            CustomizableCard(
-              isTextLeft: true,
-              padding: screenWidth < 380 ? 14 : 20,
-              padding2: screenWidth < 380 ? 8 : 10,
-              isStyleTwo: true,
-              leftText: 'Tasks',
-              passedFunction: _navToTasks,
+              leftText: 'Payment History',
               leftTextStyle: TextStyle(
                 fontSize: screenWidth < 380 ? 13 : 15,
                 fontWeight: FontWeight.w400,

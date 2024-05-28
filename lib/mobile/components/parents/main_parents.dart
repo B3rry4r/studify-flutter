@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:studify/mobile/components/parents/screens/notifications.dart';
 import 'package:studify/mobile/components/parents/screens/parents_home.dart';
 import 'package:studify/mobile/components/parents/screens/payments.dart';
+import 'package:studify/mobile/components/parents/screens/more.dart';
+import 'package:studify/mobile/components/parents/screens/profile_screen.dart';
 import 'package:studify/mobile/components/parents/screens/student_management.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 
@@ -19,16 +22,16 @@ class _ParentsMobileScreenState extends State<ParentsMobileScreen> {
     HomeParents(),
     StudentManagementScreen(),
     PaymentScreen(),
-    HomeParents(),
-    HomeParents(),
+    ProfileScreenParents(),
+    MoreScreenParents(),
   ];
 
   void _navToNotifications() {
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => const TeachersNotificationScreen(),
-    //   ),
-    // );
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const ParentsNotificationScreen(),
+      ),
+    );
   }
 
   @override

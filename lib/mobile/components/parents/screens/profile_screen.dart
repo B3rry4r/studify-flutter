@@ -7,14 +7,14 @@ import 'package:studify/mobile/widgets/custom_text_field.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
 import 'package:studify/mobile/widgets/customizable_content_card.dart';
 
-class ProfileScreenTeachers extends StatefulWidget {
-  const ProfileScreenTeachers({super.key});
+class ProfileScreenParents extends StatefulWidget {
+  const ProfileScreenParents({super.key});
 
   @override
-  State<ProfileScreenTeachers> createState() => _ProfileScreenTeachersState();
+  State<ProfileScreenParents> createState() => _ProfileScreenParentsState();
 }
 
-class _ProfileScreenTeachersState extends State<ProfileScreenTeachers>
+class _ProfileScreenParentsState extends State<ProfileScreenParents>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
