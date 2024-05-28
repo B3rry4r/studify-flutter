@@ -1,9 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:studify/common/models/user.dart';
 import 'package:studify/common/services/auth_service.dart';
 import 'package:studify/mobile/Screens/sign_up.dart';
+import 'package:studify/mobile/components/admin/main_admin.dart';
 import 'package:studify/mobile/components/parents/main_parents.dart';
 import 'package:studify/mobile/components/teachers/main_teachers.dart';
 import 'package:studify/mobile/widgets/action_button.dart';
@@ -35,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
     setState(() {
       _isLoading = true;
     });
-    User res = await _authService.login('parent', '0932032849');
+    User res = await _authService.login('admin', '0932032849');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('userSignedIn', true);
     prefs.setString('role', res.role);
@@ -53,6 +53,13 @@ class _SignInScreenState extends State<SignInScreen> {
       });
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const ParentsMobileScreen()),
+      );
+    } else if (res.role == 'admin') {
+      setState(() {
+        _isLoading = false;
+      });
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const AdminMobileScreen()),
       );
     } else {
       showNnotification('Invalid Credentials', context);

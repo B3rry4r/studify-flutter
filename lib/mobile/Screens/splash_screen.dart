@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studify/mobile/Screens/sign_in.dart';
-import 'package:studify/mobile/Screens/sign_up.dart';
-import 'package:studify/mobile/components/admin/screens/admin_home.dart';
+import 'package:studify/mobile/components/admin/main_admin.dart';
 import 'package:studify/mobile/components/parents/main_parents.dart';
-import 'package:studify/mobile/components/parents/screens/parents_home.dart';
 import 'package:studify/mobile/components/teachers/main_teachers.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -44,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
         );
       } else if (role == 'admin') {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const TeachersMobileScreen()),
+          MaterialPageRoute(builder: (context) => const AdminMobileScreen()),
         );
       } else {
         Navigator.of(context).pushReplacement(
