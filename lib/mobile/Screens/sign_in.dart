@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:studify/common/models/user.dart';
 import 'package:studify/common/services/auth_service.dart';
 import 'package:studify/mobile/Screens/sign_up.dart';
+import 'package:studify/mobile/components/parents/main_parents.dart';
 import 'package:studify/mobile/components/teachers/main_teachers.dart';
 import 'package:studify/mobile/widgets/action_button.dart';
 import 'package:studify/mobile/widgets/circular_container.dart';
@@ -34,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
     setState(() {
       _isLoading = true;
     });
-    User res = await _authService.login('teacher', '0932032849');
+    User res = await _authService.login('parent', '0932032849');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('userSignedIn', true);
     prefs.setString('role', res.role);
@@ -45,6 +46,13 @@ class _SignInScreenState extends State<SignInScreen> {
       });
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const TeachersMobileScreen()),
+      );
+    } else if (res.role == 'parent') {
+      setState(() {
+        _isLoading = false;
+      });
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const ParentsMobileScreen()),
       );
     } else {
       showNnotification('Invalid Credentials', context);
@@ -105,7 +113,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: Container(),
                 ),
                 Container(
-                  width: screenWidth < 370 ? 40 : 50,
+                  width: screenWidth < 380 ? 40 : 50,
                   padding: const EdgeInsets.only(right: 10),
                   child: Image.asset('assets/images/logo_sign_in.png'),
                 ),
@@ -128,42 +136,42 @@ class _SignInScreenState extends State<SignInScreen> {
                       Text(
                         'Sign In',
                         style: TextStyle(
-                          fontSize: screenWidth < 370 ? 20 : 24,
+                          fontSize: screenWidth < 380 ? 20 : 24,
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       CustomTextField(
-                        padding: screenWidth < 370
+                        padding: screenWidth < 380
                             ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                             : const EdgeInsets.fromLTRB(5, 12, 5, 0),
-                        height: screenWidth < 370 ? 30 : 40,
+                        height: screenWidth < 380 ? 30 : 40,
                         hintText: 'Enter Your Email',
                         hintTextStyle: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                         ),
                         textStyle: TextStyle(
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       CustomTextField(
-                        padding: screenWidth < 370
+                        padding: screenWidth < 380
                             ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                             : const EdgeInsets.fromLTRB(5, 12, 5, 0),
-                        height: screenWidth < 370 ? 30 : 40,
+                        height: screenWidth < 380 ? 30 : 40,
                         hintText: 'Enter Your Password',
                         hintTextStyle: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                         ),
                         textStyle: TextStyle(
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                           color: Colors.white,
                         ),
                         obscureText: true,
@@ -174,12 +182,12 @@ class _SignInScreenState extends State<SignInScreen> {
                         child: CustomActionButton(
                           text: 'Sign In',
                           width: 120,
-                          height: screenWidth < 370 ? 30 : 40,
+                          height: screenWidth < 380 ? 30 : 40,
                           backgroundColor: Colors.white,
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -188,7 +196,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             child: Text(
                               'Don\'t Have An Acount?',
                               style: TextStyle(
-                                fontSize: screenWidth < 370 ? 10 : 12,
+                                fontSize: screenWidth < 380 ? 10 : 12,
                                 color: Colors.white,
                               ),
                             ),
@@ -200,7 +208,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               child: Text(
                                 ' Sign Up.',
                                 style: TextStyle(
-                                  fontSize: screenWidth < 370 ? 10 : 12,
+                                  fontSize: screenWidth < 380 ? 10 : 12,
                                   fontWeight: FontWeight.bold,
                                   color: const Color(0xFF0000FF),
                                 ),
@@ -216,7 +224,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
-                      SizedBox(height: screenWidth < 370 ? 15 : 40),
+                      SizedBox(height: screenWidth < 380 ? 15 : 40),
                       const Text(
                         'Sign In With',
                         style: TextStyle(color: Colors.white, fontSize: 12),
@@ -224,7 +232,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       Divider(
                         color: Colors.white.withOpacity(0.6),
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -232,8 +240,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             svgExists: true,
                             svgPath: 'assets/images/google.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
-                            width: screenWidth < 370 ? 40.0 : 60.0,
-                            height: screenWidth < 370 ? 40.0 : 60.0,
+                            width: screenWidth < 380 ? 40.0 : 60.0,
+                            height: screenWidth < 380 ? 40.0 : 60.0,
                           ),
                           const SizedBox(
                             width: 20,
@@ -242,8 +250,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             svgExists: true,
                             svgPath: 'assets/images/facebook.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
-                            width: screenWidth < 370 ? 40.0 : 60.0,
-                            height: screenWidth < 370 ? 40.0 : 60.0,
+                            width: screenWidth < 380 ? 40.0 : 60.0,
+                            height: screenWidth < 380 ? 40.0 : 60.0,
                           ),
                           const SizedBox(
                             width: 20,
@@ -252,16 +260,16 @@ class _SignInScreenState extends State<SignInScreen> {
                             svgExists: true,
                             svgPath: 'assets/images/twitter.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
-                            width: screenWidth < 370 ? 40.0 : 60.0,
-                            height: screenWidth < 370 ? 40.0 : 60.0,
+                            width: screenWidth < 380 ? 40.0 : 60.0,
+                            height: screenWidth < 380 ? 40.0 : 60.0,
                           ),
                         ],
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 40),
+                      SizedBox(height: screenWidth < 380 ? 15 : 40),
                       CustomActionButton(
                           text: 'Continue As Guest',
                           width: double.infinity,
-                          height: screenWidth < 370 ? 40.0 : 60.0,
+                          height: screenWidth < 380 ? 40.0 : 60.0,
                           backgroundColor: Colors.white.withOpacity(0.4),
                           color: Colors.white)
                     ],

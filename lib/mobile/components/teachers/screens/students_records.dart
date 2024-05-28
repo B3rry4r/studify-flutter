@@ -74,7 +74,7 @@ class _StudentsRecordsScreenState extends State<StudentsRecordsScreen> {
                             color: _selectedFilterIndex == index
                                 ? Colors.white
                                 : Colors.black,
-                            fontSize: screenWidth < 370 ? 10 : 12,
+                            fontSize: screenWidth < 380 ? 10 : 12,
                           ),
                         ),
                       ),
@@ -115,7 +115,7 @@ class _StudentsRecordsScreenState extends State<StudentsRecordsScreen> {
           children: [
             column,
             SizedBox(
-              height: screenWidth < 370 ? 15 : 20,
+              height: screenWidth < 380 ? 15 : 20,
             )
           ],
         );

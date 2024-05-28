@@ -1,33 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:studify/mobile/components/teachers/screens/attendance_history.dart';
 import 'package:studify/mobile/widgets/circular_container.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/custom_text_row.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
 import 'package:studify/mobile/widgets/customizable_content_card_2.dart';
 
-class TeachersAttendanceScreen extends StatefulWidget {
-  const TeachersAttendanceScreen({super.key});
-
-  @override
-  State<TeachersAttendanceScreen> createState() =>
-      _TeachersAttendanceScreenState();
-}
-
-class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
-  void _navToAttendanceHistory() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const AttendanceHistory(),
-      ),
-    );
-  }
+class TrackingProcessScreen extends StatelessWidget {
+  const TrackingProcessScreen({super.key});
+  final bool isAwaiting = true;
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const CustomText(
+          'Micheal James',
+          fontSize: 17,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
       body: Stack(
         children: [
           Positioned.fill(
@@ -42,7 +35,7 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
                       child: Column(
                         children: [
                           CustomText(
-                            'Check In Your Presence',
+                            'Start Child Tracking Process',
                             fontSize: screenWidth < 380 ? 18 : 20,
                             fontWeight: FontWeight.bold,
                           ),
@@ -52,8 +45,9 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
                           CircularContainer(
                             width: screenWidth < 380 ? 150 : 180,
                             height: screenWidth < 380 ? 150 : 180,
-                            gradientExists: true,
+                            gradientExists: false,
                             padding: 8,
+                            backgroundColor: Colors.green,
                             widgetIsNotNull: CircularContainer(
                               width: screenWidth < 380 ? 150 : 165,
                               height: screenWidth < 380 ? 150 : 165,
@@ -65,11 +59,13 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
                                     '14:59',
                                     fontSize: screenWidth < 380 ? 16 : 18,
                                     fontWeight: FontWeight.bold,
+                                    color: Colors.green,
                                   ),
                                   CustomText(
-                                    'Check In Time',
+                                    'Proccess Started',
                                     fontSize: screenWidth < 380 ? 12 : 15,
                                     fontWeight: FontWeight.w400,
+                                    color: Colors.green,
                                   ),
                                 ],
                               ),
@@ -108,7 +104,7 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
                     ),
                     CustomTextRow(
                       leftText: 'Your Attendance',
-                      passedFunction: _navToAttendanceHistory,
+                      passedFunction: () {},
                     ),
                     const SizedBox(
                       height: 20,
@@ -568,34 +564,67 @@ class _TeachersAttendanceScreenState extends State<TeachersAttendanceScreen> {
               ),
             ),
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 5,
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: CustomizableCard(
-                leftIconSize: screenWidth < 380 ? 30.0 : 60.0,
-                padding3: screenWidth < 380 ? 10 : 20,
-                leftIconPath: 'assets/images/arrow_right.svg',
-                centerText1: 'Swipe to Check In',
-                isGradient: false,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(50),
-                ),
-                padding: 10.0,
-                isStyleTwo: true,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(50),
+          isAwaiting
+              ? Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: CustomizableCard(
+                      // leftIconSize: screenWidth < 380 ? 30.0 : 60.0,
+                      isTextLeft: true,
+                      padding3: screenWidth < 380 ? 10 : 20,
+                      // leftIconPath: 'assets/images/arrow_right.svg',
+                      centerText1: 'Awaiting Arrival',
+                      isSingleCenterText: true,
+                      isGradient: false,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                      padding: 25,
+                      isStyleTwo: true,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                      ),
+                      centerTextStyle1: TextStyle(
+                          fontSize: screenWidth < 380 ? 12 : 14,
+                          fontWeight: FontWeight.w300),
+                      leftIconBackgroundColor: Colors.blueAccent,
+                    ),
+                  ),
+                )
+              : Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: CustomizableCard(
+                      leftIconSize: screenWidth < 380 ? 30.0 : 60.0,
+                      padding3: screenWidth < 380 ? 10 : 20,
+                      leftIconPath: 'assets/images/arrow_right.svg',
+                      centerText1: 'Swipe to Check In',
+                      isGradient: false,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                      padding: 10.0,
+                      isStyleTwo: true,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                      ),
+                      centerTextStyle1: const TextStyle(),
+                      leftIconBackgroundColor: Colors.blueAccent,
+                    ),
                   ),
                 ),
-                centerTextStyle1: const TextStyle(),
-                leftIconBackgroundColor: Colors.blueAccent,
-              ),
-            ),
-          ),
         ],
       ),
     );

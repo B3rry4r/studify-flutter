@@ -67,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Center(
           child: Container(
             padding: EdgeInsets.all(
-              screenWidth < 370 ? 30 : 20,
+              screenWidth < 380 ? 30 : 20,
             ),
             child: Column(
               children: [
@@ -77,7 +77,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 Container(
                   padding: const EdgeInsets.only(right: 10),
-                  width: screenWidth < 370 ? 40 : 50,
+                  width: screenWidth < 380 ? 40 : 50,
                   child: Image.asset('assets/images/logo_sign_in.png'),
                 ),
                 const SizedBox(
@@ -85,7 +85,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(30),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white
                         .withOpacity(0.3), // Background color with opacity
@@ -101,81 +104,81 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Text(
                         'Sign In',
                         style: TextStyle(
-                          fontSize: screenWidth < 370 ? 20 : 24,
+                          fontSize: screenWidth < 380 ? 20 : 24,
                           fontWeight: FontWeight.w400,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       CustomTextField(
-                        padding: screenWidth < 370
+                        padding: screenWidth < 380
                             ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                             : const EdgeInsets.fromLTRB(5, 12, 5, 0),
-                        height: screenWidth < 370 ? 30 : 40,
+                        height: screenWidth < 380 ? 30 : 40,
                         textStyle: TextStyle(
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                           color: Colors.white,
                         ),
                         hintText: 'Last Name',
                         hintTextStyle: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                         ),
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       CustomTextField(
-                        padding: screenWidth < 370
+                        padding: screenWidth < 380
                             ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                             : const EdgeInsets.fromLTRB(5, 12, 5, 0),
-                        height: screenWidth < 370 ? 30 : 40,
+                        height: screenWidth < 380 ? 30 : 40,
                         hintText: 'First Name',
                         hintTextStyle: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                         ),
                         textStyle: TextStyle(
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       CustomTextField(
-                        padding: screenWidth < 370
+                        padding: screenWidth < 380
                             ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                             : const EdgeInsets.fromLTRB(5, 12, 5, 0),
-                        height: screenWidth < 370 ? 30 : 40,
+                        height: screenWidth < 380 ? 30 : 40,
                         hintText: 'Enter Your Email',
                         hintTextStyle: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                         ),
                         textStyle: TextStyle(
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       CustomTextField(
-                        padding: screenWidth < 370
+                        padding: screenWidth < 380
                             ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                             : const EdgeInsets.fromLTRB(5, 12, 5, 0),
-                        height: screenWidth < 370 ? 30 : 40,
+                        height: screenWidth < 380 ? 30 : 40,
                         hintText: 'Enter Your Password',
                         hintTextStyle: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                         ),
                         textStyle: TextStyle(
-                          fontSize: screenWidth < 370 ? 11 : 13,
+                          fontSize: screenWidth < 380 ? 11 : 13,
                           color: Colors.white,
                         ),
                         obscureText: true,
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       CustomDropdown(
                         value: selectedRole,
                         items: roles,
@@ -186,7 +189,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           });
                         },
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       InkWell(
                         onTap: () {
                           // Handle sign in
@@ -194,12 +197,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: CustomActionButton(
                           text: 'Sign In',
                           width: 120,
-                          height: screenWidth < 370 ? 30 : 40,
+                          height: screenWidth < 380 ? 30 : 40,
                           backgroundColor: Colors.white,
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -208,7 +211,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             child: Text(
                               'Already Have An Acount?',
                               style: TextStyle(
-                                fontSize: screenWidth < 370 ? 10 : 12,
+                                fontSize: screenWidth < 380 ? 10 : 12,
                                 color: Colors.white,
                               ),
                             ),
@@ -220,7 +223,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: Text(
                                 ' Sign In.',
                                 style: TextStyle(
-                                  fontSize: screenWidth < 370 ? 10 : 12,
+                                  fontSize: screenWidth < 380 ? 10 : 12,
                                   fontWeight: FontWeight.bold,
                                   color: const Color(0xFF0000FF),
                                 ),
@@ -236,7 +239,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       const Text(
                         'Sign In With',
                         style: TextStyle(color: Colors.white, fontSize: 12),
@@ -244,7 +247,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Divider(
                         color: Colors.white.withOpacity(0.6),
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -252,8 +255,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             svgExists: true,
                             svgPath: 'assets/images/google.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
-                            width: screenWidth < 370 ? 40.0 : 60.0,
-                            height: screenWidth < 370 ? 40.0 : 60.0,
+                            width: screenWidth < 380 ? 40.0 : 60.0,
+                            height: screenWidth < 380 ? 40.0 : 60.0,
                           ),
                           const SizedBox(
                             width: 20,
@@ -262,8 +265,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             svgExists: true,
                             svgPath: 'assets/images/facebook.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
-                            width: screenWidth < 370 ? 40.0 : 60.0,
-                            height: screenWidth < 370 ? 40.0 : 60.0,
+                            width: screenWidth < 380 ? 40.0 : 60.0,
+                            height: screenWidth < 380 ? 40.0 : 60.0,
                           ),
                           const SizedBox(
                             width: 20,
@@ -272,16 +275,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             svgExists: true,
                             svgPath: 'assets/images/twitter.svg',
                             backgroundColor: Colors.white.withOpacity(0.4),
-                            width: screenWidth < 370 ? 40.0 : 60.0,
-                            height: screenWidth < 370 ? 40.0 : 60.0,
+                            width: screenWidth < 380 ? 40.0 : 60.0,
+                            height: screenWidth < 380 ? 40.0 : 60.0,
                           ),
                         ],
                       ),
-                      SizedBox(height: screenWidth < 370 ? 15 : 20),
+                      SizedBox(height: screenWidth < 380 ? 15 : 20),
                       CustomActionButton(
                         text: 'Continue As Guest',
                         width: double.infinity,
-                        height: screenWidth < 370 ? 40.0 : 60.0,
+                        height: screenWidth < 380 ? 40.0 : 60.0,
                         backgroundColor: Colors.white.withOpacity(0.4),
                         color: Colors.white,
                       )

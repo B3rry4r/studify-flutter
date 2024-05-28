@@ -25,7 +25,7 @@ class CustomTextRow extends StatelessWidget {
         CustomText(
           leftText,
           fontWeight: FontWeight.bold,
-          fontSize: screenWidth < 370 ? 15 : 18,
+          fontSize: screenWidth < 380 ? 15 : 18,
           color: Colors.black,
         ),
         GestureDetector(
@@ -33,7 +33,7 @@ class CustomTextRow extends StatelessWidget {
           child: CustomText(
             isLeftText ? 'See all' : '',
             fontWeight: FontWeight.w400,
-            fontSize: screenWidth < 370 ? 12 : 14,
+            fontSize: screenWidth < 380 ? 12 : 14,
             color: Colors.blue,
             // decoration: TextDecoration.underline,
           ),

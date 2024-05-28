@@ -26,7 +26,7 @@ class TasksScreen extends StatelessWidget {
               color: Colors.grey.shade300,
               child: CustomText(
                 'Deadlines',
-                fontSize: screenWidth < 370 ? 12 : 14,
+                fontSize: screenWidth < 380 ? 12 : 14,
                 fontWeight: FontWeight.w400,
                 color: Colors.red,
                 fontStyle: FontStyle.italic,
@@ -41,17 +41,17 @@ class TasksScreen extends StatelessWidget {
                 children: [
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.red,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.red,
                     ),
@@ -67,17 +67,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.red,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.red,
                     ),
@@ -93,17 +93,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.red,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.red,
                     ),
@@ -140,22 +140,22 @@ class TasksScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth < 370 ? 0.0 : 20.0),
+                  horizontal: screenWidth < 380 ? 0.0 : 20.0),
               child: Column(
                 children: [
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
@@ -171,17 +171,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
@@ -197,17 +197,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
@@ -223,17 +223,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
@@ -249,17 +249,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
@@ -275,17 +275,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
@@ -301,17 +301,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
@@ -327,17 +327,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
@@ -353,17 +353,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
@@ -379,17 +379,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
@@ -405,17 +405,17 @@ class TasksScreen extends StatelessWidget {
                   ),
                   CustomizableCard(
                     isTextLeft: true,
-                    padding: screenWidth < 370 ? 15 : 20,
+                    padding: screenWidth < 380 ? 15 : 20,
                     isStyleTwo: true,
                     leftText: 'Create Exam Questions',
                     leftTextStyle: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                     rightText1: '10 Jun 2024',
                     rightTextStyle1: TextStyle(
-                      fontSize: screenWidth < 370 ? 10 : 12,
+                      fontSize: screenWidth < 380 ? 10 : 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),

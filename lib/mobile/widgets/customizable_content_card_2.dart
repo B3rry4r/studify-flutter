@@ -30,28 +30,28 @@ class CustomizableCardBig extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircularContainer(
-            width: screenWidth < 370 ? 40 : 50,
-            height: screenWidth < 370 ? 40 : 50,
+            width: screenWidth < 380 ? 40 : 50,
+            height: screenWidth < 380 ? 40 : 50,
             gradientExists: true,
             svgExists: true,
             filter: true,
             svgPath: svgPath,
-            padding: screenWidth < 370 ? 12 : 17,
+            padding: screenWidth < 380 ? 12 : 17,
           ),
           const SizedBox(
             height: 10,
           ),
           CustomText(
             text1,
-            fontSize: screenWidth < 370 ? 14 : 18,
+            fontSize: screenWidth < 380 ? 14 : 18,
             fontWeight: FontWeight.bold,
           ),
           SizedBox(
-            height: screenWidth < 370 ? 0 : 10,
+            height: screenWidth < 380 ? 0 : 10,
           ),
           CustomText(
             text2,
-            fontSize: screenWidth < 370 ? 12 : 14,
+            fontSize: screenWidth < 380 ? 12 : 14,
             fontWeight: FontWeight.w400,
           ),
         ],

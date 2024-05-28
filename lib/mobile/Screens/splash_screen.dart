@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studify/mobile/Screens/sign_in.dart';
 import 'package:studify/mobile/Screens/sign_up.dart';
 import 'package:studify/mobile/components/admin/screens/admin_home.dart';
+import 'package:studify/mobile/components/parents/main_parents.dart';
 import 'package:studify/mobile/components/parents/screens/parents_home.dart';
 import 'package:studify/mobile/components/teachers/main_teachers.dart';
 
@@ -22,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _navigation() async {
     await Future.delayed(
-      const Duration(seconds: 4),
+      const Duration(seconds: 1),
       _checkUserSignedIn,
     );
   }
@@ -37,17 +38,17 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const TeachersMobileScreen()),
         );
-      } else if (role == 'parents') {
+      } else if (role == 'parent') {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeParents()),
+          MaterialPageRoute(builder: (context) => const ParentsMobileScreen()),
         );
       } else if (role == 'admin') {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeAdmin()),
+          MaterialPageRoute(builder: (context) => const TeachersMobileScreen()),
         );
       } else {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const SignUpScreen()),
+          MaterialPageRoute(builder: (context) => const ParentsMobileScreen()),
         );
       }
     } else {
