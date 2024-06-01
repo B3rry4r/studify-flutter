@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:studify/mobile/components/admin/screens/admin_home.dart';
+import 'package:studify/mobile/components/admin/screens/management.dart';
 import 'package:studify/mobile/components/admin/screens/more.dart';
 import 'package:studify/mobile/components/admin/screens/notifications.dart';
 import 'package:studify/mobile/components/admin/screens/profile_screen.dart';
-import 'package:studify/mobile/components/parents/screens/notifications.dart';
+import 'package:studify/mobile/components/admin/screens/students_attendance_screen.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 
 class AdminMobileScreen extends StatefulWidget {
@@ -19,8 +20,8 @@ class _AdminMobileScreenState extends State<AdminMobileScreen> {
 
   final List<Widget> _pages = const [
     HomeAdmins(),
-    HomeAdmins(),
-    HomeAdmins(),
+    ManagementScreen(),
+    StudentsAttendanceAdminScreen(),
     ProfileScreenAdmins(),
     MoreScreenAdmins(),
   ];
@@ -35,6 +36,8 @@ class _AdminMobileScreenState extends State<AdminMobileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -62,18 +65,18 @@ class _AdminMobileScreenState extends State<AdminMobileScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText(
                             'Blessing Davis',
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: screenWidth < 380 ? 17 : 20,
                           ),
                           CustomText(
                             'Admin',
                             fontWeight: FontWeight.w300,
-                            fontSize: 15,
+                            fontSize: screenWidth < 380 ? 12 : 15,
                           ),
                         ],
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studify/mobile/Screens/sign_in.dart';
+import 'package:studify/mobile/components/admin/screens/profile_selection.dart';
 import 'package:studify/mobile/components/parents/screens/paymet_history.dart';
 import 'package:studify/mobile/components/parents/screens/student_attendance_history.dart';
 import 'package:studify/mobile/components/parents/screens/student_results.dart';
@@ -50,10 +51,10 @@ class _MoreScreenAdminsState extends State<MoreScreenAdmins> {
     );
   }
 
-  void _navToStudentsRecords() {
+  void _navToProfiles() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const ParentsStudentsResultScreen(),
+        builder: (context) => const ProfileSelectionAdminScreen(),
       ),
     );
   }
@@ -102,30 +103,12 @@ class _MoreScreenAdminsState extends State<MoreScreenAdmins> {
               ),
             ),
             CustomizableCard(
-              passedFunction: _navToAttendanceHistory,
+              passedFunction: _navToProfiles,
               isTextLeft: true,
               padding: screenWidth < 380 ? 14 : 20,
               padding2: screenWidth < 380 ? 8 : 10,
               isStyleTwo: true,
-              leftText: 'Students Attendance History',
-              leftTextStyle: TextStyle(
-                fontSize: screenWidth < 380 ? 13 : 15,
-                fontWeight: FontWeight.w400,
-              ),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-            ),
-            CustomizableCard(
-              passedFunction: _navToStudentsRecords,
-              isTextLeft: true,
-              padding: screenWidth < 380 ? 14 : 20,
-              padding2: screenWidth < 380 ? 8 : 10,
-              isStyleTwo: true,
-              leftText: 'Students Results/Records',
+              leftText: 'Profiles',
               leftTextStyle: TextStyle(
                 fontSize: screenWidth < 380 ? 13 : 15,
                 fontWeight: FontWeight.w400,

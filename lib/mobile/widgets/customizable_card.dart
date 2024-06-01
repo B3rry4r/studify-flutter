@@ -42,6 +42,7 @@ class CustomizableCard extends StatefulWidget {
   final Widget? expandedContent;
   final bool isGradient;
   final bool isGradient2;
+  final bool isGradient3;
   final bool isStyleTwo;
   final bool isRight;
   final bool isDoublePadding;
@@ -101,6 +102,7 @@ class CustomizableCard extends StatefulWidget {
     this.leftTextStyle,
     this.isGradient = true,
     this.isGradient2 = true,
+    this.isGradient3 = false,
     this.isStyleTwo = false,
     this.isRight = false,
     this.isDoublePadding = false,
@@ -175,16 +177,31 @@ class CustomizableCardState extends State<CustomizableCard>
                                       ),
                                   ],
                                 )
-                              : CircularContainer(
-                                  svgPath: widget.leftIconPath,
-                                  svgExists: true,
-                                  gradientExists: widget.isGradient,
-                                  // filter: widget.isRight,
-                                  padding: widget.padding3,
-                                  backgroundColor:
-                                      widget.leftIconBackgroundColor,
-                                  width: widget.leftIconSize,
-                                  height: widget.leftIconSize,
+                              : ClipOval(
+                                  child: Container(
+                                    padding: const EdgeInsets.all(1),
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color(0xFFFF00FF), // Magenta
+                                          Color(0xFF0000FF), // Blue
+                                        ],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                      ),
+                                    ),
+                                    child: CircularContainer(
+                                      svgPath: widget.leftIconPath,
+                                      svgExists: true,
+                                      gradientExists: widget.isGradient,
+                                      // filter: widget.isRight,
+                                      padding: widget.padding3,
+                                      backgroundColor:
+                                          widget.leftIconBackgroundColor,
+                                      width: widget.leftIconSize,
+                                      height: widget.leftIconSize,
+                                    ),
+                                  ),
                                 ),
                           const SizedBox(width: 10),
                           widget.isSingleCenterText
@@ -302,6 +319,7 @@ class CustomizableCardState extends State<CustomizableCard>
                           width: widget.leftIconSize,
                           height: widget.leftIconSize,
                           padding: widget.padding3,
+                          gradientExists: widget.isGradient3,
                         ),
                         const SizedBox(width: 10),
                         widget.isOverflowingText

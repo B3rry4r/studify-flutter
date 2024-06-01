@@ -36,6 +36,8 @@ class _ParentsMobileScreenState extends State<ParentsMobileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -63,18 +65,18 @@ class _ParentsMobileScreenState extends State<ParentsMobileScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText(
                             'Good Day',
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: screenWidth < 380 ? 17 : 20,
                           ),
                           CustomText(
                             'Mr James',
                             fontWeight: FontWeight.w300,
-                            fontSize: 15,
+                            fontSize: screenWidth < 380 ? 12 : 15,
                           ),
                         ],
                       ),

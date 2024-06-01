@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studify/mobile/main_mobile.dart';
+import 'package:studify/desktop/main_desktop.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +11,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MobileScreen();
+    return const DesktopScreen();
   }
 }
