@@ -312,21 +312,68 @@ class CustomizableCardState extends State<CustomizableCard>
                         ),
                     child: Row(
                       children: [
-                        CircularContainer(
-                          svgPath: widget.leftIconPath,
-                          svgExists: true,
-                          backgroundColor: widget.leftIconBackgroundColor,
-                          width: widget.leftIconSize,
-                          height: widget.leftIconSize,
-                          padding: widget.padding3,
-                          gradientExists: widget.isGradient3,
-                        ),
+                        widget.isTextLeft
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (widget.leftText != null)
+                                    Text(widget.leftText!,
+                                        style: widget.leftTextStyle),
+                                  if (widget.leftText2 != null)
+                                    Text(
+                                      widget.leftText2!,
+                                      style: widget.leftTextStyle2,
+                                    ),
+                                  if (widget.leftText3 != null)
+                                    Text(
+                                      widget.leftText3!,
+                                      style: widget.leftTextStyle3,
+                                    ),
+                                ],
+                              )
+                            : ClipOval(
+                                child: Container(
+                                  padding: const EdgeInsets.all(1),
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFFFF00FF), // Magenta
+                                        Color(0xFF0000FF), // Blue
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
+                                  ),
+                                  child: CircularContainer(
+                                    svgPath: widget.leftIconPath,
+                                    svgExists: true,
+                                    gradientExists: widget.isGradient,
+                                    // filter: widget.isRight,
+                                    padding: widget.padding3,
+                                    backgroundColor:
+                                        widget.leftIconBackgroundColor,
+                                    width: widget.leftIconSize,
+                                    height: widget.leftIconSize,
+                                  ),
+                                ),
+                              ),
                         const SizedBox(width: 10),
+                        widget.isSingleCenterText
+                            ? Flexible(
+                                flex: 1,
+                                child: Container(),
+                              )
+                            : Flexible(
+                                flex: widget.isTextLeft ? 1 : 0,
+                                child: Container(),
+                              ),
                         widget.isOverflowingText
                             ? Container(
                                 width: screenWidth < 380 ? 200 : 250,
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: widget.isSingleCenterText
+                                      ? CrossAxisAlignment.center
+                                      : CrossAxisAlignment.start,
                                   children: [
                                     if (widget.centerText1 != null)
                                       Text(
@@ -350,7 +397,9 @@ class CustomizableCardState extends State<CustomizableCard>
                                 ),
                               )
                             : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: widget.isSingleCenterText
+                                    ? CrossAxisAlignment.center
+                                    : CrossAxisAlignment.start,
                                 children: [
                                   if (widget.centerText1 != null)
                                     Text(widget.centerText1!,
@@ -363,7 +412,17 @@ class CustomizableCardState extends State<CustomizableCard>
                                         style: widget.centerTextStyle3),
                                 ],
                               ),
-                        Flexible(flex: 1, child: Container()),
+                        widget.isSingleCenterText
+                            ? Flexible(
+                                flex: 1,
+                                child: Container(),
+                              )
+                            : Flexible(
+                                flex: widget.isTextLeft ? 0 : 1,
+                                child: Container(
+                                    // width: 5,
+                                    ),
+                              ),
                         widget.isRight
                             ? Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,

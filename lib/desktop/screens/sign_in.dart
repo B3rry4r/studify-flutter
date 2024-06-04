@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studify/common/models/user.dart';
 import 'package:studify/common/services/auth_service.dart';
+import 'package:studify/desktop/components/admin/main_admin.dart';
 import 'package:studify/desktop/screens/sign_up.dart';
 import 'package:studify/mobile/Screens/sign_up.dart';
 import 'package:studify/mobile/components/admin/main_admin.dart';
@@ -62,7 +63,7 @@ class _SignInScreenDesktopState extends State<SignInScreenDesktop> {
         _isLoading = false;
       });
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const AdminMobileScreen()),
+        MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
       );
     } else {
       showNnotification('Invalid Credentials', context);

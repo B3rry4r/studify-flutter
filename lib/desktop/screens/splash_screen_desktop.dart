@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:studify/desktop/components/admin/main_admin.dart';
 import 'package:studify/desktop/screens/sign_in.dart';
+import 'package:studify/mobile/components/parents/main_parents.dart';
+import 'package:studify/mobile/components/teachers/main_teachers.dart';
 
 class SplashScreenDesktop extends StatefulWidget {
   const SplashScreenDesktop({super.key});
@@ -23,37 +26,34 @@ class _SplashScreenDesktopState extends State<SplashScreenDesktop> {
     );
   }
 
-  _checkUserSignedIn() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const SignInScreenDesktop()),
-    );
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // bool userSignedIn = prefs.getBool('userSignedIn') ?? false;
-    // String role = prefs.getString('role') ?? '';
+  _checkUserSignedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool userSignedIn = prefs.getBool('userSignedIn') ?? false;
+    String role = prefs.getString('role') ?? '';
 
-    // if (userSignedIn) {
-    //   if (role == 'teacher') {
-    //     Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(builder: (context) => const TeachersMobileScreen()),
-    //     );
-    //   } else if (role == 'parent') {
-    //     Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(builder: (context) => const ParentsMobileScreen()),
-    //     );
-    //   } else if (role == 'admin') {
-    //     Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(builder: (context) => const AdminMobileScreen()),
-    //     );
-    //   } else {
-    //     Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(builder: (context) => const ParentsMobileScreen()),
-    //     );
-    //   }
-    // } else {
-    //   Navigator.of(context).pushReplacement(
-    //     MaterialPageRoute(builder: (context) => const SignInScreen()),
-    //   );
-    // }
+    if (userSignedIn) {
+      if (role == 'teacher') {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
+        );
+      } else if (role == 'parent') {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
+        );
+      } else if (role == 'admin') {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
+        );
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
+        );
+      }
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const SignInScreenDesktop()),
+      );
+    }
   }
 
   @override
