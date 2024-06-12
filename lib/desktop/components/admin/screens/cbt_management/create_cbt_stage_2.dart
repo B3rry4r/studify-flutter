@@ -22,7 +22,7 @@ class CreateCBTStageTwoAdminScreen extends StatefulWidget {
 class _CreateCBTStageTwoAdminScreenState
     extends State<CreateCBTStageTwoAdminScreen> {
   int currentQuestionIndex = 0;
-  String? selectedNoOfAnswers;
+  String? selectedNoOfAnswers = '4'; // Default number of answers
   final List<String> noOfAnswers = ['2', '3', '4', '5'];
   List<TextEditingController> answerControllers = [];
   String? correctAnswer;
@@ -34,12 +34,30 @@ class _CreateCBTStageTwoAdminScreenState
   String? selectedOccurrenceFrom;
   String? selectedOccurrenceTo;
 
+  List<RangeValues> instructionRanges = [];
+
   @override
   void initState() {
     super.initState();
-    answerControllers = List.generate(5, (_) => TextEditingController());
+    answerControllers = List.generate(4, (_) => TextEditingController());
     availableQuestions =
         List.generate(widget.numberOfQuestions, (index) => index + 1);
+  }
+
+  bool isRangeAvailable(int from, int to) {
+    for (RangeValues range in instructionRanges) {
+      if ((from >= range.start && from <= range.end) ||
+          (to >= range.start && to <= range.end) ||
+          (from <= range.start && to >= range.end)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  void addInstructionRange(int from, int to) {
+    instructionRanges.add(RangeValues(from.toDouble(), to.toDouble()));
+    setState(() {});
   }
 
   void _nextQuestion() {
@@ -113,7 +131,7 @@ class _CreateCBTStageTwoAdminScreenState
                     ),
                     CustomTextField(
                       hintText: 'Type Question ${currentQuestionIndex + 1}...',
-                      maxlines: 6,
+                      maxlines: 7,
                       controller: questionController,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -174,24 +192,33 @@ class _CreateCBTStageTwoAdminScreenState
                         selectedNoOfAnswers != null
                             ? int.parse(selectedNoOfAnswers!)
                             : 0,
-                        (index) => CustomTextField(
-                          hintText: 'Answer ${index + 1}',
-                          controller: answerControllers[index],
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 0.7,
-                            ),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          hintTextStyle: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 13,
-                          ),
-                          textStyle: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 13,
+                        (index) => SizedBox(
+                          child: Column(
+                            children: [
+                              CustomTextField(
+                                hintText: 'Enter Answer ${index + 1}',
+                                controller: answerControllers[index],
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 0.7,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                hintTextStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                ),
+                                textStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -199,33 +226,36 @@ class _CreateCBTStageTwoAdminScreenState
                     const SizedBox(
                       height: 10,
                     ),
-                    CustomDropdown(
-                      value: correctAnswer,
-                      isBlackFontColor: true,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 0.7,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      items: List.generate(
-                          selectedNoOfAnswers != null
-                              ? int.parse(selectedNoOfAnswers!)
-                              : 0,
-                          (index) => (index + 1).toString()),
-                      hint: 'Select Correct Answer',
-                      onChanged: (value) {
-                        setState(() {
-                          correctAnswer = value;
-                        });
-                      },
-                    ),
                   ],
                 ),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          CustomDropdown(
+            value: correctAnswer,
+            isBlackFontColor: true,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.white,
+                width: 0.7,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            items: List.generate(
+                selectedNoOfAnswers != null
+                    ? int.parse(selectedNoOfAnswers!)
+                    : 0,
+                (index) => (index + 1).toString()),
+            hint: 'Select Correct Answer',
+            onChanged: (value) {
+              setState(() {
+                correctAnswer = value;
+              });
+            },
           ),
           const SizedBox(
             height: 15,
@@ -314,6 +344,44 @@ class _CreateCBTStageTwoAdminScreenState
             ],
           ),
           const SizedBox(
+            height: 20,
+          ),
+          if (selectedOccurrenceFrom != null &&
+              selectedOccurrenceTo != null &&
+              isRangeAvailable(int.parse(selectedOccurrenceFrom!),
+                  int.parse(selectedOccurrenceTo!)))
+            Center(
+              child: InkWell(
+                onTap: () {
+                  addInstructionRange(
+                    int.parse(selectedOccurrenceFrom!),
+                    int.parse(selectedOccurrenceTo!),
+                  );
+                  print(instructionRanges);
+                },
+                child: Container(
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      width: 0.7,
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Center(
+                    child: CustomText(
+                      'Set Instructions Range',
+                      color: Colors.black,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          const SizedBox(
             height: 25,
           ),
           Center(
@@ -322,7 +390,11 @@ class _CreateCBTStageTwoAdminScreenState
               child: Row(
                 children: [
                   InkWell(
-                    onTap: _previousQuestion,
+                    onTap: () {
+                      if (currentQuestionIndex > 0) {
+                        _previousQuestion();
+                      }
+                    },
                     child: Container(
                       width: 200,
                       decoration: BoxDecoration(
@@ -334,7 +406,7 @@ class _CreateCBTStageTwoAdminScreenState
                         borderRadius: BorderRadius.circular(10),
                       ),
                       padding: const EdgeInsets.all(10),
-                      child: const Center(
+                      child: Center(
                         child: CustomText(
                           'Previous Question',
                           color: Colors.black,
@@ -349,7 +421,11 @@ class _CreateCBTStageTwoAdminScreenState
                     child: Container(),
                   ),
                   InkWell(
-                    onTap: _nextQuestion,
+                    onTap: () {
+                      if (currentQuestionIndex < widget.numberOfQuestions - 1) {
+                        _nextQuestion();
+                      }
+                    },
                     child: Container(
                       width: 200,
                       decoration: BoxDecoration(
@@ -357,7 +433,7 @@ class _CreateCBTStageTwoAdminScreenState
                         borderRadius: BorderRadius.circular(10),
                       ),
                       padding: const EdgeInsets.all(10),
-                      child: const Center(
+                      child: Center(
                         child: CustomText(
                           'Next Question',
                           color: Colors.white,
@@ -370,7 +446,7 @@ class _CreateCBTStageTwoAdminScreenState
                 ],
               ),
             ),
-          ),
+          )
         ],
       ),
     );
