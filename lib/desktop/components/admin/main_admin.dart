@@ -20,6 +20,7 @@ class AdminDesktopScreen extends StatefulWidget {
 
 class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
   int _currentPage = 0;
+  bool _isNotificationContainerOpen = false;
 
   final List<Widget> _pages = const [
     DashboardAdminScreen(),
@@ -52,6 +53,12 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
         builder: (context) => const SignInScreenDesktop(),
       ),
     );
+  }
+
+  void _displayNotifications() {
+    setState(() {
+      _isNotificationContainerOpen = !_isNotificationContainerOpen;
+    });
   }
 
   @override
@@ -89,11 +96,63 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                     ),
+                    Flexible(
+                      flex: 1,
+                      child: Container(),
+                    ),
+                    GestureDetector(
+                      onTap: _displayNotifications,
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Container(
+                          padding: const EdgeInsets.all(1),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color(0xFFFF00FF), // Magenta
+                                Color(0xFF0000FF), // Blue
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                          ),
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.white,
+                            ),
+                            child: SvgPicture.asset(
+                              'assets/images/notification_G.svg',
+                              height: 10,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
           ),
+          _isNotificationContainerOpen
+              ? Positioned(
+                  top: 60,
+                  right: 20,
+                  child: Material(
+                    elevation: 2.0,
+                    child: Container(
+                      width: 350,
+                      height: 400,
+                      color: Colors.white70,
+                    ),
+                  ),
+                )
+              : Positioned(
+                  right: -50,
+                  child: Container(),
+                ),
           Positioned(
             top: 0,
             left: 0,

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/custom_text_field.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
@@ -11,7 +9,7 @@ class ProfileAdminDesktopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenheight = MediaQuery.of(context).size.height;
+    // double screenheight = MediaQuery.of(context).size.height;
 
     return SingleChildScrollView(
       child: Container(

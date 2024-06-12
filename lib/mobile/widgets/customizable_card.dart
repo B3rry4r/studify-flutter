@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:studify/mobile/widgets/circular_container.dart';
-import 'package:studify/mobile/widgets/custom_text.dart';
 
 class CustomizableCard extends StatefulWidget {
   final String leftIconPath;
