@@ -1,10 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studify/desktop/components/admin/screens/cbt_management.dart';
 import 'package:studify/desktop/components/admin/screens/dashboard.dart';
 import 'package:studify/desktop/components/admin/screens/management.dart';
 import 'package:studify/desktop/components/admin/screens/notifications.dart';
 import 'package:studify/desktop/components/admin/screens/profile.dart';
+import 'package:studify/desktop/screens/sign_in.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 
 class AdminDesktopScreen extends StatefulWidget {
@@ -37,6 +41,17 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
     setState(() {
       _currentPage = index;
     });
+  }
+
+  void _logOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('userSignedIn', false);
+    prefs.remove('role');
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const SignInScreenDesktop(),
+      ),
+    );
   }
 
   @override
@@ -147,6 +162,52 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
                     const SizedBox(
                       height: 10,
                     ),
+
+                    //Logout
+                    Flexible(
+                      flex: 1,
+                      child: Container(),
+                    ),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: _logOut,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: Colors.red.shade400,
+                              width: 1.4,
+                            ),
+                          ),
+                          width: double.infinity,
+                          height: 50,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 12,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/logout_G.svg',
+                                height: 10, // Adjust the size as needed
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              const CustomText(
+                                'Log Out',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

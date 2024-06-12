@@ -6,6 +6,7 @@ class CustomizableCard extends StatefulWidget {
   final String leftIconPath;
   final Color leftIconBackgroundColor;
   final double leftIconSize;
+  final bool isFilterLeftIcon;
 
   final String? leftText2;
   final TextStyle? leftTextStyle2;
@@ -53,10 +54,12 @@ class CustomizableCard extends StatefulWidget {
   final Function()? passedFunction;
   final bool hasDropdown;
   final bool isSingleCenterText;
+  final BoxDecoration? circularContentDecoration;
 
   const CustomizableCard({
     super.key,
     this.leftIconPath = '',
+    this.isFilterLeftIcon = false,
     this.passedFunction,
     this.hasDropdown = false,
     this.leftIconBackgroundColor = Colors.white,
@@ -109,6 +112,7 @@ class CustomizableCard extends StatefulWidget {
     this.isTextLeft = false,
     this.isOverflowingText = false,
     this.isSingleCenterText = false,
+    this.circularContentDecoration,
   });
 
   @override
@@ -334,18 +338,21 @@ class CustomizableCardState extends State<CustomizableCard>
                             : ClipOval(
                                 child: Container(
                                   padding: const EdgeInsets.all(1),
-                                  decoration: const BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xFFFF00FF), // Magenta
-                                        Color(0xFF0000FF), // Blue
-                                      ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                    ),
-                                  ),
+                                  decoration:
+                                      widget.circularContentDecoration ??
+                                          const BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Color(0xFFFF00FF), // Magenta
+                                                Color(0xFF0000FF), // Blue
+                                              ],
+                                              begin: Alignment.topLeft,
+                                              end: Alignment.bottomRight,
+                                            ),
+                                          ),
                                   child: CircularContainer(
                                     svgPath: widget.leftIconPath,
+                                    filter: widget.isFilterLeftIcon,
                                     svgExists: true,
                                     gradientExists: widget.isGradient,
                                     // filter: widget.isRight,
@@ -368,32 +375,35 @@ class CustomizableCardState extends State<CustomizableCard>
                                 child: Container(),
                               ),
                         widget.isOverflowingText
-                            ? Container(
-                                width: screenWidth < 380 ? 200 : 250,
-                                child: Column(
-                                  crossAxisAlignment: widget.isSingleCenterText
-                                      ? CrossAxisAlignment.center
-                                      : CrossAxisAlignment.start,
-                                  children: [
-                                    if (widget.centerText1 != null)
-                                      Text(
-                                        widget.centerText1!,
-                                        style: widget.centerTextStyle1,
-                                        maxLines: 1,
-                                      ),
-                                    if (widget.centerText2 != null)
-                                      Text(
-                                        widget.centerText2!,
-                                        style: widget.centerTextStyle2,
-                                        maxLines: 1,
-                                      ),
-                                    if (widget.centerText3 != null)
-                                      Text(
-                                        widget.centerText3!,
-                                        style: widget.centerTextStyle3,
-                                        maxLines: 1,
-                                      ),
-                                  ],
+                            ? Flexible(
+                                child: Container(
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        widget.isSingleCenterText
+                                            ? CrossAxisAlignment.center
+                                            : CrossAxisAlignment.start,
+                                    children: [
+                                      if (widget.centerText1 != null)
+                                        Text(
+                                          widget.centerText1!,
+                                          style: widget.centerTextStyle1,
+                                          maxLines: 1,
+                                        ),
+                                      if (widget.centerText2 != null)
+                                        Text(
+                                          widget.centerText2!,
+                                          style: widget.centerTextStyle2,
+                                          maxLines: 1,
+                                        ),
+                                      if (widget.centerText3 != null)
+                                        Text(
+                                          widget.centerText3!,
+                                          style: widget.centerTextStyle3,
+                                          maxLines: 1,
+                                        ),
+                                    ],
+                                  ),
                                 ),
                               )
                             : Column(
@@ -412,17 +422,21 @@ class CustomizableCardState extends State<CustomizableCard>
                                         style: widget.centerTextStyle3),
                                 ],
                               ),
-                        widget.isSingleCenterText
-                            ? Flexible(
-                                flex: 1,
-                                child: Container(),
+                        widget.isOverflowingText
+                            ? const SizedBox(
+                                width: 20,
                               )
-                            : Flexible(
-                                flex: widget.isTextLeft ? 0 : 1,
-                                child: Container(
-                                    // width: 5,
-                                    ),
-                              ),
+                            : widget.isSingleCenterText
+                                ? Flexible(
+                                    flex: 1,
+                                    child: Container(),
+                                  )
+                                : Flexible(
+                                    flex: widget.isTextLeft ? 0 : 1,
+                                    child: Container(
+                                        // width: 5,
+                                        ),
+                                  ),
                         widget.isRight
                             ? Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
