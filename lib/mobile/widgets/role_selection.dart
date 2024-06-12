@@ -12,7 +12,8 @@ class CustomDropdown extends StatelessWidget {
   final bool isPadding;
   final TextStyle? style;
   final double? height;
-  // final BoxDecoration? decoration;
+  final BoxDecoration? decoration;
+  final bool isBlackFontColor;
 
   const CustomDropdown({
     super.key,
@@ -25,6 +26,8 @@ class CustomDropdown extends StatelessWidget {
     this.height,
     this.isPadding = false,
     this.isStyleTwo = false,
+    this.isBlackFontColor = false,
+    this.decoration,
     this.borderRadius = const BorderRadius.all(Radius.circular(0)),
     this.gradient = const LinearGradient(
       colors: [
@@ -159,17 +162,18 @@ class CustomDropdown extends StatelessWidget {
             height: screenWidth < 380 ? 30 : 40,
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(40),
-            ),
+            decoration: decoration ??
+                BoxDecoration(
+                  color: Colors.black.withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(40),
+                ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
                 value: value,
                 hint: Text(
                   hint,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: isBlackFontColor ? Colors.black : Colors.white,
                     fontSize: screenWidth < 380 ? 10 : 12,
                     fontWeight: FontWeight.w300,
                   ),
@@ -182,18 +186,21 @@ class CustomDropdown extends StatelessWidget {
                       role,
                       style: TextStyle(
                           fontSize: screenWidth < 380 ? 10 : 12,
+                          // color: isBlackFontColor ? Colors.black : Colors.white,
                           fontWeight: FontWeight.w300),
                     ),
                   );
                 }).toList(),
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: isBlackFontColor ? Colors.black : Colors.white,
                   fontSize: 16,
                 ),
-                dropdownColor: Colors.black.withOpacity(0.7),
+                dropdownColor: isBlackFontColor
+                    ? Colors.white
+                    : Colors.black.withOpacity(0.7),
                 icon: Icon(
                   Icons.keyboard_arrow_down_rounded,
-                  color: Colors.white,
+                  color: isBlackFontColor ? Colors.black : Colors.white,
                   size: screenWidth < 380 ? 12 : 14,
                 ),
                 isExpanded: true,

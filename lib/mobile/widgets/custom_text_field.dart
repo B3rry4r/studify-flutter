@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final TextStyle? hintTextStyle;
   final EdgeInsets? padding;
   final double? height;
+  final int? maxlines;
 
   const CustomTextField({
     super.key,
@@ -20,13 +21,18 @@ class CustomTextField extends StatelessWidget {
     this.hintTextStyle,
     this.padding,
     this.height,
+    this.maxlines,
   });
 
   @override
   Widget build(BuildContext context) {
+    final adjustedPadding = maxlines != null && maxlines! > 1
+        ? const EdgeInsets.all(2)
+        : padding ?? const EdgeInsets.fromLTRB(5, 12, 5, 0);
+
     return Container(
-      padding: padding ?? const EdgeInsets.fromLTRB(5, 12, 5, 0),
-      height: height ?? 40,
+      padding: adjustedPadding,
+      height: height ?? (maxlines == null || maxlines == 1 ? 40 : null),
       width: double.infinity,
       decoration: decoration ??
           BoxDecoration(
@@ -37,6 +43,7 @@ class CustomTextField extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         cursorHeight: 20,
+        maxLines: maxlines ?? 1,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: hintTextStyle ??

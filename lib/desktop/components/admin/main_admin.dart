@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:studify/desktop/components/admin/screens/cbt_management.dart';
 import 'package:studify/desktop/components/admin/screens/dashboard.dart';
+import 'package:studify/desktop/components/admin/screens/management.dart';
+import 'package:studify/desktop/components/admin/screens/notifications.dart';
 import 'package:studify/desktop/components/admin/screens/profile.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 
@@ -17,11 +20,17 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
   final List<Widget> _pages = const [
     DashboardAdminScreen(),
     ProfileAdminDesktopScreen(),
+    ManagementAdminScreen(),
+    CBTAdminManagementScreen(),
+    NotificationsAdminScreen(),
   ];
 
   final List<String> _pageTitles = [
     'Dashboard',
     'Profile',
+    'Management',
+    'CBT-Management',
+    'Notifications',
   ];
 
   void _updatePage(int index) {
@@ -110,6 +119,33 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
                       iconPath: 'assets/images/profile_G.svg',
                       title: 'Profile',
                       index: 1,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _buildNavItem(
+                      iconPath: 'assets/images/management_G.svg',
+                      title: 'Management',
+                      index: 2,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _buildNavItem(
+                      iconPath: 'assets/images/CBT_G.svg',
+                      title: 'CBT-Management',
+                      index: 3,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _buildNavItem(
+                      iconPath: 'assets/images/notification_G.svg',
+                      title: 'Notifications',
+                      index: 4,
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                   ],
                 ),

@@ -13,7 +13,6 @@ void main() async {
     windowManager.setMinimumSize(const Size(1200, 800));
     runApp(const MyApp());
   } else {
-    print('object');
     runApp(const MyApp());
   }
 }
