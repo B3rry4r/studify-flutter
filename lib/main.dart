@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studify/desktop/components/admin/utils/app_view_model.dart';
 import 'package:studify/desktop/main_desktop.dart';
 import 'package:studify/mobile/main_mobile.dart';
 import 'package:window_manager/window_manager.dart';
@@ -11,9 +13,19 @@ void main() async {
   if (!isWeb() && isDesktop()) {
     await windowManager.ensureInitialized();
     windowManager.setMinimumSize(const Size(1200, 800));
-    runApp(const MyApp());
+    runApp(
+      ChangeNotifierProvider(
+        create: (context) => AppViewModel(),
+        child: const MyApp(),
+      ),
+    );
   } else {
-    runApp(const MyApp());
+    runApp(
+      ChangeNotifierProvider(
+        create: (context) => AppViewModel(),
+        child: const MyApp(),
+      ),
+    );
   }
 }
 

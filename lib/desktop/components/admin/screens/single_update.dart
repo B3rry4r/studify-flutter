@@ -3,13 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:studify/desktop/components/admin/utils/app_view_model.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 
-class SingleNotificationAdminScreen extends StatelessWidget {
-  const SingleNotificationAdminScreen({super.key});
+class SingleUpdateAdminDesktopScreen extends StatelessWidget {
+  const SingleUpdateAdminDesktopScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var notificationViewModel =
-        Provider.of<AppViewModel>(context, listen: false);
+    var updateViewModel = Provider.of<AppViewModel>(context, listen: false);
 
     return SingleChildScrollView(
       child: Column(
@@ -28,17 +27,37 @@ class SingleNotificationAdminScreen extends StatelessWidget {
                     Icons.arrow_back_ios,
                     size: 10,
                   ),
-                  onPressed: notificationViewModel.viewDefaultNotification,
+                  onPressed: updateViewModel.viewDefaultUpdate,
                 ),
                 const SizedBox(
                   width: 20,
                 ),
                 const CustomText(
-                  'New Notification',
+                  'New Update',
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
               ],
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+            padding: const EdgeInsets.all(10),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                'assets/images/signin.png',
+                width: double.infinity,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(

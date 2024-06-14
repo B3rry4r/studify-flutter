@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ResponsiveGrid extends StatelessWidget {
   final List<Widget> items;
   bool isType2;
+  bool isType3;
 
   ResponsiveGrid({
     required this.items,
     super.key,
     this.isType2 = false,
+    this.isType3 = false,
   });
 
   @override
@@ -17,6 +19,14 @@ class ResponsiveGrid extends StatelessWidget {
 
     if (isType2) {
       if (screenWidth >= 1200) {
+        columns = 2;
+      } else {
+        columns = 1;
+      }
+    } else if (isType3) {
+      if (screenWidth >= 1200) {
+        columns = 3;
+      } else if (screenWidth >= 800) {
         columns = 2;
       } else {
         columns = 1;

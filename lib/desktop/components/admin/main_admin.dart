@@ -1,6 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:studify/desktop/components/admin/screens/financial_management.dart';
+import 'package:studify/desktop/components/admin/screens/settings.dart';
+import 'package:studify/desktop/components/admin/screens/updates.dart';
+import 'package:studify/mobile/widgets/customizable_card.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studify/desktop/components/admin/screens/cbt_management.dart';
@@ -10,6 +12,8 @@ import 'package:studify/desktop/components/admin/screens/notifications.dart';
 import 'package:studify/desktop/components/admin/screens/profile.dart';
 import 'package:studify/desktop/screens/sign_in.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
+import 'package:provider/provider.dart';
+import 'package:studify/desktop/components/admin/utils/app_view_model.dart';
 
 class AdminDesktopScreen extends StatefulWidget {
   const AdminDesktopScreen({super.key});
@@ -28,6 +32,9 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
     ManagementAdminScreen(),
     CBTAdminManagementScreen(),
     NotificationsAdminScreen(),
+    UpdatesAdminDesktopScreen(),
+    FinancialManagementDesktopAdminScreen(),
+    SettingsDesktopScreen(),
   ];
 
   final List<String> _pageTitles = [
@@ -36,6 +43,9 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
     'Management',
     'CBT-Management',
     'Notifications',
+    'Updates',
+    'Financial Management',
+    'Settings',
   ];
 
   void _updatePage(int index) {
@@ -61,8 +71,20 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
     });
   }
 
+  void _viewSingleNotification() {
+    var notificationViewModel =
+        Provider.of<AppViewModel>(context, listen: false);
+    notificationViewModel.viewSingleNotification();
+    setState(() {
+      _isNotificationContainerOpen = !_isNotificationContainerOpen;
+      _currentPage = 4;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    // var notificationViewModel = Provider.of<NotificationViewModel>(context);
+
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -145,7 +167,437 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
                     child: Container(
                       width: 350,
                       height: 400,
-                      color: Colors.white70,
+                      padding: const EdgeInsets.all(1),
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0xFFFF00FF), // Magenta
+                            Color(0xFF0000FF), // Blue
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
+                      child: Container(
+                        color: Colors.white,
+                        padding: const EdgeInsets.all(5),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              CustomizableCard(
+                                passedFunction: _viewSingleNotification,
+                                leftIconBackgroundColor: Colors.black,
+                                isGradient: false,
+                                circularContentDecoration: const BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                leftIconPath: 'assets/images/profile.svg',
+                                isFilterLeftIcon: true,
+                                leftIconSize: 40,
+                                padding3: 10,
+                                centerText1: 'Admin',
+                                centerText2: 'Ada George Branch',
+                                centerText3:
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus labore enim, soluta hic quod fugiat dolores odit nam eligendi magnam. At ipsum esse repellat illo exercitationem, quisquam ea ratione minima optio, libero voluptate neque, amet officia expedita. Suscipit, repudiandae reprehenderit?',
+                                centerTextStyle1: const TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                                centerTextStyle2: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                centerTextStyle3: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                isOverflowingText: true,
+                                rightText1: '30 Mins Ago',
+                                rightTextStyle1: const TextStyle(
+                                  fontSize: 10,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              CustomizableCard(
+                                passedFunction: _viewSingleNotification,
+                                leftIconBackgroundColor: Colors.black,
+                                isGradient: false,
+                                circularContentDecoration: const BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                leftIconPath: 'assets/images/profile.svg',
+                                isFilterLeftIcon: true,
+                                leftIconSize: 40,
+                                padding3: 10,
+                                centerText1: 'Admin',
+                                centerText2: 'Ada George Branch',
+                                centerText3:
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus labore enim, soluta hic quod fugiat dolores odit nam eligendi magnam. At ipsum esse repellat illo exercitationem, quisquam ea ratione minima optio, libero voluptate neque, amet officia expedita. Suscipit, repudiandae reprehenderit?',
+                                centerTextStyle1: const TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                                centerTextStyle2: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                centerTextStyle3: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                isOverflowingText: true,
+                                rightText1: '30 Mins Ago',
+                                rightTextStyle1: const TextStyle(
+                                  fontSize: 10,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              CustomizableCard(
+                                passedFunction: _viewSingleNotification,
+                                leftIconBackgroundColor: Colors.black,
+                                isGradient: false,
+                                circularContentDecoration: const BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                leftIconPath: 'assets/images/profile.svg',
+                                isFilterLeftIcon: true,
+                                leftIconSize: 40,
+                                padding3: 10,
+                                centerText1: 'Admin',
+                                centerText2: 'Ada George Branch',
+                                centerText3:
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus labore enim, soluta hic quod fugiat dolores odit nam eligendi magnam. At ipsum esse repellat illo exercitationem, quisquam ea ratione minima optio, libero voluptate neque, amet officia expedita. Suscipit, repudiandae reprehenderit?',
+                                centerTextStyle1: const TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                                centerTextStyle2: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                centerTextStyle3: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                isOverflowingText: true,
+                                rightText1: '30 Mins Ago',
+                                rightTextStyle1: const TextStyle(
+                                  fontSize: 10,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              CustomizableCard(
+                                passedFunction: _viewSingleNotification,
+                                leftIconBackgroundColor: Colors.black,
+                                isGradient: false,
+                                circularContentDecoration: const BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                leftIconPath: 'assets/images/profile.svg',
+                                isFilterLeftIcon: true,
+                                leftIconSize: 40,
+                                padding3: 10,
+                                centerText1: 'Admin',
+                                centerText2: 'Ada George Branch',
+                                centerText3:
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus labore enim, soluta hic quod fugiat dolores odit nam eligendi magnam. At ipsum esse repellat illo exercitationem, quisquam ea ratione minima optio, libero voluptate neque, amet officia expedita. Suscipit, repudiandae reprehenderit?',
+                                centerTextStyle1: const TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                                centerTextStyle2: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                centerTextStyle3: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                isOverflowingText: true,
+                                rightText1: '30 Mins Ago',
+                                rightTextStyle1: const TextStyle(
+                                  fontSize: 10,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              CustomizableCard(
+                                passedFunction: _viewSingleNotification,
+                                leftIconBackgroundColor: Colors.black,
+                                isGradient: false,
+                                circularContentDecoration: const BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                leftIconPath: 'assets/images/profile.svg',
+                                isFilterLeftIcon: true,
+                                leftIconSize: 40,
+                                padding3: 10,
+                                centerText1: 'Admin',
+                                centerText2: 'Ada George Branch',
+                                centerText3:
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus labore enim, soluta hic quod fugiat dolores odit nam eligendi magnam. At ipsum esse repellat illo exercitationem, quisquam ea ratione minima optio, libero voluptate neque, amet officia expedita. Suscipit, repudiandae reprehenderit?',
+                                centerTextStyle1: const TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                                centerTextStyle2: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                centerTextStyle3: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                isOverflowingText: true,
+                                rightText1: '30 Mins Ago',
+                                rightTextStyle1: const TextStyle(
+                                  fontSize: 10,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              CustomizableCard(
+                                passedFunction: _viewSingleNotification,
+                                leftIconBackgroundColor: Colors.black,
+                                isGradient: false,
+                                circularContentDecoration: const BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                leftIconPath: 'assets/images/profile.svg',
+                                isFilterLeftIcon: true,
+                                leftIconSize: 40,
+                                padding3: 10,
+                                centerText1: 'Admin',
+                                centerText2: 'Ada George Branch',
+                                centerText3:
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus labore enim, soluta hic quod fugiat dolores odit nam eligendi magnam. At ipsum esse repellat illo exercitationem, quisquam ea ratione minima optio, libero voluptate neque, amet officia expedita. Suscipit, repudiandae reprehenderit?',
+                                centerTextStyle1: const TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                                centerTextStyle2: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                centerTextStyle3: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                isOverflowingText: true,
+                                rightText1: '30 Mins Ago',
+                                rightTextStyle1: const TextStyle(
+                                  fontSize: 10,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              CustomizableCard(
+                                passedFunction: _viewSingleNotification,
+                                leftIconBackgroundColor: Colors.black,
+                                isGradient: false,
+                                circularContentDecoration: const BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                leftIconPath: 'assets/images/profile.svg',
+                                isFilterLeftIcon: true,
+                                leftIconSize: 40,
+                                padding3: 10,
+                                centerText1: 'Admin',
+                                centerText2: 'Ada George Branch',
+                                centerText3:
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus labore enim, soluta hic quod fugiat dolores odit nam eligendi magnam. At ipsum esse repellat illo exercitationem, quisquam ea ratione minima optio, libero voluptate neque, amet officia expedita. Suscipit, repudiandae reprehenderit?',
+                                centerTextStyle1: const TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                                centerTextStyle2: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                centerTextStyle3: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                isOverflowingText: true,
+                                rightText1: '30 Mins Ago',
+                                rightTextStyle1: const TextStyle(
+                                  fontSize: 10,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              CustomizableCard(
+                                passedFunction: _viewSingleNotification,
+                                leftIconBackgroundColor: Colors.black,
+                                isGradient: false,
+                                circularContentDecoration: const BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                leftIconPath: 'assets/images/profile.svg',
+                                isFilterLeftIcon: true,
+                                leftIconSize: 40,
+                                padding3: 10,
+                                centerText1: 'Admin',
+                                centerText2: 'Ada George Branch',
+                                centerText3:
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus labore enim, soluta hic quod fugiat dolores odit nam eligendi magnam. At ipsum esse repellat illo exercitationem, quisquam ea ratione minima optio, libero voluptate neque, amet officia expedita. Suscipit, repudiandae reprehenderit?',
+                                centerTextStyle1: const TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                                centerTextStyle2: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                centerTextStyle3: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                isOverflowingText: true,
+                                rightText1: '30 Mins Ago',
+                                rightTextStyle1: const TextStyle(
+                                  fontSize: 10,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              CustomizableCard(
+                                passedFunction: _viewSingleNotification,
+                                leftIconBackgroundColor: Colors.black,
+                                isGradient: false,
+                                circularContentDecoration: const BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                leftIconPath: 'assets/images/profile.svg',
+                                isFilterLeftIcon: true,
+                                leftIconSize: 40,
+                                padding3: 10,
+                                centerText1: 'Admin',
+                                centerText2: 'Ada George Branch',
+                                centerText3:
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus labore enim, soluta hic quod fugiat dolores odit nam eligendi magnam. At ipsum esse repellat illo exercitationem, quisquam ea ratione minima optio, libero voluptate neque, amet officia expedita. Suscipit, repudiandae reprehenderit?',
+                                centerTextStyle1: const TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                                centerTextStyle2: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                centerTextStyle3: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                isOverflowingText: true,
+                                rightText1: '30 Mins Ago',
+                                rightTextStyle1: const TextStyle(
+                                  fontSize: 10,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              CustomizableCard(
+                                passedFunction: _viewSingleNotification,
+                                leftIconBackgroundColor: Colors.black,
+                                isGradient: false,
+                                circularContentDecoration: const BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                leftIconPath: 'assets/images/profile.svg',
+                                isFilterLeftIcon: true,
+                                leftIconSize: 40,
+                                padding3: 10,
+                                centerText1: 'Admin',
+                                centerText2: 'Ada George Branch',
+                                centerText3:
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus labore enim, soluta hic quod fugiat dolores odit nam eligendi magnam. At ipsum esse repellat illo exercitationem, quisquam ea ratione minima optio, libero voluptate neque, amet officia expedita. Suscipit, repudiandae reprehenderit?',
+                                centerTextStyle1: const TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                                centerTextStyle2: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                centerTextStyle3: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                isOverflowingText: true,
+                                rightText1: '30 Mins Ago',
+                                rightTextStyle1: const TextStyle(
+                                  fontSize: 10,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 )
@@ -160,9 +612,11 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
               child: Container(
                 height: screenHeight,
                 width: 220,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 25,
-                  horizontal: 10,
+                padding: const EdgeInsets.only(
+                  top: 25,
+                  left: 10,
+                  right: 10,
+                  bottom: 10,
                 ),
                 child: Column(
                   children: [
@@ -172,14 +626,14 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
+                          horizontal: 30, vertical: 5),
                       child: Divider(
                         color: Colors.grey.shade300,
                       ),
                     ),
                     // LeftSide Nav Bar
                     const SizedBox(
-                      height: 10,
+                      height: 2,
                     ),
                     _buildNavItem(
                       iconPath: 'assets/images/home_G.svg',
@@ -221,6 +675,30 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
                     const SizedBox(
                       height: 10,
                     ),
+                    _buildNavItem(
+                      iconPath: 'assets/images/Updates.svg',
+                      title: 'Updates',
+                      index: 5,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _buildNavItem(
+                      iconPath: 'assets/images/waller_G.svg',
+                      title: 'Financial Management',
+                      index: 6,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _buildNavItem(
+                      iconPath: 'assets/images/settings_G.svg',
+                      title: 'Settings',
+                      index: 7,
+                    ),
+                    const SizedBox(
+                        // height: 10,
+                        ),
 
                     //Logout
                     Flexible(
