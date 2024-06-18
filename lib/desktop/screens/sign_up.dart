@@ -32,6 +32,7 @@ class _SignUpScreenDesktopState extends State<SignUpScreenDesktop> {
 
     return Scaffold(
         body: Stack(
+      clipBehavior: Clip.none,
       children: [
         Positioned.fill(
           child: Image.asset(

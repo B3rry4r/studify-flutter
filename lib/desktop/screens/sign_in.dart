@@ -82,6 +82,7 @@ class _SignInScreenDesktopState extends State<SignInScreenDesktop> {
 
     return Scaffold(
         body: Stack(
+      clipBehavior: Clip.none,
       children: [
         Positioned.fill(
           child: Image.asset(
