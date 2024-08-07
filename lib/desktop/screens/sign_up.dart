@@ -1,10 +1,15 @@
 import 'dart:ui';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:studify/common/services/auth_service.dart';
+import 'package:studify/desktop/components/admin/main_admin.dart';
 import 'package:studify/desktop/screens/sign_in.dart';
-import 'package:studify/mobile/Screens/sign_in.dart';
 import 'package:studify/mobile/widgets/action_button.dart';
 import 'package:studify/mobile/widgets/circular_container.dart';
 import 'package:studify/mobile/widgets/custom_text_field.dart';
+import 'package:studify/mobile/widgets/in_app_notifications.dart';
 import 'package:studify/mobile/widgets/role_selection.dart';
 
 class SignUpScreenDesktop extends StatefulWidget {
@@ -15,8 +20,14 @@ class SignUpScreenDesktop extends StatefulWidget {
 }
 
 class _SignUpScreenDesktopState extends State<SignUpScreenDesktop> {
+  bool _isLoading = false;
   String? selectedRole;
   final List<String> roles = ['Parent', 'Teacher', 'Admin'];
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
 
   void _navigateToSignIn() {
     Navigator.of(context).push(
@@ -24,6 +35,78 @@ class _SignUpScreenDesktopState extends State<SignUpScreenDesktop> {
         builder: (context) => const SignInScreenDesktop(),
       ),
     );
+  }
+
+  Future<void> _handleSignUp() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final String firstName = firstNameController.text;
+    final String lastName = lastNameController.text;
+    final String password = passwordController.text;
+    final String email = emailController.text;
+
+    // Create the JSON payload
+    final Map<String, dynamic> userData = {
+      'firstName': firstName,
+      'lastName': lastName,
+      'password': password,
+      'email': email,
+      'role': selectedRole,
+      'profileImage': 'newUser',
+      // Add more fields as needed
+    };
+
+    // Convert the JSON payload to string
+    final String requestBody = jsonEncode(userData);
+
+    // Send POST request to register endpoint
+    final Uri url = Uri.parse('http://localhost:5000/api/auth/register');
+    final http.Response response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: requestBody,
+    );
+
+    // Check if registration was successful
+    if (response.statusCode == 201) {
+      await _authService
+          .saveUserDataToSharedPreferences(jsonDecode(response.body));
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final String? role = responseData['role'];
+      if (role == 'Admin') {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
+          (Route<dynamic> route) => false,
+        );
+      } else if (role == 'Teacher') {
+        setState(() {
+          _isLoading = false;
+        });
+        _navigateToSignIn();
+      } else if (role == 'Parent') {
+        setState(() {
+          _isLoading = false;
+        });
+        _navigateToSignIn();
+      }
+    } else {
+      setState(() {
+        _isLoading = true;
+      });
+      // Registration failed, handle error
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final String errorMessage = responseData['message'];
+      showNnotification(errorMessage, context);
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -117,6 +200,7 @@ class _SignUpScreenDesktopState extends State<SignUpScreenDesktop> {
                         children: [
                           Flexible(
                             child: CustomTextField(
+                              controller: firstNameController,
                               padding: screenWidth < 380
                                   ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                                   : const EdgeInsets.fromLTRB(5, 12, 5, 0),
@@ -125,7 +209,7 @@ class _SignUpScreenDesktopState extends State<SignUpScreenDesktop> {
                                 fontSize: screenWidth < 380 ? 11 : 13,
                                 color: Colors.white,
                               ),
-                              hintText: 'Last Name',
+                              hintText: 'First Name',
                               hintTextStyle: TextStyle(
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
@@ -136,11 +220,12 @@ class _SignUpScreenDesktopState extends State<SignUpScreenDesktop> {
                           SizedBox(width: screenWidth < 380 ? 15 : 20),
                           Flexible(
                             child: CustomTextField(
+                              controller: lastNameController,
                               padding: screenWidth < 380
                                   ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                                   : const EdgeInsets.fromLTRB(5, 12, 5, 0),
                               height: screenWidth < 380 ? 30 : 40,
-                              hintText: 'First Name',
+                              hintText: 'Last Name',
                               hintTextStyle: TextStyle(
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
@@ -159,6 +244,7 @@ class _SignUpScreenDesktopState extends State<SignUpScreenDesktop> {
                         children: [
                           Flexible(
                             child: CustomTextField(
+                              controller: emailController,
                               padding: screenWidth < 380
                                   ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                                   : const EdgeInsets.fromLTRB(5, 12, 5, 0),
@@ -167,7 +253,7 @@ class _SignUpScreenDesktopState extends State<SignUpScreenDesktop> {
                                 fontSize: screenWidth < 380 ? 11 : 13,
                                 color: Colors.white,
                               ),
-                              hintText: 'Last Name',
+                              hintText: 'Email',
                               hintTextStyle: TextStyle(
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
@@ -178,11 +264,12 @@ class _SignUpScreenDesktopState extends State<SignUpScreenDesktop> {
                           SizedBox(width: screenWidth < 380 ? 15 : 20),
                           Flexible(
                             child: CustomTextField(
+                              controller: passwordController,
                               padding: screenWidth < 380
                                   ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                                   : const EdgeInsets.fromLTRB(5, 12, 5, 0),
                               height: screenWidth < 380 ? 30 : 40,
-                              hintText: 'First Name',
+                              hintText: 'Password',
                               hintTextStyle: TextStyle(
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
@@ -209,11 +296,10 @@ class _SignUpScreenDesktopState extends State<SignUpScreenDesktop> {
                       ),
                       SizedBox(height: screenWidth < 380 ? 15 : 20),
                       InkWell(
-                        onTap: () {
-                          // Handle sign in
-                        },
+                        onTap: _handleSignUp,
                         child: CustomActionButton(
                           text: 'Sign Up',
+                          loader: _isLoading,
                           width: 120,
                           height: screenWidth < 380 ? 30 : 40,
                           backgroundColor: Colors.white,

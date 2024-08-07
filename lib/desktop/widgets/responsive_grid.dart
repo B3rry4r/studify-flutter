@@ -48,7 +48,7 @@ class ResponsiveGrid extends StatelessWidget {
         crossAxisCount: columns,
         crossAxisSpacing: 40,
         mainAxisSpacing: 20,
-        childAspectRatio: 1.5, // Adjust the aspect ratio as needed
+        childAspectRatio: 1.4, // Adjust the aspect ratio as needed
       ),
       itemCount: items.length,
       itemBuilder: (context, index) {

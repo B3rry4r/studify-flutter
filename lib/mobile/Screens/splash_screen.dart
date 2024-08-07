@@ -4,6 +4,7 @@ import 'package:studify/mobile/Screens/sign_in.dart';
 import 'package:studify/mobile/components/admin/main_admin.dart';
 import 'package:studify/mobile/components/parents/main_parents.dart';
 import 'package:studify/mobile/components/teachers/main_teachers.dart';
+import 'dart:convert';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -28,26 +29,42 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _checkUserSignedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool userSignedIn = prefs.getBool('userSignedIn') ?? false;
-    String role = prefs.getString('role') ?? '';
+    final String userDataString = prefs.getString('userData') ?? 'null';
+    Map<String, dynamic>? userData;
+    String? role;
+    String? name;
 
-    if (userSignedIn) {
-      if (role == 'teacher') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const TeachersMobileScreen()),
-        );
-      } else if (role == 'parent') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const ParentsMobileScreen()),
-        );
-      } else if (role == 'admin') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const AdminMobileScreen()),
-        );
-      } else {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const ParentsMobileScreen()),
-        );
+    if (userDataString != 'null') {
+      userData = jsonDecode(userDataString) as Map<String, dynamic>;
+    }
+
+    if (userData != null) {
+      role = userData['role'];
+      name = userData['name'];
+      if (role != null) {
+        if (role == 'Teacher') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) => const TeachersMobileScreen()),
+          );
+        } else if (role == 'Parent') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) => const ParentsMobileScreen()),
+          );
+        } else if (role == 'Admin') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) => AdminMobileScreen(
+                      name: name,
+                      role: role,
+                    )),
+          );
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const SignInScreen()),
+          );
+        }
       }
     } else {
       Navigator.of(context).pushReplacement(

@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:ui';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,8 +26,10 @@ class SignInScreenDesktop extends StatefulWidget {
 }
 
 class _SignInScreenDesktopState extends State<SignInScreenDesktop> {
-  final AuthService _authService = AuthService();
   bool _isLoading = false;
+  final AuthService _authService = AuthService();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   void navigateToSignUp() {
     Navigator.of(context).push(
@@ -35,45 +39,70 @@ class _SignInScreenDesktopState extends State<SignInScreenDesktop> {
     );
   }
 
-  void loginUser() async {
+  Future<void> _handleSignIn() async {
     setState(() {
       _isLoading = true;
     });
-    User res = await _authService.login('admin', '0932032849');
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('userSignedIn', true);
-    prefs.setString('role', res.role);
+    final String password = passwordController.text;
+    final String email = emailController.text;
 
-    if (res.role == 'teacher') {
-      setState(() {
-        _isLoading = false;
-      });
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const TeachersMobileScreen()),
-      );
-    } else if (res.role == 'parent') {
-      setState(() {
-        _isLoading = false;
-      });
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const ParentsMobileScreen()),
-      );
-    } else if (res.role == 'admin') {
-      setState(() {
-        _isLoading = false;
-      });
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
-      );
+    // Create the JSON payload
+    final Map<String, dynamic> userData = {
+      'password': password,
+      'email': email,
+      // Add more fields as needed
+    };
+
+    // Convert the JSON payload to string
+    final String requestBody = jsonEncode(userData);
+
+    // Send POST request to register endpoint
+    final Uri url = Uri.parse('http://localhost:5000/api/auth/login');
+    final http.Response response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: requestBody,
+    );
+
+    // Check if login was successful
+    if (response.statusCode == 200) {
+      await _authService
+          .saveUserDataToSharedPreferences(jsonDecode(response.body));
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final String? role = responseData['role'];
+      if (role == 'Admin') {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
+          (Route<dynamic> route) => false,
+        );
+      } else if (role == 'Teacher') {
+        setState(() {
+          _isLoading = false;
+        });
+        navigateToSignUp();
+      } else if (role == 'Parent') {
+        setState(() {
+          _isLoading = false;
+        });
+        navigateToSignUp();
+      }
     } else {
-      showNnotification('Invalid Credentials', context);
+      setState(() {
+        _isLoading = true;
+      });
+      // Registration failed, handle error
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final String errorMessage = responseData['message'];
+      showNnotification(errorMessage, context);
       setState(() {
         _isLoading = false;
       });
     }
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
@@ -160,6 +189,7 @@ class _SignInScreenDesktopState extends State<SignInScreenDesktop> {
                             : const EdgeInsets.fromLTRB(5, 12, 5, 0),
                         height: screenWidth < 380 ? 30 : 40,
                         hintText: 'Enter Your Email',
+                        controller: emailController,
                         hintTextStyle: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
@@ -177,6 +207,7 @@ class _SignInScreenDesktopState extends State<SignInScreenDesktop> {
                             : const EdgeInsets.fromLTRB(5, 12, 5, 0),
                         height: screenWidth < 380 ? 30 : 40,
                         hintText: 'Enter Your Password',
+                        controller: passwordController,
                         hintTextStyle: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
@@ -190,9 +221,10 @@ class _SignInScreenDesktopState extends State<SignInScreenDesktop> {
                       ),
                       const SizedBox(height: 20),
                       InkWell(
-                        onTap: loginUser,
+                        onTap: _handleSignIn,
                         child: CustomActionButton(
                           text: 'Sign In',
+                          loader: _isLoading,
                           width: 120,
                           height: screenWidth < 380 ? 25 : 35,
                           backgroundColor: Colors.white,

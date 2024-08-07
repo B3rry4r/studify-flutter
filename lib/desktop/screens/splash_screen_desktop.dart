@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:studify/common/services/auth_service.dart';
 import 'package:studify/desktop/components/admin/main_admin.dart';
 import 'package:studify/desktop/screens/sign_in.dart';
 import 'package:studify/mobile/components/parents/main_parents.dart';
@@ -13,6 +15,8 @@ class SplashScreenDesktop extends StatefulWidget {
 }
 
 class _SplashScreenDesktopState extends State<SplashScreenDesktop> {
+  final AuthService _authService = AuthService();
+
   @override
   void initState() {
     super.initState();
@@ -28,26 +32,34 @@ class _SplashScreenDesktopState extends State<SplashScreenDesktop> {
 
   _checkUserSignedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool userSignedIn = prefs.getBool('userSignedIn') ?? false;
-    String role = prefs.getString('role') ?? '';
+    final String userDataString = prefs.getString('userData') ?? 'null';
+    Map<String, dynamic>? userData;
+    String? role;
 
-    if (userSignedIn) {
-      if (role == 'teacher') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
-        );
-      } else if (role == 'parent') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
-        );
-      } else if (role == 'admin') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
-        );
-      } else {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
-        );
+    if (userDataString != 'null') {
+      userData = jsonDecode(userDataString) as Map<String, dynamic>;
+    }
+
+    if (userData != null) {
+      role = userData['role'];
+      if (role != null) {
+        if (role == 'Teacher') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
+          );
+        } else if (role == 'Parent') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
+          );
+        } else if (role == 'Admin') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
+          );
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const AdminDesktopScreen()),
+          );
+        }
       }
     } else {
       Navigator.of(context).pushReplacement(

@@ -1,11 +1,87 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/custom_text_field.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:studify/mobile/widgets/in_app_notifications.dart';
 
-class CreateParentProfile extends StatelessWidget {
+class CreateParentProfile extends StatefulWidget {
   final VoidCallback onBack;
 
   const CreateParentProfile({required this.onBack, super.key});
+
+  @override
+  State<CreateParentProfile> createState() => _CreateParentProfileState();
+}
+
+class _CreateParentProfileState extends State<CreateParentProfile> {
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController residentController = TextEditingController();
+  final TextEditingController parentController = TextEditingController();
+  final TextEditingController stateOfOriginController = TextEditingController();
+  bool _isLoading = false;
+
+  Future<void> _createProfile() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String firstName = firstNameController.text;
+    String lastName = lastNameController.text;
+    String password = passwordController.text;
+    String email = emailController.text;
+    String phoneNumber = phoneNumberController.text;
+    String stateOfOrigin = stateOfOriginController.text;
+    String residentialAddress = residentController.text;
+    final Uri url = Uri.parse('http://localhost:5000/api/auth/register');
+
+    final Map<String, dynamic> userData = {
+      'firstName': firstName,
+      'lastName': lastName,
+      'password': password,
+      'email': email,
+      'role': 'Parent',
+      'profileImage': 'newUser',
+      'additionalData': {
+        // 'studentIds': [''],
+        'phoneNumber': phoneNumber,
+        'stateOfOrigin': stateOfOrigin,
+        'residentialAddress': residentialAddress,
+      }
+      // Add more fields as needed
+    };
+    final String requestBody = jsonEncode(userData);
+    final http.Response response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: requestBody,
+    );
+
+    if (response.statusCode == 201) {
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final String? id = responseData['_id'];
+      print(id);
+      showNnotification(
+          'Successfully Created a Parent account with id ${id}', context);
+      setState(() {
+        _isLoading = false;
+      });
+    } else {
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final String errorMessage = responseData['message'];
+      showNnotification(errorMessage, context);
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +102,7 @@ class CreateParentProfile extends StatelessWidget {
                     Icons.arrow_back_ios,
                     size: 10,
                   ),
-                  onPressed: onBack,
+                  onPressed: widget.onBack,
                 ),
                 const SizedBox(
                   width: 20,
@@ -128,6 +204,7 @@ class CreateParentProfile extends StatelessWidget {
                     Flexible(
                       child: CustomTextField(
                         hintText: 'Enter First Name',
+                        controller: firstNameController,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
@@ -151,6 +228,7 @@ class CreateParentProfile extends StatelessWidget {
                     ),
                     Flexible(
                       child: CustomTextField(
+                        controller: lastNameController,
                         hintText: 'Enter Last Name',
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -175,6 +253,7 @@ class CreateParentProfile extends StatelessWidget {
                     ),
                     Flexible(
                       child: CustomTextField(
+                        controller: passwordController,
                         hintText: 'Enter Temp Password',
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -251,6 +330,7 @@ class CreateParentProfile extends StatelessWidget {
                     ),
                     Flexible(
                       child: CustomTextField(
+                        controller: phoneNumberController,
                         hintText: 'Enter Phone Number',
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -303,6 +383,7 @@ class CreateParentProfile extends StatelessWidget {
                     ),
                     Flexible(
                       child: CustomTextField(
+                        controller: emailController,
                         hintText: 'Enter Email Address',
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -327,6 +408,7 @@ class CreateParentProfile extends StatelessWidget {
                     ),
                     Flexible(
                       child: CustomTextField(
+                        controller: residentController,
                         hintText: 'Residential Address',
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -352,7 +434,7 @@ class CreateParentProfile extends StatelessWidget {
                   height: 20,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: _createProfile,
                   child: Container(
                     width: 200,
                     decoration: BoxDecoration(
@@ -360,13 +442,22 @@ class CreateParentProfile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     padding: const EdgeInsets.all(10),
-                    child: const Center(
-                      child: CustomText(
-                        'Create Account',
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
-                      ),
+                    child: Center(
+                      child: _isLoading
+                          ? const SizedBox(
+                              width: 15,
+                              height: 15,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 1,
+                                color: Colors.white,
+                              ),
+                            )
+                          : const CustomText(
+                              'Create Account',
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w300,
+                            ),
                     ),
                   ),
                 ),

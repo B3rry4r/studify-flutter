@@ -54,6 +54,7 @@ class CustomizableCard extends StatefulWidget {
   final bool hasDropdown;
   final bool isSingleCenterText;
   final BoxDecoration? circularContentDecoration;
+  final int unUsedId;
 
   const CustomizableCard({
     super.key,
@@ -65,6 +66,7 @@ class CustomizableCard extends StatefulWidget {
     this.leftIconSize = 60.0,
     this.leftText2,
     this.leftTextStyle2,
+    this.unUsedId = 2,
     this.leftText3,
     this.leftTextStyle3,
     this.centerText1,

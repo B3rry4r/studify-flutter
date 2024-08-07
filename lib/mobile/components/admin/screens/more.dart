@@ -10,6 +10,7 @@ import 'package:studify/mobile/components/teachers/screens/feedback.dart';
 import 'package:studify/mobile/components/teachers/screens/updates.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
+import 'package:restart_app/restart_app.dart';
 
 class MoreScreenAdmins extends StatefulWidget {
   const MoreScreenAdmins({super.key});
@@ -19,12 +20,15 @@ class MoreScreenAdmins extends StatefulWidget {
 }
 
 class _MoreScreenAdminsState extends State<MoreScreenAdmins> {
-  void _logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('userSignedIn', false);
-    prefs.remove('role');
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const SignInScreen()));
+  void _logOut() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('userSignedIn', false);
+      await prefs.remove('userData');
+      Restart.restartApp();
+    } catch (error) {
+      print('Logout error: $error');
+    }
   }
 
   void _navToUpdates() {
@@ -195,7 +199,7 @@ class _MoreScreenAdminsState extends State<MoreScreenAdmins> {
               height: screenWidth < 380 ? 25 : 45,
             ),
             GestureDetector(
-              onTap: _logout,
+              onTap: _logOut,
               child: Container(
                 padding: const EdgeInsets.all(1),
                 decoration: BoxDecoration(

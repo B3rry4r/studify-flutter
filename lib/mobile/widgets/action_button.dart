@@ -6,14 +6,17 @@ class CustomActionButton extends StatelessWidget {
   final double height;
   final Color backgroundColor;
   final Color color;
+  final bool loader;
 
-  const CustomActionButton(
-      {super.key,
-      required this.text,
-      required this.width,
-      required this.height,
-      required this.backgroundColor,
-      required this.color});
+  const CustomActionButton({
+    super.key,
+    required this.text,
+    required this.width,
+    required this.height,
+    required this.backgroundColor,
+    required this.color,
+    this.loader = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +33,21 @@ class CustomActionButton extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            color: color,
-            fontSize: screenWidth < 380 ? 12 : 14,
-          ),
-        ),
+        child: loader
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                ),
+              )
+            : Text(
+                text,
+                style: TextStyle(
+                  color: color,
+                  fontSize: screenWidth < 380 ? 12 : 14,
+                ),
+              ),
       ),
     );
   }

@@ -1,20 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:intl/intl.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/custom_text_row.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
 
-class SingleTeacherProfileView extends StatelessWidget {
+class SingleTeacherProfileView extends StatefulWidget {
   final VoidCallback onBack;
   final String teacherName;
+  final Map userData;
 
   const SingleTeacherProfileView({
     required this.onBack,
     required this.teacherName,
+    required this.userData,
     super.key,
   });
 
   @override
+  _SingleTeacherProfileViewState createState() =>
+      _SingleTeacherProfileViewState();
+}
+
+class _SingleTeacherProfileViewState extends State<SingleTeacherProfileView> {
+  late IO.Socket socket;
+  late List attendance;
+  late List notifications;
+
+  @override
+  void initState() {
+    super.initState();
+    attendance = widget.userData['attendance'] ?? [];
+    notifications = widget.userData['notifications'] ?? [];
+
+    socket = IO.io('http://localhost:5000', <String, dynamic>{
+      'transports': ['websocket'],
+      'autoConnect': false,
+    });
+
+    socket.connect();
+    socket.on('userAttendance', (data) {
+      setState(() {
+        attendance.add(data);
+      });
+    });
+
+    socket.on('newNotification', (data) {
+      setState(() {
+        notifications.add(data);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    socket.disconnect();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    List classes = widget.userData['classes'] ?? [];
+    int classesLength = classes.length;
+    List courses = widget.userData['courses'] ?? [];
+
+    double weeklyAttendancePercentage =
+        calculateAttendancePercentage(attendance, 'week');
+    double monthlyAttendancePercentage =
+        calculateAttendancePercentage(attendance, 'month');
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -32,13 +86,13 @@ class SingleTeacherProfileView extends StatelessWidget {
                     Icons.arrow_back_ios,
                     size: 10,
                   ),
-                  onPressed: onBack,
+                  onPressed: widget.onBack,
                 ),
                 const SizedBox(
                   width: 20,
                 ),
                 CustomText(
-                  teacherName,
+                  widget.teacherName,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -70,7 +124,7 @@ class SingleTeacherProfileView extends StatelessWidget {
                   child: Row(
                     children: [
                       CustomText(
-                        teacherName,
+                        widget.teacherName,
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                         color: Colors.white,
@@ -146,7 +200,7 @@ class SingleTeacherProfileView extends StatelessWidget {
                             leftText: 'Name',
                             leftTextStyle: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.w400),
-                            rightText1: teacherName,
+                            rightText1: widget.teacherName,
                             rightTextStyle1: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.w400),
                           ),
@@ -166,7 +220,8 @@ class SingleTeacherProfileView extends StatelessWidget {
                             leftText: 'Position',
                             leftTextStyle: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.w400),
-                            rightText1: 'Teacher',
+                            rightText1:
+                                widget.userData['user']?['role'] ?? 'N/A',
                             rightTextStyle1: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.w400),
                           ),
@@ -186,7 +241,7 @@ class SingleTeacherProfileView extends StatelessWidget {
                             leftText: 'Number Of Classes',
                             leftTextStyle: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.w400),
-                            rightText1: '7',
+                            rightText1: classesLength.toString(),
                             rightTextStyle1: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.w400),
                           ),
@@ -202,6 +257,7 @@ class SingleTeacherProfileView extends StatelessWidget {
             height: 20,
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Flexible(
                 child: Container(
@@ -220,43 +276,36 @@ class SingleTeacherProfileView extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      CustomizableCard(
-                        isTextLeft: true,
-                        leftText: 'Senior Secondary School 1',
-                        leftTextStyle: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        rightText1: 'English',
-                        rightTextStyle1: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      CustomizableCard(
-                        isTextLeft: true,
-                        leftText: 'Senior Secondary School 1',
-                        leftTextStyle: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        rightText1: 'English',
-                        rightTextStyle1: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
+                      Column(
+                        children: classes.map<Widget>((singleClass) {
+                          return Column(
+                            children: [
+                              CustomizableCard(
+                                isTextLeft: true,
+                                leftText: singleClass['title'] ?? 'N/A',
+                                leftTextStyle: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                rightText1: (courses.isNotEmpty
+                                    ? courses[0]['title'] ?? 'N/A'
+                                    : 'N/A'),
+                                rightTextStyle1: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                      )
                     ],
                   ),
                 ),
@@ -278,6 +327,9 @@ class SingleTeacherProfileView extends StatelessWidget {
                         leftText: 'Attendance Summary',
                         isLeftText: true,
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       CustomizableCard(
                         isTextLeft: true,
                         leftText: 'This Week',
@@ -285,7 +337,8 @@ class SingleTeacherProfileView extends StatelessWidget {
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
                         ),
-                        rightText1: '70%',
+                        rightText1:
+                            '${weeklyAttendancePercentage.toStringAsFixed(2)}%',
                         rightTextStyle1: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -305,7 +358,8 @@ class SingleTeacherProfileView extends StatelessWidget {
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
                         ),
-                        rightText1: '82%',
+                        rightText1:
+                            '${monthlyAttendancePercentage.toStringAsFixed(2)}% ${attendance.length}',
                         rightTextStyle1: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -324,5 +378,34 @@ class SingleTeacherProfileView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  double calculateAttendancePercentage(List attendance, String period) {
+    DateTime now = DateTime.now();
+    DateTime startDate;
+
+    if (period == 'week') {
+      startDate = now.subtract(Duration(days: now.weekday - 1));
+    } else if (period == 'month') {
+      startDate = DateTime(now.year, now.month, 1);
+    } else {
+      throw ArgumentError('Invalid period: $period');
+    }
+
+    List filteredAttendance = attendance.where((entry) {
+      DateTime entryDate = DateTime.parse(entry['date']);
+      return entryDate.isAfter(startDate) ||
+          entryDate.isAtSameMomentAs(startDate);
+    }).toList();
+
+    if (filteredAttendance.isEmpty) {
+      return 0.0;
+    }
+
+    int presentCount = filteredAttendance.where((entry) {
+      return entry['date'];
+    }).length;
+
+    return (presentCount / filteredAttendance.length) * 100;
   }
 }

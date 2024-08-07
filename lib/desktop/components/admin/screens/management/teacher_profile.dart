@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:studify/desktop/components/admin/screens/management/single_profile_view.dart';
+import 'package:studify/desktop/components/admin/utils/management_notifier.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/customizable_card.dart';
 
@@ -13,14 +15,16 @@ class TeacherProfilesView extends StatefulWidget {
 }
 
 class _TeacherProfilesViewState extends State<TeacherProfilesView> {
-  // This variable holds the current view state
   String _currentView = 'default';
   String _selectedTeacherName = '';
+  Map<String, dynamic> userData = {};
 
-  void _viewTeacherProfile(String teacherName) {
+  void _viewTeacherProfile(
+      String teacherName, Map<String, dynamic> teacherData) {
     setState(() {
       _currentView = 'singleProfile';
       _selectedTeacherName = teacherName;
+      userData = teacherData; // Update userData here
     });
   }
 
@@ -28,6 +32,7 @@ class _TeacherProfilesViewState extends State<TeacherProfilesView> {
     setState(() {
       _currentView = 'default';
       _selectedTeacherName = '';
+      userData = {}; // Clear userData when going back
     });
   }
 
@@ -36,272 +41,120 @@ class _TeacherProfilesViewState extends State<TeacherProfilesView> {
     return _buildCurrentView();
   }
 
-  // This function builds the current view based on the state
   Widget _buildCurrentView() {
     switch (_currentView) {
       case 'singleProfile':
         return SingleTeacherProfileView(
           onBack: _goBack,
           teacherName: _selectedTeacherName,
+          userData: userData,
         );
       default:
         return _buildDefaultView();
     }
   }
 
-  // Default view with the list of teacher profiles
   Widget _buildDefaultView() {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-            ),
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return Consumer<ManagementNotifier>(
+      builder: (context, managementNotifier, child) {
+        if (managementNotifier.isLoading) {
+          return Container(
             width: double.infinity,
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    size: 10,
-                  ),
-                  onPressed: widget.onBack,
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                const CustomText(
-                  'Teacher Profiles',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ],
+            height: screenHeight - 60,
+            color: Colors.grey.shade100,
+            padding: const EdgeInsets.all(40),
+            child: const Center(
+              child: CircularProgressIndicator(),
             ),
+          );
+        }
+
+        final teachersList = managementNotifier.teachersProfileList;
+
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                width: double.infinity,
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        size: 10,
+                      ),
+                      onPressed: widget.onBack,
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    const CustomText(
+                      'Teacher Profiles',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Column(
+                      children: teachersList.map<Widget>((teacher) {
+                        Map user = teacher['user'];
+                        return Column(
+                          children: [
+                            CustomizableCard(
+                              passedFunction: () => _viewTeacherProfile(
+                                '${user['firstName']} ${user['lastName']}',
+                                teacher,
+                              ),
+                              leftIconPath: 'assets/images/hat_G.svg',
+                              isStyleTwo: true,
+                              isGradient: false,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                              padding: 10,
+                              leftIconSize: 30,
+                              padding3: 7,
+                              centerText1:
+                                  '${user['firstName']} ${user['lastName']}',
+                              centerTextStyle1: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              rightIcon1: Icons.arrow_forward_ios_outlined,
+                              rightIconSize: 14,
+                            ),
+                            const SizedBox(
+                              height: 2,
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          const SizedBox(
-            height: 8,
-          ),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                CustomizableCard(
-                  passedFunction: () => _viewTeacherProfile('Chidi Nwosu'),
-                  leftIconPath: 'assets/images/hat_G.svg',
-                  isStyleTwo: true,
-                  isGradient: false,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  borderRadius: BorderRadius.circular(10),
-                  padding: 10,
-                  leftIconSize: 30,
-                  padding3: 7,
-                  centerText1: 'Chidi Nwosu',
-                  centerTextStyle1: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  rightIcon1: Icons.arrow_forward_ios_outlined,
-                  rightIconSize: 14,
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                CustomizableCard(
-                  passedFunction: () => _viewTeacherProfile('Ngozi Okeke'),
-                  leftIconPath: 'assets/images/hat_G.svg',
-                  isStyleTwo: true,
-                  isGradient: false,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  borderRadius: BorderRadius.circular(10),
-                  padding: 10,
-                  leftIconSize: 30,
-                  padding3: 7,
-                  centerText1: 'Ngozi Okeke',
-                  centerTextStyle1: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  rightIcon1: Icons.arrow_forward_ios_outlined,
-                  rightIconSize: 14,
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                CustomizableCard(
-                  passedFunction: () => _viewTeacherProfile('Adebayo Ogunleye'),
-                  leftIconPath: 'assets/images/hat_G.svg',
-                  isStyleTwo: true,
-                  isGradient: false,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  borderRadius: BorderRadius.circular(10),
-                  padding: 10,
-                  leftIconSize: 30,
-                  padding3: 7,
-                  centerText1: 'Adebayo Ogunleye',
-                  centerTextStyle1: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  rightIcon1: Icons.arrow_forward_ios_outlined,
-                  rightIconSize: 14,
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                CustomizableCard(
-                  passedFunction: () => _viewTeacherProfile('Amara Obi'),
-                  leftIconPath: 'assets/images/hat_G.svg',
-                  isStyleTwo: true,
-                  isGradient: false,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  borderRadius: BorderRadius.circular(10),
-                  padding: 10,
-                  leftIconSize: 30,
-                  padding3: 7,
-                  centerText1: 'Amara Obi',
-                  centerTextStyle1: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  rightIcon1: Icons.arrow_forward_ios_outlined,
-                  rightIconSize: 14,
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                CustomizableCard(
-                  passedFunction: () => _viewTeacherProfile('Funmi Akinola'),
-                  leftIconPath: 'assets/images/hat_G.svg',
-                  isStyleTwo: true,
-                  isGradient: false,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  borderRadius: BorderRadius.circular(10),
-                  padding: 10,
-                  leftIconSize: 30,
-                  padding3: 7,
-                  centerText1: 'Funmi Akinola',
-                  centerTextStyle1: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  rightIcon1: Icons.arrow_forward_ios_outlined,
-                  rightIconSize: 14,
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                CustomizableCard(
-                  passedFunction: () => _viewTeacherProfile('Bola Balogun'),
-                  leftIconPath: 'assets/images/hat_G.svg',
-                  isStyleTwo: true,
-                  isGradient: false,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  borderRadius: BorderRadius.circular(10),
-                  padding: 10,
-                  leftIconSize: 30,
-                  padding3: 7,
-                  centerText1: 'Bola Balogun',
-                  centerTextStyle1: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  rightIcon1: Icons.arrow_forward_ios_outlined,
-                  rightIconSize: 14,
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                CustomizableCard(
-                  passedFunction: () => _viewTeacherProfile('Chimamanda Uzoma'),
-                  leftIconPath: 'assets/images/hat_G.svg',
-                  isStyleTwo: true,
-                  isGradient: false,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  borderRadius: BorderRadius.circular(10),
-                  padding: 10,
-                  leftIconSize: 30,
-                  padding3: 7,
-                  centerText1: 'Chimamanda Uzoma',
-                  centerTextStyle1: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  rightIcon1: Icons.arrow_forward_ios_outlined,
-                  rightIconSize: 14,
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                CustomizableCard(
-                  passedFunction: () =>
-                      _viewTeacherProfile('Damilola Adesanya'),
-                  leftIconPath: 'assets/images/hat_G.svg',
-                  isStyleTwo: true,
-                  isGradient: false,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  borderRadius: BorderRadius.circular(10),
-                  padding: 10,
-                  leftIconSize: 30,
-                  padding3: 7,
-                  centerText1: 'Damilola Adesanya',
-                  centerTextStyle1: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  rightIcon1: Icons.arrow_forward_ios_outlined,
-                  rightIconSize: 14,
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                CustomizableCard(
-                  passedFunction: () => _viewTeacherProfile('Eze Nnamdi'),
-                  leftIconPath: 'assets/images/hat_G.svg',
-                  isStyleTwo: true,
-                  isGradient: false,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  borderRadius: BorderRadius.circular(10),
-                  padding: 10,
-                  leftIconSize: 30,
-                  padding3: 7,
-                  centerText1: 'Eze Nnamdi',
-                  centerTextStyle1: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  rightIcon1: Icons.arrow_forward_ios_outlined,
-                  rightIconSize: 14,
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

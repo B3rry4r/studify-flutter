@@ -5,15 +5,26 @@ class AppViewModel with ChangeNotifier {
   String _notificationView = 'default';
   String _updatesView = 'default';
   String _financialMGMView = 'default';
+  Map _notificationData = {};
   // String? _selectedId;
 
   //getters
   String get notificationView => _notificationView;
   String get updateView => _updatesView;
   String get financialMGMView => _financialMGMView;
+  Map get notificationData => _notificationData;
+
   // String? get selectedId => _selectedId;
 
   //Method for financial mgm state management
+
+  void resetData() {
+    _notificationView = 'default';
+    _notificationData = {};
+    _financialMGMView = 'default';
+    _updatesView = 'default';
+  }
+
   void viewDefaultersAndPendingPayments() {
     _financialMGMView = 'defaultersAndPendingPayments';
     notifyListeners();
@@ -45,8 +56,9 @@ class AppViewModel with ChangeNotifier {
   }
 
   //method for notifications state management
-  void viewSingleNotification() {
+  void viewSingleNotification(Map data) {
     _notificationView = 'singleNotification';
+    _notificationData = data;
     notifyListeners();
   }
 

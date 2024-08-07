@@ -1,14 +1,96 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studify/desktop/components/admin/utils/management_notifier.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
 import 'package:studify/mobile/widgets/custom_text_field.dart';
+import 'package:studify/mobile/widgets/in_app_notifications.dart';
 
-class CreateStudentProfile extends StatelessWidget {
+class CreateStudentProfile extends StatefulWidget {
   final VoidCallback onBack;
 
   const CreateStudentProfile({required this.onBack, super.key});
 
   @override
+  State<CreateStudentProfile> createState() => _CreateStudentProfileState();
+}
+
+class _CreateStudentProfileState extends State<CreateStudentProfile> {
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController classController = TextEditingController();
+  final TextEditingController dOBController = TextEditingController();
+  final TextEditingController residentController = TextEditingController();
+  final TextEditingController parentController = TextEditingController();
+  final TextEditingController stateOfOriginController = TextEditingController();
+  bool _isLoading = false;
+
+  Future<void> createProfile() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String firstName = firstNameController.text;
+    String lastName = lastNameController.text;
+    String password = firstNameController.text;
+    // String email = firstNameController.text;
+    String portableId = firstNameController.text;
+    String dateOfBirth = dOBController.text;
+    String stateOfOrigin = stateOfOriginController.text;
+    String residentialAddress = residentController.text;
+    String parent = '';
+    // List courses = [];
+    final Uri url = Uri.parse('http://localhost:5000/api/auth/register');
+
+    final Map<String, dynamic> userData = {
+      'firstName': firstName,
+      'lastName': lastName,
+      'password': password,
+      'email': firstName,
+      'role': 'Student',
+      'profileImage': 'newUser',
+      'additionalData': {
+        'portableId': portableId,
+        'dateOfBirth': dateOfBirth,
+        'stateOfOrigin': stateOfOrigin,
+        'classId': '666c9bfcb152f34cf18c74e3',
+        'parent': parent,
+        'residentialAddress': residentialAddress,
+      }
+      // Add more fields as needed
+    };
+    final String requestBody = jsonEncode(userData);
+    final http.Response response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: requestBody,
+    );
+
+    if (response.statusCode == 201) {
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final String? id = responseData['_id'];
+      print(id);
+      showNnotification(
+          'Successfully Created an account with id ${id}', context);
+      setState(() {
+        _isLoading = false;
+      });
+    } else {
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final String errorMessage = responseData['message'];
+      showNnotification(errorMessage, context);
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // var model = Provider.of<ManagementNotifier>(context, listen: false);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -26,7 +108,7 @@ class CreateStudentProfile extends StatelessWidget {
                     Icons.arrow_back_ios,
                     size: 10,
                   ),
-                  onPressed: onBack,
+                  onPressed: widget.onBack,
                 ),
                 const SizedBox(
                   width: 20,
@@ -127,6 +209,7 @@ class CreateStudentProfile extends StatelessWidget {
                   children: [
                     Flexible(
                       child: CustomTextField(
+                        controller: firstNameController,
                         hintText: 'Enter First Name',
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -151,6 +234,7 @@ class CreateStudentProfile extends StatelessWidget {
                     ),
                     Flexible(
                       child: CustomTextField(
+                        // controller: ,
                         hintText: 'Enter Middle Name',
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -175,6 +259,7 @@ class CreateStudentProfile extends StatelessWidget {
                     ),
                     Flexible(
                       child: CustomTextField(
+                        controller: lastNameController,
                         hintText: 'Enter Last Name',
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -279,6 +364,7 @@ class CreateStudentProfile extends StatelessWidget {
                   children: [
                     Flexible(
                       child: CustomTextField(
+                        controller: dOBController,
                         hintText: 'Date Of Birth',
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -303,6 +389,7 @@ class CreateStudentProfile extends StatelessWidget {
                     ),
                     Flexible(
                       child: CustomTextField(
+                        controller: stateOfOriginController,
                         hintText: 'State Of Origin',
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -327,6 +414,7 @@ class CreateStudentProfile extends StatelessWidget {
                     ),
                     Flexible(
                       child: CustomTextField(
+                        controller: residentController,
                         hintText: 'Residential Address',
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -352,7 +440,7 @@ class CreateStudentProfile extends StatelessWidget {
                   height: 20,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: createProfile,
                   child: Container(
                     width: 200,
                     decoration: BoxDecoration(
@@ -360,13 +448,22 @@ class CreateStudentProfile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     padding: const EdgeInsets.all(10),
-                    child: const Center(
-                      child: CustomText(
-                        'Create Account',
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
-                      ),
+                    child: Center(
+                      child: _isLoading
+                          ? const SizedBox(
+                              width: 15,
+                              height: 15,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 1,
+                                color: Colors.white,
+                              ),
+                            )
+                          : const CustomText(
+                              'Create Account',
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w300,
+                            ),
                     ),
                   ),
                 ),

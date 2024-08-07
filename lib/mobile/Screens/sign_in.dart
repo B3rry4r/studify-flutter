@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:studify/common/models/user.dart';
 import 'package:studify/common/services/auth_service.dart';
 import 'package:studify/mobile/Screens/sign_up.dart';
@@ -20,8 +22,10 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final AuthService _authService = AuthService();
   bool _isLoading = false;
+  final AuthService _authService = AuthService();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   void navigateToSignUp() {
     Navigator.of(context).push(
@@ -31,45 +35,81 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  void loginUser() async {
+  Future<void> _handleSignIn() async {
     setState(() {
       _isLoading = true;
     });
-    User res = await _authService.login('admin', '0932032849');
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('userSignedIn', true);
-    prefs.setString('role', res.role);
+    final String password = passwordController.text;
+    final String email = emailController.text;
 
-    if (res.role == 'teacher') {
-      setState(() {
-        _isLoading = false;
-      });
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const TeachersMobileScreen()),
-      );
-    } else if (res.role == 'parent') {
-      setState(() {
-        _isLoading = false;
-      });
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const ParentsMobileScreen()),
-      );
-    } else if (res.role == 'admin') {
-      setState(() {
-        _isLoading = false;
-      });
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const AdminMobileScreen()),
-      );
+    // Create the JSON payload
+    final Map<String, dynamic> userData = {
+      'password': password,
+      'email': email,
+      // Add more fields as needed
+    };
+
+    // Convert the JSON payload to string
+    final String requestBody = jsonEncode(userData);
+
+    // Send POST request to register endpoint
+    final Uri url = Uri.parse('http://localhost:5000/api/auth/login');
+    final http.Response response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: requestBody,
+    );
+
+    // Check if login was successful
+    if (response.statusCode == 200) {
+      await _authService
+          .saveUserDataToSharedPreferences(jsonDecode(response.body));
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final String? role = responseData['role'];
+      final String? name = responseData['name'];
+      if (role == 'Admin') {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => AdminMobileScreen(
+                    name: name,
+                    role: role,
+                  )),
+          (Route<dynamic> route) => false,
+        );
+      } else if (role == 'Teacher') {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const TeachersMobileScreen()),
+          (Route<dynamic> route) => false,
+        );
+      } else if (role == 'Parent') {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const ParentsMobileScreen()),
+          (Route<dynamic> route) => false,
+        );
+      }
     } else {
-      showNnotification('Invalid Credentials', context);
+      setState(() {
+        _isLoading = true;
+      });
+      // Registration failed, handle error
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final String errorMessage = responseData['message'];
+      showNnotification(errorMessage, context);
       setState(() {
         _isLoading = false;
       });
     }
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
@@ -150,6 +190,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       SizedBox(height: screenWidth < 380 ? 15 : 20),
                       CustomTextField(
+                        controller: emailController,
                         padding: screenWidth < 380
                             ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                             : const EdgeInsets.fromLTRB(5, 12, 5, 0),
@@ -167,6 +208,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       SizedBox(height: screenWidth < 380 ? 15 : 20),
                       CustomTextField(
+                        controller: passwordController,
                         padding: screenWidth < 380
                             ? const EdgeInsets.fromLTRB(5, 14, 5, 0)
                             : const EdgeInsets.fromLTRB(5, 12, 5, 0),
@@ -185,10 +227,11 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       const SizedBox(height: 20),
                       InkWell(
-                        onTap: loginUser,
+                        onTap: _handleSignIn,
                         child: CustomActionButton(
                           text: 'Sign In',
                           width: 120,
+                          loader: _isLoading,
                           height: screenWidth < 380 ? 30 : 40,
                           backgroundColor: Colors.white,
                           color: Colors.black,

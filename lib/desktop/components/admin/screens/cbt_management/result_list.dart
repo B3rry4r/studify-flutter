@@ -16,11 +16,13 @@ class _ResultListAdminScreenState extends State<ResultListAdminScreen> {
   // This variable holds the current view state
   String _currentView = 'default';
   String _selectedTeacherName = '';
+  Map userData = {};
 
   void _viewTeacherProfile(String teacherName) {
     setState(() {
       _currentView = 'singleProfile';
       _selectedTeacherName = teacherName;
+      userData = userData;
     });
   }
 
@@ -43,6 +45,7 @@ class _ResultListAdminScreenState extends State<ResultListAdminScreen> {
         return SingleTeacherProfileView(
           onBack: _goBack,
           teacherName: _selectedTeacherName,
+          userData: const {},
         );
       default:
         return _buildDefaultView();
