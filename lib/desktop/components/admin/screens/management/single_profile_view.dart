@@ -33,7 +33,7 @@ class _SingleTeacherProfileViewState extends State<SingleTeacherProfileView> {
     attendance = widget.userData['attendance'] ?? [];
     notifications = widget.userData['notifications'] ?? [];
 
-    socket = IO.io('http://localhost:5000', <String, dynamic>{
+    socket = IO.io('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });

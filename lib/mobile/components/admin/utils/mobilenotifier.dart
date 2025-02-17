@@ -50,7 +50,7 @@ class MobileHomeNotifier with ChangeNotifier {
   }
 
   void _initializeSocket() {
-    socket = IO.io('http://localhost:5000', <String, dynamic>{
+    socket = IO.io('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
@@ -87,7 +87,7 @@ class MobileHomeNotifier with ChangeNotifier {
     final String requestBody = jsonEncode(data);
 
     //roles url
-    const String roleUrl = 'http://localhost:5000/api/users/all-users';
+    const String roleUrl = 'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/users/all-users';
     final Uri url = Uri.parse(roleUrl);
     final http.Response response = await http.post(
       url,
@@ -125,7 +125,7 @@ class MobileHomeNotifier with ChangeNotifier {
     final String requestBody = jsonEncode(role);
 
     // Send POST request to fetch data
-    final Uri url = Uri.parse('http://localhost:5000/api/users/all-users');
+    final Uri url = Uri.parse('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/users/all-users');
     final http.Response response = await http.post(
       url,
       headers: <String, String>{
@@ -175,7 +175,7 @@ class MobileHomeNotifier with ChangeNotifier {
   }
 
   Future<List> _getTeachersAttendanceHistory() async {
-    const String requestUrl = 'http://localhost:5000/api/attendance/teachers';
+    const String requestUrl = 'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/attendance/teachers';
     final Uri url = Uri.parse(requestUrl);
     final http.Response response = await http.get(
       url,
@@ -195,7 +195,7 @@ class MobileHomeNotifier with ChangeNotifier {
   }
 
   Future<List> _getStudentsAttendanceHistory() async {
-    const String requestUrl = 'http://localhost:5000/api/attendance';
+    const String requestUrl = 'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/attendance';
     final Uri url = Uri.parse(requestUrl);
     final http.Response response = await http.get(
       url,

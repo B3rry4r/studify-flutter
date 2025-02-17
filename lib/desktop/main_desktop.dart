@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studify/desktop/Screens/splash_screen_desktop.dart';
+import 'package:studify/desktop/screens/splash_screen_desktop.dart';
 
 class DesktopScreen extends StatelessWidget {
   const DesktopScreen({super.key});

@@ -1,0 +1,2 @@
+/home/user/studify-flutter/android/app/.cxx/Debug/583j2p5c/x86_64/CMakeFiles/edit_cache.dir
+/home/user/studify-flutter/android/app/.cxx/Debug/583j2p5c/x86_64/CMakeFiles/rebuild_cache.dir

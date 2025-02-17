@@ -50,7 +50,7 @@ class NotificationNotifier with ChangeNotifier {
   }
 
   void _initializeSocket() {
-    socket = IO.io('http://localhost:5000', <String, dynamic>{
+    socket = IO.io('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
@@ -85,7 +85,7 @@ class NotificationNotifier with ChangeNotifier {
 
     final String requestBody = jsonEncode(data);
 
-    const String roleUrl = 'http://localhost:5000/api/notifications/user';
+    const String roleUrl = 'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/notifications/user';
     final Uri url = Uri.parse(roleUrl);
     final http.Response response = await http.post(
       url,
@@ -129,7 +129,7 @@ class NotificationNotifier with ChangeNotifier {
     final String requestBody = jsonEncode(data);
 
     const String countUrl =
-        'http://localhost:5000/api/notifications/markAsViewed';
+        'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/notifications/markAsViewed';
     final Uri url = Uri.parse(countUrl);
     final http.Response response = await http.post(
       url,
@@ -164,7 +164,7 @@ class NotificationNotifier with ChangeNotifier {
     final String requestBody = jsonEncode(data);
 
     const String countUrl =
-        'http://localhost:5000/api/notifications/unviewedCount';
+        'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/notifications/unviewedCount';
     final Uri url = Uri.parse(countUrl);
     final http.Response response = await http.post(
       url,

@@ -48,7 +48,7 @@ class ManagementNotifier with ChangeNotifier {
     final String requestBody = jsonEncode(role);
 
     // Send POST request to fetch data
-    final Uri url = Uri.parse('http://localhost:5000/api/users/all-users');
+    final Uri url = Uri.parse('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/users/all-users');
     final http.Response response = await http.post(
       url,
       headers: <String, String>{
@@ -86,7 +86,7 @@ class ManagementNotifier with ChangeNotifier {
     final String requestBody = jsonEncode(role);
 
     // Send POST request to fetch data
-    final Uri url = Uri.parse('http://localhost:5000/api/users/all-users');
+    final Uri url = Uri.parse('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/users/all-users');
     final http.Response response = await http.post(
       url,
       headers: <String, String>{

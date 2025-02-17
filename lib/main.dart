@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isWeb() || isDesktop()) {
-      return const MobileScreen();
+      return const DesktopScreen();
     } else {
       return const MobileScreen();
     }

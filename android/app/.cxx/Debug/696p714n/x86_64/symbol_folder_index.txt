@@ -1,0 +1,1 @@
+/home/user/studify-flutter/build/app/intermediates/cxx/Debug/696p714n/obj/x86_64

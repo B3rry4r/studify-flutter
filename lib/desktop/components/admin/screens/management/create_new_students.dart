@@ -41,7 +41,7 @@ class _CreateStudentProfileState extends State<CreateStudentProfile> {
     String residentialAddress = residentController.text;
     String parent = '';
     // List courses = [];
-    final Uri url = Uri.parse('http://localhost:5000/api/auth/register');
+    final Uri url = Uri.parse('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/auth/register');
 
     final Map<String, dynamic> userData = {
       'firstName': firstName,
