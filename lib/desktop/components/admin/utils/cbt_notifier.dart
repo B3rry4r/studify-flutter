@@ -26,7 +26,8 @@ class CBTNotifier with ChangeNotifier {
       return;
     }
 
-    final Uri url = Uri.parse('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/classes');
+    final Uri url =
+        Uri.parse('https://c3b8-102-90-82-178.ngrok-free.app/api/classes');
     final http.Response response = await http.get(
       url,
       headers: <String, String>{
@@ -40,7 +41,8 @@ class CBTNotifier with ChangeNotifier {
       try {
         _classList = resData.map((data) => ClassData.fromJson(data)).toList();
       } catch (e) {
-        print(e);
+        print(e.toString());
+        print('error getting data');
       }
     } else {
       print('ERROR WITH GETTING CLASS DATA');

@@ -40,7 +40,7 @@ class _AdminMobileScreenState extends State<AdminMobileScreen> {
   void _navToNotifications() {
     var notificationViewModel =
         Provider.of<NotificationNotifier>(context, listen: false);
-    notificationViewModel.markAsViewed();
+    notificationViewModel.markAsViewed(context);
 
     Navigator.of(context).push(
       MaterialPageRoute(

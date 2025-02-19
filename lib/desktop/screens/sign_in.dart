@@ -4,9 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:studify/common/models/user.dart';
 import 'package:studify/common/services/auth_service.dart';
 import 'package:studify/desktop/components/admin/main_admin.dart';
+import 'package:studify/desktop/components/admin/utils/auth_notifier.dart';
 import 'package:studify/desktop/screens/sign_up.dart';
 import 'package:studify/mobile/Screens/sign_up.dart';
 import 'package:studify/mobile/components/admin/main_admin.dart';
@@ -57,7 +59,8 @@ class _SignInScreenDesktopState extends State<SignInScreenDesktop> {
     final String requestBody = jsonEncode(userData);
 
     // Send POST request to register endpoint
-    final Uri url = Uri.parse('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/auth/login');
+    final Uri url =
+        Uri.parse('https://c3b8-102-90-82-178.ngrok-free.app/api/auth/login');
     final http.Response response = await http.post(
       url,
       headers: <String, String>{
@@ -68,9 +71,15 @@ class _SignInScreenDesktopState extends State<SignInScreenDesktop> {
 
     // Check if login was successful
     if (response.statusCode == 200) {
-      await _authService
-          .saveUserDataToSharedPreferences(jsonDecode(response.body));
+      // old code
+      // await _authService
+      //     .saveUserDataToSharedPreferences(jsonDecode(response.body));
+      // new code
       final Map<String, dynamic> responseData = jsonDecode(response.body);
+      print(responseData);
+      Provider.of<AuthProvider>(context, listen: false)
+          .login(responseData, context);
+
       final String? role = responseData['role'];
       if (role == 'Admin') {
         setState(() {
@@ -221,7 +230,7 @@ class _SignInScreenDesktopState extends State<SignInScreenDesktop> {
                       ),
                       const SizedBox(height: 20),
                       InkWell(
-                        onTap: _handleSignIn,
+                        onTap: _isLoading ? null : _handleSignIn,
                         child: CustomActionButton(
                           text: 'Sign In',
                           loader: _isLoading,

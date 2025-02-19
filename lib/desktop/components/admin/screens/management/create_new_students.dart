@@ -41,7 +41,8 @@ class _CreateStudentProfileState extends State<CreateStudentProfile> {
     String residentialAddress = residentController.text;
     String parent = '';
     // List courses = [];
-    final Uri url = Uri.parse('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/auth/register');
+    final Uri url = Uri.parse(
+        'https://c3b8-102-90-82-178.ngrok-free.app/api/auth/register');
 
     final Map<String, dynamic> userData = {
       'firstName': firstName,
@@ -51,10 +52,9 @@ class _CreateStudentProfileState extends State<CreateStudentProfile> {
       'role': 'Student',
       'profileImage': 'newUser',
       'additionalData': {
-        'portableId': portableId,
         'dateOfBirth': dateOfBirth,
         'stateOfOrigin': stateOfOrigin,
-        'classId': '666c9bfcb152f34cf18c74e3',
+        'classId': '67b3621726a90ce1b7ecbac6',
         'parent': parent,
         'residentialAddress': residentialAddress,
       }
@@ -72,9 +72,9 @@ class _CreateStudentProfileState extends State<CreateStudentProfile> {
     if (response.statusCode == 201) {
       final Map<String, dynamic> responseData = jsonDecode(response.body);
       final String? id = responseData['_id'];
+      // final String? portableId = responseData[];
       print(id);
-      showNnotification(
-          'Successfully Created an account with id ${id}', context);
+      showNnotification('Successfully Created an account with id $id', context);
       setState(() {
         _isLoading = false;
       });
@@ -416,6 +416,85 @@ class _CreateStudentProfileState extends State<CreateStudentProfile> {
                       child: CustomTextField(
                         controller: residentController,
                         hintText: 'Residential Address',
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 0.7,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        hintTextStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 13,
+                        ),
+                        textStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Flexible(
+                      child: CustomTextField(
+                        // controller: dOBController,
+                        hintText: 'Nationality',
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 0.7,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        hintTextStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 13,
+                        ),
+                        textStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      child: CustomTextField(
+                        // controller: stateOfOriginController,
+                        hintText: 'Gender',
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 0.7,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        hintTextStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 13,
+                        ),
+                        textStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      child: CustomTextField(
+                        // controller: residentController,
+                        hintText: 'Class',
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(

@@ -1,17 +1,22 @@
+// 'https://c3b8-102-90-82-178.ngrok-free.app/api/notifications/user';
+
+// 'https://c3b8-102-90-82-178.ngrok-free.app/api/notifications/markAsViewed';
+
+// 'https://c3b8-102-90-82-178.ngrok-free.app/api/notifications/unviewedCount';
+//
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studify/common/services/auth_service.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:studify/common/services/auth_service.dart';
+import 'package:studify/desktop/components/admin/utils/auth_notifier.dart';
 
 class NotificationNotifier with ChangeNotifier {
-  final AuthService _authService = AuthService();
-  bool _isLoading = true;
-  late String token;
-  late String role;
-  late String userId;
+  // final AuthService _authService = AuthService();
   late IO.Socket socket;
+
+  bool _isLoading = true;
   List _notificationList = [];
   bool _isNotificationContainerOpen = false;
   int _numberOfNewNotifications = 0;
@@ -23,34 +28,35 @@ class NotificationNotifier with ChangeNotifier {
   int get numberOfNewNotifications => _numberOfNewNotifications;
 
   NotificationNotifier() {
-    getNotifications();
-    _fetchUnviewedNotificationsCount();
     _initializeSocket();
+  }
+
+  void initialize(BuildContext context) {
+    // Fetch user data only when the provider is initialized
+    getNotifications(context);
+    _fetchUnviewedNotificationsCount(context);
   }
 
   void resetData() {
     _notificationList = [];
-    notifyListeners();
     _numberOfNewNotifications = 0;
-    userId = '';
-    role = '';
-    token = '';
     _isLoading = false;
     _isNotificationContainerOpen = false;
+    notifyListeners();
   }
 
   void toggleNotificationContainer() {
     _isNotificationContainerOpen = !_isNotificationContainerOpen;
-    _markUnviewdNotificationsViewd();
     notifyListeners();
   }
 
-  void markAsViewed() {
-    _markUnviewdNotificationsViewd();
+  void markAsViewed(BuildContext context) {
+    _markUnviewedNotificationsViewed(context);
   }
 
   void _initializeSocket() {
-    socket = IO.io('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0', <String, dynamic>{
+    socket =
+        IO.io('https://c3b8-102-90-82-178.ngrok-free.app', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
@@ -58,38 +64,30 @@ class NotificationNotifier with ChangeNotifier {
     socket.connect();
 
     socket.on('notificationCreated', (data) {
-      // Ensure the new notification is added to the start of the list
-      _numberOfNewNotifications = _numberOfNewNotifications + 1;
-      _notificationList.add(data);
+      _numberOfNewNotifications += 1;
+      _notificationList.insert(0, data);
       notifyListeners();
     });
   }
 
-  Future<List> getNotifications() async {
-    // await Future.delayed(
-    //   const Duration(seconds: 5),
-    // );
-    // Retrieve user data from shared preferences
+  Future<void> getNotifications(BuildContext context) async {
+    final authManager = Provider.of<AuthProvider>(context, listen: false);
+    final userData = authManager.userData;
+    if (userData == null) return;
 
-    final Map<String, dynamic>? userData =
-        await _authService.getUserDataFromSharedPreferences();
-    if (userData != null) {
-      token = userData['token'];
-      userId = userData['_id'];
-      role = userData['role'];
-    } else {
-      // Handle token error
-    }
+    final String token = userData['token'];
+    final String userId = userData['_id'];
+    final String role = userData['role'];
 
     final Map<String, dynamic> data = {'userId': userId, "role": role};
-
     final String requestBody = jsonEncode(data);
 
-    const String roleUrl = 'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/notifications/user';
-    final Uri url = Uri.parse(roleUrl);
+    const String url =
+        'https://c3b8-102-90-82-178.ngrok-free.app/api/notifications/user';
+
     final http.Response response = await http.post(
-      url,
-      headers: <String, String>{
+      Uri.parse(url),
+      headers: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -97,43 +95,36 @@ class NotificationNotifier with ChangeNotifier {
     );
 
     if (response.statusCode == 200) {
-      // print(response.body);
-      final List<dynamic> resData = jsonDecode(response.body);
-      _notificationList = resData;
+      _notificationList = jsonDecode(response.body);
+      print('notification list');
+      print(_notificationList);
       _isLoading = false;
-      notifyListeners();
-      return _notificationList;
     } else {
-      print('error');
+      print('Error fetching notifications');
       _isLoading = false;
-      notifyListeners();
-      return [];
     }
+
+    notifyListeners();
   }
 
-  Future<void> _markUnviewdNotificationsViewd() async {
-    final Map<String, dynamic>? userData =
-        await _authService.getUserDataFromSharedPreferences();
-    if (userData != null) {
-      token = userData['token'];
-      userId = userData['_id'];
-    } else {
-      // Handle token error
-      return;
-    }
+  Future<void> _markUnviewedNotificationsViewed(BuildContext context) async {
+    final authManager = Provider.of<AuthProvider>(context, listen: false);
+    final userData = authManager.userData;
 
-    final Map<String, dynamic> data = {
-      'userId': userId,
-    };
+    if (userData == null) return;
 
+    final String token = userData['token'];
+    final String userId = userData['_id'];
+
+    final Map<String, dynamic> data = {'userId': userId};
     final String requestBody = jsonEncode(data);
 
-    const String countUrl =
-        'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/notifications/markAsViewed';
-    final Uri url = Uri.parse(countUrl);
+    const String url =
+        'https://c3b8-102-90-82-178.ngrok-free.app/api/notifications/markAsViewed';
+
     final http.Response response = await http.post(
-      url,
-      headers: <String, String>{
+      Uri.parse(url),
+      headers: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -146,29 +137,24 @@ class NotificationNotifier with ChangeNotifier {
     }
   }
 
-  Future<void> _fetchUnviewedNotificationsCount() async {
-    final Map<String, dynamic>? userData =
-        await _authService.getUserDataFromSharedPreferences();
-    if (userData != null) {
-      token = userData['token'];
-      userId = userData['_id'];
-    } else {
-      // Handle token error
-      return;
-    }
+  Future<void> _fetchUnviewedNotificationsCount(BuildContext context) async {
+    final authManager = Provider.of<AuthProvider>(context, listen: false);
+    final userData = authManager.userData;
 
-    final Map<String, dynamic> data = {
-      'userId': userId,
-    };
+    if (userData == null) return;
 
+    final String token = userData['token'];
+    final String userId = userData['_id'];
+
+    final Map<String, dynamic> data = {'userId': userId};
     final String requestBody = jsonEncode(data);
 
-    const String countUrl =
-        'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/notifications/unviewedCount';
-    final Uri url = Uri.parse(countUrl);
+    const String url =
+        'https://c3b8-102-90-82-178.ngrok-free.app/api/notifications/unviewedCount';
+
     final http.Response response = await http.post(
-      url,
-      headers: <String, String>{
+      Uri.parse(url),
+      headers: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -176,12 +162,10 @@ class NotificationNotifier with ChangeNotifier {
     );
 
     if (response.statusCode == 200) {
-      Map count = jsonDecode(response.body);
-      Map<String, dynamic> newData = Map<String, dynamic>.from(count);
-      _numberOfNewNotifications = newData['count'];
+      _numberOfNewNotifications = jsonDecode(response.body)['count'];
       notifyListeners();
     } else {
-      print('some unhandled error');
+      print('Error fetching notification count');
     }
   }
 }

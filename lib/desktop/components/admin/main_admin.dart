@@ -6,6 +6,7 @@ import 'package:studify/desktop/components/admin/screens/financial_management.da
 import 'package:studify/desktop/components/admin/screens/settings.dart';
 import 'package:studify/desktop/components/admin/screens/updates.dart';
 import 'package:studify/desktop/components/admin/utils/admin_screen_notifier.dart';
+import 'package:studify/desktop/components/admin/utils/auth_notifier.dart';
 import 'package:studify/desktop/components/admin/utils/management_notifier.dart';
 import 'package:studify/desktop/components/admin/utils/notification_model.dart';
 import 'package:studify/desktop/components/admin/utils/profile_notifier.dart';
@@ -31,7 +32,14 @@ class AdminDesktopScreen extends StatefulWidget {
   State<AdminDesktopScreen> createState() => _AdminDesktopScreenState();
 }
 
+
+
 class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
+@override
+void initState() {
+  super.initState();
+  Provider.of<NotificationNotifier>(context, listen: false).initialize(context);
+}
   // int _currentPage = 0;
   bool _isNotificationContainerOpen = false;
 
@@ -70,30 +78,19 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
     // });
   }
 
-  void _logOut() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('userSignedIn', false);
-      await prefs.remove('userData');
 
-      // Navigator.of(context).pushAndRemoveUntil(
-      //   MaterialPageRoute(
-      //     builder: (context) => const SignInScreenDesktop(),
-      //   ),
-      //   (Route<dynamic> route) => false,
-      // );
-
-      // Provide the correct webOrigin if necessary
-      Restart.restartApp();
-    } catch (error) {
-      print('Logout error: $error');
-    }
+  void _logOut(BuildContext context) async {
+    Provider.of<AuthProvider>(context, listen: false).logout(context);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => SignInScreenDesktop()),
+      (route) => false,
+    );
   }
 
   void _displayNotifications() async {
     var notificationViewModel =
         Provider.of<NotificationNotifier>(context, listen: false);
-
     notificationViewModel.toggleNotificationContainer();
     // List notifications = await notificationViewModel.getNotifications();
 
@@ -376,7 +373,7 @@ class _AdminDesktopScreenState extends State<AdminDesktopScreen> {
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
-                        onTap: _logOut,
+                        onTap: () => _logOut(context),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.transparent,

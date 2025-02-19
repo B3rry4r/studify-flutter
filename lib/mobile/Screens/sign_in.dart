@@ -53,7 +53,8 @@ class _SignInScreenState extends State<SignInScreen> {
     final String requestBody = jsonEncode(userData);
 
     // Send POST request to register endpoint
-    final Uri url = Uri.parse('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/auth/login');
+    final Uri url =
+        Uri.parse('https://c3b8-102-90-82-178.ngrok-free.app/api/auth/login');
     final http.Response response = await http.post(
       url,
       headers: <String, String>{

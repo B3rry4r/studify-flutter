@@ -38,7 +38,8 @@ class _CreateParentProfileState extends State<CreateParentProfile> {
     String phoneNumber = phoneNumberController.text;
     String stateOfOrigin = stateOfOriginController.text;
     String residentialAddress = residentController.text;
-    final Uri url = Uri.parse('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/auth/register');
+    final Uri url = Uri.parse(
+        'https://c3b8-102-90-82-178.ngrok-free.app/api/auth/register');
 
     final Map<String, dynamic> userData = {
       'firstName': firstName,

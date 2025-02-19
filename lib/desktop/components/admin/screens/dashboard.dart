@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:studify/common/services/auth_service.dart';
+import 'package:studify/desktop/components/admin/utils/auth_notifier.dart';
 import 'package:studify/desktop/widgets/custom_container.dart';
 import 'package:studify/desktop/widgets/responsive_grid.dart';
 import 'package:studify/mobile/widgets/custom_text.dart';
@@ -19,7 +20,8 @@ class DashboardAdminScreen extends StatefulWidget {
 
 class _DashboardAdminScreenState extends State<DashboardAdminScreen> {
   bool _isLoading = true;
-  final AuthService _authService = AuthService();
+  // final AuthService _authService = AuthService();
+  final AuthProvider _authProvider = AuthProvider();
 
   @override
   void initState() {
@@ -28,18 +30,19 @@ class _DashboardAdminScreenState extends State<DashboardAdminScreen> {
     _initializeSocket();
   }
 
-  late String role;
-  late String token;
-  late List _noOfClasses;
-  late List _noOfSubjects;
+  String role = '';
+  String token = '';
+  List _noOfClasses = [];
+  List _noOfSubjects = [];
   late IO.Socket socket;
-  late List studentFetchedData;
-  late List teacherFetchedData;
+  List studentFetchedData = [];
+  List teacherFetchedData = [];
   List teachersAttendanceHistoryList = [];
   List studentsAttendanceHistoryList = [];
 
   void _initializeSocket() {
-    socket = IO.io('https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0', <String, dynamic>{
+    socket =
+        IO.io('https://c3b8-102-90-82-178.ngrok-free.app', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
@@ -94,18 +97,10 @@ class _DashboardAdminScreenState extends State<DashboardAdminScreen> {
   }
 
   Future<void> _loadDashboardData() async {
-    await Future.delayed(
-      const Duration(seconds: 1),
-    );
-    // Retrieve user data from shared preferences
 
-    final Map<String, dynamic>? userData =
-        await _authService.getUserDataFromSharedPreferences();
+    final Map<String, dynamic>? userData = _authProvider.userData;
     if (userData != null) {
-      // Access the fields from the user data
-      // final String? userId = userData['_id'];
-      // final String? name = userData['name'];
-      // final String? email = userData['email'];
+      print(userData);
       role = userData['role'];
       token = userData['token'];
       // Use the retrieved data as needed
@@ -125,7 +120,8 @@ class _DashboardAdminScreenState extends State<DashboardAdminScreen> {
   }
 
   Future<List> _getCourses() async {
-    const String roleUrl = 'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/courses';
+    const String roleUrl =
+        'https://c3b8-102-90-82-178.ngrok-free.app/api/courses';
     final Uri url = Uri.parse(roleUrl);
     final http.Response response = await http.get(
       url,
@@ -146,7 +142,8 @@ class _DashboardAdminScreenState extends State<DashboardAdminScreen> {
   }
 
   Future<List> _getClasses() async {
-    const String roleUrl = 'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/classes';
+    const String roleUrl =
+        'https://c3b8-102-90-82-178.ngrok-free.app/api/classes';
     final Uri url = Uri.parse(roleUrl);
     final http.Response response = await http.get(
       url,
@@ -167,7 +164,8 @@ class _DashboardAdminScreenState extends State<DashboardAdminScreen> {
   }
 
   Future<List> _getTeachersAttendanceHistory() async {
-    const String requestUrl = 'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/attendance/teachers';
+    const String requestUrl =
+        'https://c3b8-102-90-82-178.ngrok-free.app/api/attendance/teachers';
     final Uri url = Uri.parse(requestUrl);
     final http.Response response = await http.get(
       url,
@@ -187,7 +185,8 @@ class _DashboardAdminScreenState extends State<DashboardAdminScreen> {
   }
 
   Future<List> _getStudentsAttendanceHistory() async {
-    const String requestUrl = 'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/attendance';
+    const String requestUrl =
+        'https://c3b8-102-90-82-178.ngrok-free.app/api/attendance';
     final Uri url = Uri.parse(requestUrl);
     final http.Response response = await http.get(
       url,
@@ -214,7 +213,8 @@ class _DashboardAdminScreenState extends State<DashboardAdminScreen> {
     final String requestBody = jsonEncode(data);
 
     //roles url
-    const String roleUrl = 'https://9000-idx-studify-server-11-1738236260925.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev/?monospaceUid=951919&embedded=0/api/users/all-users';
+    const String roleUrl =
+        'https://c3b8-102-90-82-178.ngrok-free.app/api/users/all-users';
     final Uri url = Uri.parse(roleUrl);
     final http.Response response = await http.post(
       url,
